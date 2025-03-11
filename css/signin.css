@@ -1,0 +1,159 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    display: flex;
+    height: 100vh;
+    animation: fadeIn 0.5s ease-in-out;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.left{
+    width: 70%;
+    height:100vh;
+    background-color: #403f8e;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.right{
+    width: 50%;
+    height: 100vh;
+    background-color: white;
+    position: relative;
+}
+/* Centering the Form */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fd;
+    width: 60%;
+    height: 60%;
+    border-radius: 10px;
+}
+
+/* Form Box */
+.form-box {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    height: 90%;
+    width: 90%;
+}
+
+/* Headings */
+h2 {
+    font-size: 34px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #403f8e;
+}
+
+p {
+    font-size: 17px;
+    color: rgb(46, 44, 44);
+    margin-bottom: 30px;
+}
+
+/* Input Fields */
+.input-box {
+    width: 100%;
+    margin: 26px 0;
+    position: relative;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+/* Password Field with Eye Icon */
+.password-box {
+    display: flex;
+    align-items: center;
+}
+
+.password-box .eye-icon {
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+}
+
+/* Forgot Password */
+.forgot-password {
+    display: block;
+    text-align: right;
+    margin: 5px 0 15px;
+    font-size: 17px;
+    color: #403f8e;
+    text-decoration: none;
+}
+
+/* Sign In Button */
+.btn {
+    width: 60%;
+    height: 60px;
+    padding: 12px;
+    background-color: #403f8e;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 30px;
+}
+
+.btn:hover {
+    background-color: #3a5083;
+}
+
+/* Sign Up Link */
+.signup-link {
+    margin-top: 15px;
+    font-size: 19px;
+    color: rgb(69, 64, 64);
+}
+
+.signup-link a {
+    color: #3a5083;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 18px;
+}
+.right-container {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    height: 100vh; /* Full viewport height */
+    padding-top: 150px;
+}
+.right-img{
+    height: 80vh;    
+    width: auto;
+}
+.login-img{
+    width:30%;
+    position: absolute;
+    bottom: 750px;
+    right: 270px;
+    border-radius: 40px;
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+    <link rel="stylesheet" href="/css/signup.css">
+</head>
+<body>
+    <div class="left">
+        <div class="container">
+            <h2>Create Account</h2>
+            <p>Fill in your details to register for campus services</p>
+            
+            <form>
+                <div class="row">
+                    <input type="text" placeholder="Full Name" required>
+                    <input type="text" placeholder="Enrollment Number" required>
+                </div>
+                <div class="row">
+                    <input type="email" placeholder="Email" required>
+                    <input type="tel" placeholder="Contact Number" required>
+                </div>
+    
+                <label>College</label>
+                <select required>
+                    <option value="">Select College</option>
+                    <option value="college1">Bhagwan Parshuram Institute of Technology</option>
+                    <option value="college2">Maharaja Agrasen Institute of Technology</option>
+                </select>
+    
+                <div class="row">
+                    <div>
+                        <label>Course</label>
+                        <select required>
+                            <option value="">Select Course</option>
+                            <option value="course1">Btech</option>
+                            <option value="course2">Mtech</option>
+                            <option value="course2">BBA</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Branch</label>
+                        <select required>
+                            <option value="">Select Branch</option>
+                            <option value="course1">Btech</option>
+                            <option value="course2">Mtech</option>
+                            <option value="course2">BBA</option>
+                        </select>
+                    </div>
+                </div>
+    
+                <label>Section</label>
+                <select required>
+                    <option value="">Select Section</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="B">B</option>
+                </select>
+    
+                <div class="row">
+                    <input type="password" placeholder="Password" required>
+                    <input type="password" placeholder="Confirm Password" required>
+                </div>
+    
+                <button class="btn-submit" type="submit">Create Account</button>
+            </form>
+            
+            <p class="signin">Already have an account? <a href="login.html">Sign in</a></p>
+        </div>
+    </div>
+    <div class="right">
+        <div class="right-container">
+            <img class="login-img" src="/images/signup-img.gif" alt="">
+            <img class="right-img" src="/images/image.png" alt="">
+        </div>
+    </div>
+</body>
+</html>
