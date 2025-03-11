@@ -3,35 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SignUp</title>
-    <link rel="stylesheet" href="/css/signin.css">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/signup.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="right">
-        <div class="right-container">
-            <img class="login-img" src="/images/signin.gif" alt="">
-            <img class="right-img" src="/images/sign-img.gif" alt="">
-        </div>
-    </div>
-    <div class="left">
-        <div class="container">
-            <div class="form-box">
-                <h2>Welcome Back</h2>
-                <p>Enter your credentials to access your account</p>
-                <form>
-                    <div class="input-box">
-                        <input type="email" placeholder="Email" required>
+    <div class="app-container">
+        <div class="left-side">
+            <div class="form-container appear">
+                <h2 class="title">Login Account</h2>
+                <p class="subtitle">Fill in your details to Login for campus services</p>
+                
+                <form id="signup-form">                  
+                    <div class="form-row">
+                        <div class="form-group slide-up">
+                            <input type="email" placeholder="Email" required class="form-input">
+                        </div>
                     </div>
-                    <div class="input-box password-box">
-                        <input type="password" placeholder="Password" required>
-                        <span class="eye-icon">👁️</span>
+    
+                    <div class="form-row">
+                        <div class="form-group slide-up">
+                            <input type="password" placeholder="Password" required class="form-input">
+                        </div>
+                        <div class="form-group slide-up">
+                            <input type="password" placeholder="Confirm Password" required class="form-input">
+                        </div>
                     </div>
-                    <a href="#" class="forgot-password">Forgot password?</a>
-                    <button type="submit" class="btn">Sign In</button>
-                    <p class="signup-link">Don't have an account? <a href="singup.html">Sign up</a></p>
+    
+                    <button class="btn-submit slide-up" type="submit">
+                        <span class="btn-text">Login</span>
+                        <span class="loading-spinner" style="display: none;">
+                            <svg class="spinner" viewBox="0 0 50 50">
+                                <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+                            </svg>
+                            Creating account...
+                        </span>
+                    </button>
                 </form>
+                
+                <p class="signin-text fade-in">
+                    Don't Have an account ?  <a href="login.html" class="signin-link">Sign up</a>
+                </p>
+            </div>
+        </div>
+        <div class="right-side">
+            <div class="image-container">
+                <img class="main-image" src="/images/signup.gif" alt="Signup illustration">
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('signup-form');
+            const btnText = document.querySelector('.btn-text');
+            const loadingSpinner = document.querySelector('.loading-spinner');
+            
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Show loading state
+                    btnText.style.display = 'none';
+                    loadingSpinner.style.display = 'flex';
+                    
+                    // Simulate form submission
+                    setTimeout(function() {
+                        // Hide loading state
+                        btnText.style.display = 'block';
+                        loadingSpinner.style.display = 'none';
+                        
+                        // Show success message or redirect
+                        alert('Account created successfully!');
+                        window.location.href = 'login.html';
+                    }, 1500);
+                });
+            }
+            
+            // Add focus effects to inputs
+            const inputs = document.querySelectorAll('.form-input, .form-select');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('focused');
+                });
+                
+                input.addEventListener('blur', function() {
+                    if (!this.value) {
+                        this.parentElement.classList.remove('focused');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

@@ -5,75 +5,147 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignUp</title>
     <link rel="stylesheet" href="/css/signup.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="left">
-        <div class="container">
-            <h2>Create Account</h2>
-            <p>Fill in your details to register for campus services</p>
-            
-            <form>
-                <div class="row">
-                    <input type="text" placeholder="Full Name" required>
-                    <input type="text" placeholder="Enrollment Number" required>
-                </div>
-                <div class="row">
-                    <input type="email" placeholder="Email" required>
-                    <input type="tel" placeholder="Contact Number" required>
-                </div>
+    <div class="app-container">
+        <div class="left-side">
+            <div class="form-container appear">
+                <h2 class="title">Create Account</h2>
+                <p class="subtitle">Fill in your details to register for campus services</p>
+                
+                <form id="signup-form">
+                    <div class="form-row">
+                        <div class="form-group slide-up">
+                            <input type="text" placeholder="Full Name" required class="form-input">
+                        </div>
+                        <div class="form-group slide-up">
+                            <input type="text" placeholder="Enrollment Number" required class="form-input">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group slide-up">
+                            <input type="email" placeholder="Email" required class="form-input">
+                        </div>
+                        <div class="form-group slide-up">
+                            <input type="tel" placeholder="Contact Number" required class="form-input">
+                        </div>
+                    </div>
     
-                <label>College</label>
-                <select required>
-                    <option value="">Select College</option>
-                    <option value="college1">Bhagwan Parshuram Institute of Technology</option>
-                    <option value="college2">Maharaja Agrasen Institute of Technology</option>
-                </select>
-    
-                <div class="row">
-                    <div>
-                        <label>Course</label>
-                        <select required>
-                            <option value="">Select Course</option>
-                            <option value="course1">Btech</option>
-                            <option value="course2">Mtech</option>
-                            <option value="course2">BBA</option>
+                    <div class="form-group slide-up">
+                        <label>College</label>
+                        <select required class="form-select">
+                            <option value="">Select College</option>
+                            <option value="college1">Bhagwan Parshuram Institute of Technology</option>
+                            <option value="college2">Maharaja Agrasen Institute of Technology</option>
                         </select>
                     </div>
-                    <div>
-                        <label>Branch</label>
-                        <select required>
-                            <option value="">Select Branch</option>
-                            <option value="course1">Btech</option>
-                            <option value="course2">Mtech</option>
-                            <option value="course2">BBA</option>
+    
+                    <div class="form-row">
+                        <div class="form-group slide-up">
+                            <label>Course</label>
+                            <select required class="form-select">
+                                <option value="">Select Course</option>
+                                <option value="btech">Btech</option>
+                                <option value="mtech">Mtech</option>
+                                <option value="bba">BBA</option>
+                            </select>
+                        </div>
+                        <div class="form-group slide-up">
+                            <label>Branch</label>
+                            <select required class="form-select">
+                                <option value="">Select Branch</option>
+                                <option value="cse">Computer Science</option>
+                                <option value="it">Information Technology</option>
+                                <option value="ece">Electronics & Communication</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <div class="form-group slide-up">
+                        <label>Section</label>
+                        <select required class="form-select">
+                            <option value="">Select Section</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
                         </select>
                     </div>
-                </div>
     
-                <label>Section</label>
-                <select required>
-                    <option value="">Select Section</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="B">B</option>
-                </select>
+                    <div class="form-row">
+                        <div class="form-group slide-up">
+                            <input type="password" placeholder="Password" required class="form-input">
+                        </div>
+                        <div class="form-group slide-up">
+                            <input type="password" placeholder="Confirm Password" required class="form-input">
+                        </div>
+                    </div>
     
-                <div class="row">
-                    <input type="password" placeholder="Password" required>
-                    <input type="password" placeholder="Confirm Password" required>
-                </div>
-    
-                <button class="btn-submit" type="submit">Create Account</button>
-            </form>
+                    <button class="btn-submit slide-up" type="submit">
+                        <span class="btn-text">Create Account</span>
+                        <span class="loading-spinner" style="display: none;">
+                            <svg class="spinner" viewBox="0 0 50 50">
+                                <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+                            </svg>
+                            Creating account...
+                        </span>
+                    </button>
+                </form>
+                
+                <p class="signin-text fade-in">
+                    Already have an account? <a href="login.html" class="signin-link">Sign in</a>
+                </p>
+            </div>
+        </div>
+        <div class="right-side">
+            <div class="image-container">
+                <img class="main-image" src="https://placehold.co/600x400/4b6bfb/FFFFFF/png?text=Campus+Services" alt="Signup illustration">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('signup-form');
+            const btnText = document.querySelector('.btn-text');
+            const loadingSpinner = document.querySelector('.loading-spinner');
             
-            <p class="signin">Already have an account? <a href="login.html">Sign in</a></p>
-        </div>
-    </div>
-    <div class="right">
-        <div class="right-container">
-            <img class="login-img" src="/images/signup-img.gif" alt="">
-            <img class="right-img" src="/images/image.png" alt="">
-        </div>
-    </div>
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Show loading state
+                    btnText.style.display = 'none';
+                    loadingSpinner.style.display = 'flex';
+                    
+                    // Simulate form submission
+                    setTimeout(function() {
+                        // Hide loading state
+                        btnText.style.display = 'block';
+                        loadingSpinner.style.display = 'none';
+                        
+                        // Show success message or redirect
+                        alert('Account created successfully!');
+                        window.location.href = 'login.html';
+                    }, 1500);
+                });
+            }
+            
+            // Add focus effects to inputs
+            const inputs = document.querySelectorAll('.form-input, .form-select');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('focused');
+                });
+                
+                input.addEventListener('blur', function() {
+                    if (!this.value) {
+                        this.parentElement.classList.remove('focused');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
