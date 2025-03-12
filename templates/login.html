@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="/css/signup.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/login.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -42,13 +42,13 @@
                 </form>
                 
                 <p class="signin-text fade-in">
-                    Don't Have an account ?  <a href="login.html" class="signin-link">Sign up</a>
+                    Don't Have an account ?  <a href="/signup" class="signin-link">Sign up</a>
                 </p>
             </div>
         </div>
         <div class="right-side">
             <div class="image-container">
-                <img class="main-image" src="/images/signup.gif" alt="Signup illustration">
+                <img class="main-image" src="{{url_for('static', filename='images/signup.gif')}}" alt="Signup illustration">
             </div>
         </div>
     </div>

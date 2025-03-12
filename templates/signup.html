@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignUp</title>
-    <link rel="stylesheet" href="/css/signup.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/signup.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -94,13 +94,13 @@
                 </form>
                 
                 <p class="signin-text fade-in">
-                    Already have an account? <a href="login.html" class="signin-link">Sign in</a>
+                    Already have an account? <a href="/login" class="signin-link">Sign in</a>
                 </p>
             </div>
         </div>
         <div class="right-side">
             <div class="image-container">
-                <img class="main-image" src="https://placehold.co/600x400/4b6bfb/FFFFFF/png?text=Campus+Services" alt="Signup illustration">
+                <img class="main-image" src="{{url_for('static', filename='images/login.gif')}}" alt="Signup illustration">
             </div>
         </div>
     </div>
