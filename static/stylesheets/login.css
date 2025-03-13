@@ -186,7 +186,7 @@ html, body {
     max-height: 100%;
     object-fit: contain;
     animation: float 6s ease-in-out infinite;
-    border: 10px solid whitesmoke;
+    border: 10px solid black;
     border-radius: 20px;
 }
 
