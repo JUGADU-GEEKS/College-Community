@@ -9,3 +9,9 @@ def signup():
 @auth.route('/login', methods=['POST', 'GET'])
 def login():
     return render_template('login.html')
+@auth.route('/home', methods=['POST','GET'])
+def home():
+    return render_template('home.html')
+@auth.route('/sell',methods=['POST','GET'])
+def sell():
+    return render_template('sell.html')

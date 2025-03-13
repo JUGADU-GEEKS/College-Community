@@ -3,9 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>College Trade Bazaar</title>
+    <link rel="stylesheet" href="/static/stylesheets/home.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    Hi there!    
+    <header class="header">
+        <div class="container">
+            <div class="navbar">
+                <h1 class="logo">College Trade Bazaar</h1>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="index.html" class="active">Home</a></li>
+                        <li><a href="/sell">Sell Item</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Buy & Sell Laboratory Equipment on Campus</h1>
+                <p>Your one-stop marketplace for lab equipment, drafters, and more!</p>
+                <div class="cta-buttons">
+                    <a href="#featured" class="btn btn-primary">Browse Items</a>
+                    <a href="/sell" class="btn btn-secondary">Sell Item</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="featured" class="featured">
+        <div class="container">
+            <h2 class="section-title">Featured Items</h2>
+            <div class="items-grid" id="featured-items">
+                <!-- Items will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Browse Categories</h2>
+            <div class="category-cards">
+                <div class="category-card">
+                    <div class="category-icon">🧪</div>
+                    <h3>Lab Equipment</h3>
+                    <p>Microscopes, beakers, bunsen burners and more</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">📐</div>
+                    <h3>Drafting Tools</h3>
+                    <p>Drafting tables, T-squares, compasses and rulers</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">👔</div>
+                    <h3>Lab Wear</h3>
+                    <p>Lab coats, safety goggles, gloves and aprons</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">📚</div>
+                    <h3>Textbooks</h3>
+                    <p>Science and engineering textbooks and references</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <div class="about-content">
+                <div class="about-info">
+                    <p>College Trade Bazaar is a platform created by students, for students. We understand the high costs of educational materials and lab equipment, so we've built this marketplace to help students buy and sell used items at affordable prices.</p>
+                    <p>Our mission is to promote sustainability and affordability in education by giving laboratory equipment and educational materials a second life.</p>
+                </div>
+                <div class="values">
+                    <div class="value-card">
+                        <h3>Sustainability</h3>
+                        <p>Reducing waste by reusing quality equipment</p>
+                    </div>
+                    <div class="value-card">
+                        <h3>Affordability</h3>
+                        <p>Making education more accessible through reasonable prices</p>
+                    </div>
+                    <div class="value-card">
+                        <h3>Community</h3>
+                        <p>Building connections between students across departments</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h3>Email</h3>
+                        <p>support@collegetradebazaar.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Phone</h3>
+                        <p>(123) 456-7890</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Office Hours</h3>
+                        <p>Monday-Friday: 9am-5pm</p>
+                    </div>
+                </div>
+                <form id="contact-form" class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>College Trade Bazaar</h2>
+                    <p>Your campus marketplace</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="sell-item.html">Sell Item</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to our newsletter for the latest items</p>
+                    <form id="newsletter-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit" class="btn btn-secondary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 College Trade Bazaar. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

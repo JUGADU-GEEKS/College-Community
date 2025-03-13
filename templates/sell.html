@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell Item - College Trade Bazaar</title>
+    <link rel="stylesheet" href="/static/stylesheets/home.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="navbar">
+                <h1 class="logo">College Trade Bazaar</h1>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="/home">Home</a></li>
+                        <li><a href="/sell" class="active">Sell Item</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="sell-item">
+        <div class="container">
+            <h2 class="section-title">Sell Your Item</h2>
+            <p class="section-description">Fill out the form below to list your item on College Trade Bazaar</p>
+            
+            <form id="sell-item-form" class="sell-item-form">
+                <div class="form-section">
+                    <h3>Basic Information</h3>
+                    <div class="form-group">
+                        <label for="title">Item Title*</label>
+                        <input type="text" id="title" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description*</label>
+                        <textarea id="description" name="description" rows="4" required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="price">Price ($)*</label>
+                            <input type="number" id="price" name="price" min="0" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category*</label>
+                            <select id="category" name="category" required>
+                                <option value="">Select a category</option>
+                                <option value="lab-equipment">Lab Equipment</option>
+                                <option value="drafting-tools">Drafting Tools</option>
+                                <option value="lab-wear">Lab Wear</option>
+                                <option value="textbooks">Textbooks</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Item Details</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="condition">Condition*</label>
+                            <select id="condition" name="condition" required>
+                                <option value="">Select condition</option>
+                                <option value="new">New</option>
+                                <option value="like-new">Like New</option>
+                                <option value="good">Good</option>
+                                <option value="fair">Fair</option>
+                                <option value="poor">Poor</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="brand">Brand</label>
+                            <input type="text" id="brand" name="brand">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="features">Key Features</label>
+                        <textarea id="features" name="features" rows="2" placeholder="List key features of your item"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Images</h3>
+                    <p class="form-hint">Upload up to 5 images of your item (Max 5MB per image)</p>
+                    <div class="image-upload-container" id="image-upload-container">
+                        <div class="image-upload">
+                            <label for="image1" class="image-upload-label">
+                                <span class="upload-icon">+</span>
+                                <span>Upload Image</span>
+                            </label>
+                            <input type="file" id="image1" name="image1" accept="image/*" class="image-input">
+                        </div>
+                        <!-- More image uploads will be added dynamically by JavaScript -->
+                    </div>
+                    <div id="image-preview-container" class="image-preview-container"></div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Contact Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Your Name*</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address*</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Campus Location*</label>
+                            <input type="text" id="location" name="location" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Preferred Contact Method*</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox">
+                                <input type="checkbox" id="contact-email" name="contact-method" value="email">
+                                <label for="contact-email">Email</label>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" id="contact-phone" name="contact-method" value="phone">
+                                <label for="contact-phone">Phone</label>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" id="contact-text" name="contact-method" value="text">
+                                <label for="contact-text">Text</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-group terms-container">
+                        <div class="checkbox">
+                            <input type="checkbox" id="terms" name="terms" required>
+                            <label for="terms">I agree to the <a href="#">Terms and Conditions</a> and certify that this item is mine to sell*</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="clear-form">Clear Form</button>
+                    <button type="submit" class="btn btn-primary">List Item</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>College Trade Bazaar</h2>
+                    <p>Your campus marketplace</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="sell-item.html">Sell Item</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to our newsletter for the latest items</p>
+                    <form id="newsletter-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit" class="btn btn-secondary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 College Trade Bazaar. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Item Listed Successfully!</h2>
+            <p>Your item has been submitted and will be reviewed shortly.</p>
+            <button class="btn btn-primary" id="modal-close-btn">Continue</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
