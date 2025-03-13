@@ -13,7 +13,7 @@
     --border-radius: 8px;
     --transition: all 0.3s ease;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --gradient-primary: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    --gradient-primary: linear-gradient(135deg, #4f46e5 0%, #7c3aed, rgb(211, 73, 96) 100%);
     --gradient-secondary: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
 }
 
@@ -90,12 +90,21 @@ img {
     justify-content: space-between;
     align-items: center;
 }
-
+.nav-logo{
+    display: flex;
+}
 .logo {
     font-size: 1.5rem;
     color: var(--primary-color);
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 14px;
 }
-
+.logo-img{
+    width: 50px;
+    height: 50px;
+    margin-top: 10px;
+}
 .nav-links {
     display: flex;
 }
