@@ -102,7 +102,33 @@ html, body {
 .form-input::placeholder {
     color: var(--muted-foreground);
 }
-
+.form-row{
+    position: relative;
+}
+.form-row i{
+    position: absolute;
+    left: 176px;
+    top: 13px;
+    cursor: pointer;
+}
+.form-group {
+    position: relative;
+    width: 100%;
+}
+.form-input {
+    width: 100%;
+    padding: 10px;
+    padding-right: 40px; /* Space for the icon */
+    font-size: 16px;
+}
+.eye-icon {
+    position: absolute;
+    right: 10px;
+    bottom: 30px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+}
 .btn-submit {
     width: 100%;
     padding: 0.75rem 1rem;
