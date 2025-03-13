@@ -20,7 +20,11 @@ def signup():
         new_user = User(data)
         success, message = new_user.save_to_db()
         if(success):
-            session['user'] = data  
+            session['user'] = {
+                'full_name': data['full_name'],
+                'email': data['email'],
+                'contact': data['contact']
+            }
             return redirect(url_for('views.test'))
         else:
             return redirect(url_for('auth.signup'))
