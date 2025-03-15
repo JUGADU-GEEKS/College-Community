@@ -8,26 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <div class="navbar">
-                <div class="nav-logo">
-                    <img class="logo-img" src="/static/images/app-icon.png" alt="">
-                    <h1 class="logo">College Trade Bazaar</h1>
-                
-                </div>
-                <nav>
-                    <ul class="nav-links">
-                        <li><a href="/home" class="active">Home</a></li>
-                        <li><a href="/sell">Sell Item</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
-
+    {% include 'navbar.html' %}
     <section class="hero">
         <div class="container">
             <div class="hero-content">
@@ -151,8 +132,8 @@
                 <div class="footer-links">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="sell-item.html">Sell Item</a></li>
+                        <li><a href="/home">Home</a></li>
+                        <li><a href="/sell">Sell Item</a></li>
                         <li><a href="#about">About Us</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
