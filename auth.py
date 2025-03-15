@@ -37,7 +37,7 @@ def signup():
         if not email.endswith(('@gmail.com', '@outlook.com')):
             return render_template('signup.html', error='Only Gmail or Outlook emails are allowed.')
 
-        if not (enrollment.isdigit() and len(enrollment) == 10):
+        if not (enrollment.isdigit() and len(enrollment) == 11):
             return render_template('signup.html', error='Enrollment number must be exactly 10 digits.')
 
         if not (contact.isdigit() and len(contact) == 10):
