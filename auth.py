@@ -1,5 +1,16 @@
 from flask import Flask, render_template, Blueprint, request, redirect, session, url_for
 from model import User
+from pymongo import MongoClient
+from dotenv import load_dotenv
+from utils import generate_otp, send_otp
+import os
+load_dotenv()
+
+MONGO_URI = os.getenv("MONGO_URI")
+print(f"Loaded MONGO_URI: {MONGO_URI}")
+client = MongoClient(MONGO_URI)
+db = client['Student-Community']
+users_collection = db['users']
 
 auth = Blueprint('auth', __name__)
 
@@ -17,16 +28,18 @@ def signup():
             "section": request.form.get('section'),
             "password": request.form.get('password'),
         }
-        otp = request.form.get('otp')
         new_user = User(data)
         success, message = new_user.save_to_db()
         if(success):
+            otp = generate_otp()
+            new_user.update_otp(otp)
+            send_otp(data['email'], otp)
             session['user'] = {
                 'full_name': data['full_name'],
                 'email': data['email'],
                 'contact': data['contact']
             }
-            return redirect(url_for('views.test'))
+            return redirect(url_for('auth.verifyotp'))
         else:
             return redirect(url_for('auth.signup'))
 
@@ -49,4 +62,31 @@ def login():
         else:
             print("e")
     return render_template('login.html')
+
+@auth.route('/verifyotp', methods=['POST','GET'])
+def verifyotp():
+    if request.method=='POST':
+        n_user = session.get('user')
+        email = n_user.get('email')
+        user = User.get_data(email)
+        user_otp = user.get("otp")
+        entered_otp = "".join([
+            request.form.get('otp1', ''),
+            request.form.get('otp2', ''),
+            request.form.get('otp3', ''),
+            request.form.get('otp4', ''),
+            request.form.get('otp5', ''),
+            request.form.get('otp6', '')
+        ])
+        if(user_otp==entered_otp):
+            users_collection.update_one({"email": email}, {"$set": {"isVerified": True}})
+            session['user'] = {
+                    'full_name': user['full_name'],
+                    'email': user['email'],
+                    'contact': user['contact']
+                }
+            return redirect(url_for('views.test'))
+        else:
+            return "invalid otp entered."
+    return render_template('verifyOTP.html')
 
