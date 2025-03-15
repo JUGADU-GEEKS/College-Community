@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignUp</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/signup.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body>
     <script src="/static/javascripts/login.js"></script>
     <div class="app-container">
@@ -15,17 +19,18 @@
             <div class="form-container appear">
                 <h2 class="title">Create Account</h2>
                 <p class="subtitle">Fill in your details to register for campus services</p>
-                
-                <form id="signup-form" method="POST" action="/signup">
+
+                <form id="signup-form" method="POST" action="/signup" onsubmit="return finalFormSubmit()">
                     <div class="form-row">
                         <div class="form-group slide-up">
                             <input type="text" placeholder="Full Name" required class="form-input" name="full_name">
                         </div>
                         <div class="form-group slide-up">
-                            <input type="text" placeholder="Enrollment Number" required class="form-input" name="enrollment">
+                            <input type="text" placeholder="Enrollment Number" required class="form-input"
+                                name="enrollment">
                         </div>
                     </div>
-                    
+
                     <div class="form-row">
                         <div class="form-group slide-up">
                             <input type="email" placeholder="Email" required class="form-input" name="email">
@@ -34,16 +39,18 @@
                             <input type="tel" placeholder="Contact Number" required class="form-input" name="contact">
                         </div>
                     </div>
-    
+
                     <div class="form-group slide-up">
                         <label>College</label>
                         <select required class="form-select" name="college">
                             <option value="">Select College</option>
-                            <option value="Bhagwan Parshuram Institute of Technology">Bhagwan Parshuram Institute of Technology</option>
-                            <option value="Maharaja Agrasen Institute of Technology">Maharaja Agrasen Institute of Technology</option>
+                            <option value="Bhagwan Parshuram Institute of Technology">Bhagwan Parshuram Institute of
+                                Technology</option>
+                            <option value="Maharaja Agrasen Institute of Technology">Maharaja Agrasen Institute of
+                                Technology</option>
                         </select>
                     </div>
-    
+
                     <div class="form-row">
                         <div class="form-group slide-up">
                             <label>Course</label>
@@ -64,7 +71,7 @@
                             </select>
                         </div>
                     </div>
-    
+
                     <div class="form-group slide-up">
                         <label>Section</label>
                         <select required class="form-select" name="section">
@@ -74,18 +81,20 @@
                             <option value="C">C</option>
                         </select>
                     </div>
-    
+
                     <div class="form-row">
                         <div class="form-group slide-up">
-                            <input type="password" id="password" placeholder="Password" required class="form-input" name="password">
+                            <input type="password" id="password" placeholder="Password" required class="form-input"
+                                name="password">
                             <i class="fas fa-eye eye-icon" onclick="togglePassword('password', this)"></i>
                         </div>
                         <div class="form-group slide-up">
-                            <input type="password" id="confirm-password" placeholder="Confirm Password" required class="form-input" name="confirm-password">
+                            <input type="password" id="confirm-password" placeholder="Confirm Password" required
+                                class="form-input" name="confirm-password">
                             <i class="fas fa-eye eye-icon" onclick="togglePassword('confirm-password', this)"></i>
                         </div>
                     </div>
-    
+
                     <button class="btn-submit slide-up sendotp" type="submit">
                         <span class="btn-text">Send OTP</span>
                         <span class="loading-spinner" style="display: none;">
@@ -95,8 +104,10 @@
                             Creating account...
                         </span>
                     </button>
+                    <p id="error-message" style="color: red; display: block; margin-top: 10px; text-align: center;"> {{ error }}</p>
+
                 </form>
-                
+
                 <p class="signin-text fade-in">
                     Already have an account? <a href="/login" class="signin-link">Sign in</a>
                 </p>
@@ -104,10 +115,12 @@
         </div>
         <div class="right-side">
             <div class="image-container">
-                <img class="main-image" src="{{url_for('static', filename='images/login.gif')}}" alt="Signup illustration">
+                <img class="main-image" src="{{url_for('static', filename='images/login.gif')}}"
+                    alt="Signup illustration">
             </div>
         </div>
     </div>
 </body>
-<script src="{{url_for('static', filename='javascripts/signup.js')}}"></script>
+<script></script>
+
 </html>

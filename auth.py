@@ -28,6 +28,21 @@ def signup():
             "section": request.form.get('section'),
             "password": request.form.get('password'),
         }
+
+        # Validations
+        email = data['email']
+        enrollment = data['enrollment']
+        contact = data['contact']
+        
+        if not email.endswith(('@gmail.com', '@outlook.com')):
+            return render_template('signup.html', error='Only Gmail or Outlook emails are allowed.')
+
+        if not (enrollment.isdigit() and len(enrollment) == 10):
+            return render_template('signup.html', error='Enrollment number must be exactly 10 digits.')
+
+        if not (contact.isdigit() and len(contact) == 10):
+            return render_template('signup.html', error='Contact number must be exactly 10 digits.')
+        
         new_user = User(data)
         success, message = new_user.save_to_db()
         if(success):
@@ -90,3 +105,6 @@ def verifyotp():
             return "invalid otp entered."
     return render_template('verifyOTP.html')
 
+@auth.route('/resendOTP')
+def resendOTP():
+    n_user = session.get('user')
