@@ -11,10 +11,6 @@ def index():
 def test():
     user_new = session.get('user')
     email = user_new.get('email')
-<<<<<<< HEAD
-=======
-
->>>>>>> ac205c95f9a014455cef029a49ebb1e086ec6748
     user = User.get_data(email)
     return render_template('test.html', user=user)
 

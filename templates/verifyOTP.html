@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/verifyOTP.css') }}">
+    <style>
+        :root {
+            --background: #f9fafb;
+            --foreground: #1f2937;
+            --primary: #3b82f6;
+            --border: #d1d5db;
+            --radius: 0.5rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--foreground);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            max-width: 400px;
+            width: 100%;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+
+        .otp-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .otp-input {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            font-size: 1.2rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            outline: none;
+            transition: 0.2s ease-in-out;
+        }
+
+        .otp-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+        }
+
+        .btn {
+            width: 100%;
+            height: 45px;
+            background: var(--primary);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: 0.2s ease-in-out;
+        }
+
+        .btn:hover {
+            background: #2563eb;
+        }
+
+        .resend {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .resend button {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+            }
+            .otp-input {
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+            .btn {
+                height: 40px;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2 class="title">OTP Verification</h2>
+        <p class="subtitle">Enter the 6-digit code sent to your email</p>
+
+        <form action="/verify-otp" method="POST">
+            <div class="otp-container">
+                <input type="text" name="otp1" maxlength="1" required class="otp-input">
+                <input type="text" name="otp2" maxlength="1" required class="otp-input">
+                <input type="text" name="otp3" maxlength="1" required class="otp-input">
+                <input type="text" name="otp4" maxlength="1" required class="otp-input">
+                <input type="text" name="otp5" maxlength="1" required class="otp-input">
+                <input type="text" name="otp6" maxlength="1" required class="otp-input">
+            </div>
+
+            <button type="submit" class="btn">Verify OTP</button>
+        </form>
+
+        <p class="resend">
+            Didn't receive the code? 
+            <button type="button" onclick="resendOTP()">Resend</button>
+        </p>
+    </div>
+
+    <script>
+        function resendOTP() {
+            alert("OTP Resent!");
+            // Add an AJAX call to resend the OTP from the backend
+        }
+    </script>
+
+</body>
+</html>

@@ -17,6 +17,7 @@ def signup():
             "section": request.form.get('section'),
             "password": request.form.get('password'),
         }
+        otp = request.form.get('otp')
         new_user = User(data)
         success, message = new_user.save_to_db()
         if(success):

@@ -336,3 +336,7 @@ html, body {
         padding: 3rem;
     }
 }
+.otp{
+    margin-top: 10px;
+    display: none;
+}

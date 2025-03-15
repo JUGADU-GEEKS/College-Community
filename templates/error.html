@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error Page</title>
+  <style>
+    /* Base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to bottom, #f9fafb, #f1f5f9);
+      padding: 1rem;
+      overflow: hidden;
+    }
+
+    /* Main container */
+    .min-h-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to bottom, #f9fafb, #f1f5f9);
+      padding: 1rem;
+      overflow: hidden;
+    }
+
+    .error-container {
+      max-width: 36rem;
+      width: 100%;
+      transition: all 700ms ease-out;
+      opacity: 0;
+      transform: translateY(2rem);
+    }
+
+    .error-container.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Card styles */
+    .backdrop-blur-md {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .bg-white\/80 {
+      background-color: rgba(255, 255, 255, 0.8);
+    }
+
+    .rounded-2xl {
+      border-radius: 1rem;
+    }
+
+    .shadow-lg {
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    .p-8 {
+      padding: 2rem;
+    }
+
+    .overflow-hidden {
+      overflow: hidden;
+    }
+
+    .relative {
+      position: relative;
+    }
+
+    .border {
+      border: 1px solid rgba(241, 245, 249, 1);
+    }
+
+    /* Decorative elements */
+    .absolute {
+      position: absolute;
+    }
+
+    .bg-red-200\/50 {
+      background-color: rgba(254, 202, 202, 0.5);
+    }
+
+    .bg-blue-200\/50 {
+      background-color: rgba(191, 219, 254, 0.5);
+    }
+
+    .rounded-full {
+      border-radius: 9999px;
+    }
+
+    .blur-2xl {
+      filter: blur(40px);
+    }
+
+    .blur-xl {
+      filter: blur(24px);
+    }
+
+    /* Label styles */
+    .inline-block {
+      display: inline-block;
+    }
+
+    .px-3 {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+
+    .py-1 {
+      padding-top: 0.25rem;
+      padding-bottom: 0.25rem;
+    }
+
+    .text-xs {
+      font-size: 0.75rem;
+    }
+
+    .font-medium {
+      font-weight: 500;
+    }
+
+    .bg-red-50 {
+      background-color: rgba(254, 242, 242, 1);
+    }
+
+    .text-red-500 {
+      color: rgba(239, 68, 68, 1);
+    }
+
+    .mb-4 {
+      margin-bottom: 1rem;
+    }
+
+    .shadow-sm {
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+
+    /* Heading and text */
+    .text-3xl {
+      font-size: 1.875rem;
+      line-height: 2.25rem;
+    }
+
+    .font-semibold {
+      font-weight: 600;
+    }
+
+    .text-slate-800 {
+      color: rgba(30, 41, 59, 1);
+    }
+
+    .mb-2 {
+      margin-bottom: 0.5rem;
+    }
+
+    .tracking-tight {
+      letter-spacing: -0.025em;
+    }
+
+    .text-slate-600 {
+      color: rgba(71, 85, 105, 1);
+    }
+
+    .mb-6 {
+      margin-bottom: 1.5rem;
+    }
+
+    .leading-relaxed {
+      line-height: 1.625;
+    }
+
+    /* Button group */
+    .flex {
+      display: flex;
+    }
+
+    .flex-col {
+      flex-direction: column;
+    }
+
+    .sm\:flex-row {
+      flex-direction: row;
+    }
+
+    .gap-4 {
+      gap: 1rem;
+    }
+
+    /* Button styles */
+    button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.25rem;
+      border-radius: 0.75rem;
+      font-weight: 500;
+      transition-property: all;
+      transition-duration: 300ms;
+      cursor: pointer;
+      border: none;
+      outline: none;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    }
+
+    button:hover {
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    .bg-slate-100 {
+      background-color: rgba(241, 245, 249, 1);
+    }
+
+    .text-slate-700 {
+      color: rgba(51, 65, 85, 1);
+    }
+
+    .hover\:bg-slate-200:hover {
+      background-color: rgba(226, 232, 240, 1);
+    }
+
+    .bg-slate-800 {
+      background-color: rgba(30, 41, 59, 1);
+    }
+
+    .text-white {
+      color: rgba(255, 255, 255, 1);
+    }
+
+    .hover\:bg-slate-700:hover {
+      background-color: rgba(51, 65, 85, 1);
+    }
+
+    /* Icon animation */
+    .error-icon {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      opacity: 0.1;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.6;
+      }
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+      100% {
+        transform: translateY(0px);
+      }
+    }
+
+    .error-icon {
+      animation: pulse 3s ease-in-out infinite, float 6s ease-in-out infinite;
+    }
+
+    /* Additional help section */
+    .mt-6 {
+      margin-top: 1.5rem;
+    }
+
+    .p-6 {
+      padding: 1.5rem;
+    }
+
+    .text-lg {
+      font-size: 1.125rem;
+      line-height: 1.75rem;
+    }
+
+    .text-sm {
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+    }
+
+    /* Media query for responsive layout */
+    @media (min-width: 640px) {
+      .sm\:flex-row {
+        flex-direction: row;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="min-h-screen">
+    <div class="error-container" id="errorContainer">
+      <div class="backdrop-blur-md bg-white/80 rounded-2xl shadow-lg p-8 overflow-hidden relative border border-slate-100">
+        <!-- Decorative elements -->
+        <div class="absolute -top-16 -right-16 w-32 h-32 bg-red-200/50 rounded-full blur-2xl"></div>
+        <div class="absolute -bottom-8 -left-8 w-24 h-24 bg-blue-200/50 rounded-full blur-xl"></div>
+        
+        <!-- Small pill label -->
+        <div class="inline-block px-3 py-1 text-xs font-medium bg-red-50 text-red-500 rounded-full mb-4 shadow-sm">
+          Error Encountered
+        </div>
+        
+        <h1 class="text-3xl font-semibold text-slate-800 mb-2 tracking-tight">Something went wrong</h1>
+        
+        <p class="text-slate-600 mb-6 leading-relaxed">
+          We apologize for the inconvenience. The page you are trying to access encountered an unexpected error.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="{{ backlink }}"><button
+            id="goBackBtn"
+            class="bg-slate-100 text-slate-700 hover:bg-slate-200"
+          >
+            Go Back
+          </button></a>
+          
+          <a href="/welcome"><button
+            id="homeBtn"
+            class="bg-slate-800 text-white hover:bg-slate-700"
+          >
+            Return Home
+          </button></a>
+        </div>
+        
+        <!-- Animated icon -->
+        <div class="error-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 8v4"></path>
+            <path d="M12 16h.01"></path>
+          </svg>
+        </div>
+      </div>
+      
+      <!-- Additional information section with delayed animation -->
+      <div class="mt-6 bg-white/80 backdrop-blur-md rounded-xl p-6 border border-slate-100 shadow-sm additional-info">
+        <h2 class="text-lg font-medium text-slate-800 mb-2">Need help?</h2>
+        <p class="text-slate-600 text-sm">
+          If this problem persists, please contact our support team or try refreshing the page.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set a timeout to add the visible class for entrance animation
+      setTimeout(function() {
+        document.getElementById('errorContainer').classList.add('visible');
+      }, 100);
+
+      // Add event listeners to buttons
+      document.getElementById('goBackBtn').addEventListener('click', function() {
+        window.history.back();
+      });
+
+      document.getElementById('homeBtn').addEventListener('click', function() {
+        window.location.href = '/';
+      });
+    });
+  </script>
+</body>
+</html>
