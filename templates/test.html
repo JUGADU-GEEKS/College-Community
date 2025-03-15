@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+</head>
+<body>
+    <h2>User Profile</h2>
+    <p><strong>Full Name:</strong> {{ user.full_name }}</p>
+    <p><strong>Enrollment:</strong> {{ user.enrollment }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Contact:</strong> {{ user.contact }}</p>
+    <p><strong>College:</strong> {{ user.college }}</p>
+    <p><strong>Course:</strong> {{ user.course }}</p>
+    <p><strong>Branch:</strong> {{ user.branch }}</p>
+    <p><strong>Section:</strong> {{ user.section }}</p>
+    <p><strong>Hashed Password:</strong> {{ user.password }}</p>
+
+    {% if user.profile_photo %}
+        <p><strong>Profile Photo:</strong></p>
+        <img src="{{user.profile_photo}}" alt="Profile Photo" width="150">
+    {% else %}
+        <p>No profile photo uploaded.</p>
+    {% endif %}
+</body>
+</html>

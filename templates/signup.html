@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/signup.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <script src="/static/javascripts/login.js"></script>
+    <div class="app-container">
+        <div class="left-side">
+            <div class="form-container appear">
+                <h2 class="title">Create Account</h2>
+                <p class="subtitle">Fill in your details to register for campus services</p>
+                
+                <form id="signup-form" method="POST" action="/signup">
+                    <div class="form-row">
+                        <div class="form-group slide-up">
+                            <input type="text" placeholder="Full Name" required class="form-input" name="full_name">
+                        </div>
+                        <div class="form-group slide-up">
+                            <input type="text" placeholder="Enrollment Number" required class="form-input" name="enrollment">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group slide-up">
+                            <input type="email" placeholder="Email" required class="form-input" name="email">
+                        </div>
+                        <div class="form-group slide-up">
+                            <input type="tel" placeholder="Contact Number" required class="form-input" name="contact">
+                        </div>
+                    </div>
+    
+                    <div class="form-group slide-up">
+                        <label>College</label>
+                        <select required class="form-select" name="college">
+                            <option value="">Select College</option>
+                            <option value="Bhagwan Parshuram Institute of Technology">Bhagwan Parshuram Institute of Technology</option>
+                            <option value="Maharaja Agrasen Institute of Technology">Maharaja Agrasen Institute of Technology</option>
+                        </select>
+                    </div>
+    
+                    <div class="form-row">
+                        <div class="form-group slide-up">
+                            <label>Course</label>
+                            <select required class="form-select" name="course">
+                                <option value="">Select Course</option>
+                                <option value="btech">Btech</option>
+                                <option value="mtech">Mtech</option>
+                                <option value="bba">BBA</option>
+                            </select>
+                        </div>
+                        <div class="form-group slide-up">
+                            <label>Branch</label>
+                            <select required class="form-select" name="branch">
+                                <option value="">Select Branch</option>
+                                <option value="cse">Computer Science</option>
+                                <option value="it">Information Technology</option>
+                                <option value="ece">Electronics & Communication</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <div class="form-group slide-up">
+                        <label>Section</label>
+                        <select required class="form-select" name="section">
+                            <option value="">Select Section</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                        </select>
+                    </div>
+    
+                    <div class="form-row">
+                        <div class="form-group slide-up">
+                            <input type="password" id="password" placeholder="Password" required class="form-input" name="password">
+                            <i class="fas fa-eye eye-icon" onclick="togglePassword('password', this)"></i>
+                        </div>
+                        <div class="form-group slide-up">
+                            <input type="password" id="confirm-password" placeholder="Confirm Password" required class="form-input" name="confirm-password">
+                            <i class="fas fa-eye eye-icon" onclick="togglePassword('confirm-password', this)"></i>
+                        </div>
+                    </div>
+    
+                    <button class="btn-submit slide-up" type="submit">
+                        <span class="btn-text">Create Account</span>
+                        <span class="loading-spinner" style="display: none;">
+                            <svg class="spinner" viewBox="0 0 50 50">
+                                <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+                            </svg>
+                            Creating account...
+                        </span>
+                    </button>
+                </form>
+                
+                <p class="signin-text fade-in">
+                    Already have an account? <a href="/login" class="signin-link">Sign in</a>
+                </p>
+            </div>
+        </div>
+        <div class="right-side">
+            <div class="image-container">
+                <img class="main-image" src="{{url_for('static', filename='images/login.gif')}}" alt="Signup illustration">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
