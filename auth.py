@@ -4,6 +4,7 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 from utils import generate_otp, send_otp
 import os
+import re
 load_dotenv()
 
 MONGO_URI = os.getenv("MONGO_URI")
@@ -13,6 +14,11 @@ db = client['Student-Community']
 users_collection = db['users']
 
 auth = Blueprint('auth', __name__)
+
+def is_valid_password(password):
+    pattern = r'^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$'
+    return re.match(pattern, password)
+
 
 @auth.route('/signup', methods=["POST", "GET"])
 def signup():
@@ -27,7 +33,6 @@ def signup():
             "branch": request.form.get('branch'),
             "section": request.form.get('section'),
             "password": request.form.get('password'),
-            "confirm-password": request.form.get("confirm-password"),
         }
 
         # Validations
@@ -35,7 +40,8 @@ def signup():
         enrollment = data['enrollment']
         contact = data['contact']
         password = data['password']
-        confirm_password = data['confirm-password']
+        confirm_password = request.form.get('confirm-password')
+        u = users_collection.find_one({email:email})
         
         if not email.endswith(('@gmail.com', '@outlook.com')):
             return render_template('signup.html', error='Only Gmail or Outlook emails are allowed.')
@@ -48,6 +54,12 @@ def signup():
         
         if password != confirm_password:
             return render_template('signup.html', error='Passwords do not match.')
+        
+        if not is_valid_password(password):
+            return render_template('signup.html', error='Password Should be atleast 8 character long, should have one uppercase and one special character.')
+        
+        if u:
+            return redirect('/login')
         
         new_user = User(data)
         success, message = new_user.save_to_db()
