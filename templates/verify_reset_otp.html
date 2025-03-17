@@ -5,61 +5,171 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verify OTP</title>
     <style>
+        /* Base Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            overflow: hidden;
         }
+
         .container {
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+            width: 360px;
             text-align: center;
+            position: relative;
+            animation: fadeInUp 0.8s ease-in-out;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
+
+        h2 {
+            color: #fff;
+            font-size: 24px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 8px;
+        }
+
         input {
             width: 15%;
-            padding: 8px;
-            margin: 5px;
-            text-align: center;
+            padding: 12px;
             font-size: 18px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-align: center;
+            outline: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
         }
+
+        input:focus {
+            border-color: #6b5b95;
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
         button {
-            background-color: blue;
-            color: white;
-            padding: 8px;
+            margin-top: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            padding: 12px;
             border: none;
             width: 100%;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
         }
+
+        button:hover {
+            background: linear-gradient(135deg, #5a67d8, #6b46c1);
+            transform: scale(1.05);
+        }
+
         .error {
-            color: red;
+            color: #ff4d4d;
             font-size: 14px;
+            margin-top: 12px;
+            animation: shake 0.3s ease;
         }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-40px) scale(1.2); }
+            100% { transform: translateY(0) scale(1); }
+        }
+
+        .particle:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { top: 50%; left: 90%; animation-delay: 2s; }
+        .particle:nth-child(3) { top: 80%; left: 30%; animation-delay: 4s; }
+        .particle:nth-child(4) { top: 70%; left: 60%; animation-delay: 1s; }
+        .particle:nth-child(5) { top: 30%; left: 80%; animation-delay: 3s; }
+
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Verify OTP</h2>
+
         {% if error %}
             <p class="error">{{ error }}</p>
         {% endif %}
+
         <form method="POST">
-            <input type="text" name="otp1" maxlength="1" required>
-            <input type="text" name="otp2" maxlength="1" required>
-            <input type="text" name="otp3" maxlength="1" required>
-            <input type="text" name="otp4" maxlength="1" required>
-            <input type="text" name="otp5" maxlength="1" required>
-            <input type="text" name="otp6" maxlength="1" required>
-            <button type="submit">Verify OTP</button>
+            <div class="inputs">
+                <input type="text" name="otp1" maxlength="1" required>
+                <input type="text" name="otp2" maxlength="1" required>
+                <input type="text" name="otp3" maxlength="1" required>
+                <input type="text" name="otp4" maxlength="1" required>
+                <input type="text" name="otp5" maxlength="1" required>
+                <input type="text" name="otp6" maxlength="1" required>
+            </div>
+            <div class="btn">
+                <button type="submit">Verify OTP</button>
+            </div>
         </form>
+
+        
+
+        <!-- Floating Particles -->
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
     </div>
 </body>
 </html>

@@ -107,7 +107,7 @@ html, body {
 }
 .form-row i{
     position: absolute;
-    left: 176px;
+    right: 10px;
     top: 13px;
     cursor: pointer;
 }
@@ -335,4 +335,153 @@ html, body {
     .left-side {
         padding: 3rem;
     }
+}
+/* Modal Styles */
+/* Modal Styles */
+.modal {
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    display: none;  /* Keep it hidden initially */
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px 20px;
+    border-radius: 12px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    animation: scaleIn 0.5s ease-in-out;
+}
+
+/* Animation for Modal Appearance */
+@keyframes scaleIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+
+/* Close Button */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #444;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.close:hover {
+    color: #ff4d4d;
+    transform: scale(1.2);
+}
+
+/* Title & Description */
+.modal-content h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 10px;
+    animation: fadeDown 0.6s ease-in-out;
+}
+
+.modal-content p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 20px;
+    animation: fadeDown 0.8s ease-in-out;
+}
+
+/* Input Field */
+.glow-input {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 8px;
+    background: #f0f0f0;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.glow-input:focus {
+    outline: none;
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.7);
+    transform: scale(1.02);
+}
+
+/* Submit Button */
+.pulse-button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #4e54c8, #8f94fb);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+    animation: pulse 1.5s infinite;
+}
+
+.pulse-button:hover {
+    background: linear-gradient(135deg, #8f94fb, #4e54c8);
+    transform: translateY(-2px);
+}
+
+/* Floating Particles */
+.floating-particles::before,
+.floating-particles::after {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(0, 123, 255, 0.3);
+    animation: float 5s infinite ease-in-out;
+    z-index: -1;
+}
+
+.floating-particles::before {
+    top: -50px;
+    left: -50px;
+}
+
+.floating-particles::after {
+    bottom: -50px;
+    right: -50px;
+}
+
+/* Animations */
+@keyframes scaleIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeDown {
+    0% { transform: translateY(-20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0); }
 }

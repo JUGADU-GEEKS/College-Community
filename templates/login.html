@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="/static/stylesheets/login.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body>
     <script src="/static/javascripts/login.js"></script>
     <div class="app-container">
@@ -15,24 +19,25 @@
             <div class="form-container appear">
                 <h2 class="title">Login Account</h2>
                 <p class="subtitle">Fill in your details to login</p>
-                
-                <form id="login-form" method="POST" action="/login">                  
+
+                <form id="login-form" method="POST" action="/login">
                     <div class="form-row">
                         <div class="form-group slide-up">
                             <input type="email" placeholder="Email" required class="form-input" name="email">
                         </div>
                     </div>
-    
+
                     <div class="form-row">
                         <div class="form-group slide-up">
-                            <input type="password" id="password" placeholder="Password" required class="form-input" name="password">
+                            <input type="password" id="password" placeholder="Password" required class="form-input"
+                                name="password">
                             <i class="fas fa-eye eye-icon" onclick="togglePassword('password', this)"></i>
                         </div>
                     </div>
 
                     <!-- Display error messages -->
                     {% if error %}
-                        <p class="error-message" style="color: red; text-align: center;">{{ error }}</p>
+                    <p class="error-message" style="color: red; text-align: center;">{{ error }}</p>
                     {% endif %}
 
                     <p class="signin-text fade-in">
@@ -57,79 +62,33 @@
         </div>
     </div>
 
+    <!-- Forgot Password Model -->
     <!-- Forgot Password Modal -->
-    <div id="forgot-password-modal" class="modal">
+    <div id="forgot-password-modal" class="modal" style="display: none;">
         <div class="modal-content">
             <span class="close" onclick="closeForgotPasswordModal()">&times;</span>
             <h2>Forgot Password</h2>
-            <p class="enter-line">Enter your email to receive a reset link.</p>
+            <p>Enter your email to receive a reset link.</p>
             <form id="forgot-password-form" method="POST" action="/forget_Password">
-                <input type="email" name="email" placeholder="Enter your email" required>
-                <button class="otp-btn" type="submit">Send OTP</button>
+                <input type="email" name="email" placeholder="Enter your email" required class="glow-input" />
+                <button type="submit" class="pulse-button">Send OTP</button>
             </form>
             <p id="forgot-error-message" style="color: red; display: none; text-align: center;"></p>
+            <div class="floating-particles"></div>
         </div>
     </div>
 
+
+
     <script>
         function showForgotPasswordModal() {
-            document.getElementById("forgot-password-modal").style.display = "block";
+            document.getElementById("forgot-password-modal").style.display = "flex";
         }
-        
+
         function closeForgotPasswordModal() {
             document.getElementById("forgot-password-modal").style.display = "none";
         }
     </script>
-
-    <style>
-        .enter-line{
-            margin-bottom: 10px;
-            margin-top: 10px;
-        }
-        .otp-btn{
-            background-color: rgb(64, 64, 225);
-            padding: 4px;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 17px;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.4);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            text-align: center;
-            width: 400px;
-            padding-top: 40px;
-            padding-bottom: 30px;
-        }
-        .modal-content input{
-            font-size: 18px;
-        }
-        .close {
-            float: right;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        .error-message {
-            color: red;
-            font-size: 14px;
-        }
-    </style>
 </body>
+
 </html>

@@ -54,3 +54,7 @@ class User:
     def update_otp(self, otp):
         self.otp = otp
         users_collection.update_one({"email": self.email}, {"$set": {"otp": otp}})
+
+    @staticmethod
+    def update_password(email, password):
+        users_collection.update_one({"email":email}, {"$set":{"password": generate_password_hash(password)}})

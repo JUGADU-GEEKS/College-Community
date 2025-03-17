@@ -41,8 +41,10 @@ def signup():
         contact = data['contact']
         password = data['password']
         confirm_password = request.form.get('confirm-password')
-        u = users_collection.find_one({email:email})
+        u = users_collection.find_one({"email":email})
         
+        if u:
+            return redirect('/login')
         if not email.endswith(('@gmail.com', '@outlook.com')):
             return render_template('signup.html', error='Only Gmail or Outlook emails are allowed.')
 
@@ -55,26 +57,10 @@ def signup():
         if password != confirm_password:
             return render_template('signup.html', error='Passwords do not match.')
         #to check for password constraints
-        if len(password) < 8:
-            return render_template('signup.html', error='Password must be at least 8 characters long.')
-
-        if not re.search(r'[A-Z]', password):
-            return render_template('signup.html', error='Password must contain at least one uppercase letter.')
-
-        if not re.search(r'[a-z]', password):
-            return render_template('signup.html', error='Password must contain at least one lowercase letter.')
-
-        if not re.search(r'\d', password):
-            return render_template('signup.html', error='Password must contain at least one digit.')
-
-        if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
-            return render_template('signup.html', error='Password must contain at least one special character (!@#$%^&* etc.).')
-        
         if not is_valid_password(password):
             return render_template('signup.html', error='Password Should be atleast 8 character long, should have one uppercase and one special character.')
         
-        if u:
-            return redirect('/login')
+
         
         new_user = User(data)
         success, message = new_user.save_to_db()
@@ -99,10 +85,6 @@ def login():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
-        confirm_password = request.form.get('confirm-password')
-
-        if password != confirm_password:
-            return render_template('login.html', error='Passwords do not match.')
 
         if User.check_password(email, password):
             user = User.get_data(email)
@@ -181,7 +163,7 @@ def verify_reset_otp():
         if user and user.get("otp") == entered_otp:
             return redirect(url_for('auth.reset_password'))
         else:
-            return "Invalid OTP. Please try again."
+            return render_template('verify_reset_otp.html', error="Invalid OTP. Please try again.")
 
     return render_template('verify_reset_otp.html')
 
@@ -216,7 +198,7 @@ def reset_password():
             return render_template('reset_password.html', error="Password must contain at least one special character (!@#$%^&* etc.).")
 
         # Update password in database
-        users_collection.update_one({"email": email}, {"$set": {"password": new_password}})
+        User.update_password(email, new_password)        
         
         # Clear session and redirect to login
         session.pop('reset_email', None)
