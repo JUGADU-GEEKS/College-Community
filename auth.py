@@ -27,12 +27,15 @@ def signup():
             "branch": request.form.get('branch'),
             "section": request.form.get('section'),
             "password": request.form.get('password'),
+            "confirm-password": request.form.get("confirm-password"),
         }
 
         # Validations
         email = data['email']
         enrollment = data['enrollment']
         contact = data['contact']
+        password = data['password']
+        confirm_password = data['confirm-password']
         
         if not email.endswith(('@gmail.com', '@outlook.com')):
             return render_template('signup.html', error='Only Gmail or Outlook emails are allowed.')
@@ -42,6 +45,9 @@ def signup():
 
         if not (contact.isdigit() and len(contact) == 10):
             return render_template('signup.html', error='Contact number must be exactly 10 digits.')
+        
+        if password != confirm_password:
+            return render_template('signup.html', error='Passwords do not match.')
         
         new_user = User(data)
         success, message = new_user.save_to_db()
@@ -66,6 +72,11 @@ def login():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
+        confirm_password = request.form.get('confirm-password')
+
+        if password != confirm_password:
+            return render_template('login.html', error='Passwords do not match.')
+
         if User.check_password(email, password):
             user = User.get_data(email)
             session['user'] = {
@@ -75,7 +86,8 @@ def login():
             }
             return redirect(url_for('views.test'))
         else:
-            print("e")
+            return render_template('login.html', error='Invalid email or password.')
+
     return render_template('login.html')
 
 @auth.route('/verifyotp', methods=['POST','GET'])
@@ -104,7 +116,3 @@ def verifyotp():
         else:
             return "invalid otp entered."
     return render_template('verifyOTP.html')
-
-@auth.route('/resendOTP')
-def resendOTP():
-    n_user = session.get('user')
