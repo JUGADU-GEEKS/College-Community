@@ -4,6 +4,7 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 from utils import generate_otp, send_otp
 import os
+import re
 load_dotenv()
 
 MONGO_URI = os.getenv("MONGO_URI")
@@ -48,6 +49,21 @@ def signup():
         
         if password != confirm_password:
             return render_template('signup.html', error='Passwords do not match.')
+        #to check for password constraints
+        if len(password) < 8:
+            return render_template('signup.html', error='Password must be at least 8 characters long.')
+
+        if not re.search(r'[A-Z]', password):
+            return render_template('signup.html', error='Password must contain at least one uppercase letter.')
+
+        if not re.search(r'[a-z]', password):
+            return render_template('signup.html', error='Password must contain at least one lowercase letter.')
+
+        if not re.search(r'\d', password):
+            return render_template('signup.html', error='Password must contain at least one digit.')
+
+        if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
+            return render_template('signup.html', error='Password must contain at least one special character (!@#$%^&* etc.).')
         
         new_user = User(data)
         success, message = new_user.save_to_db()
