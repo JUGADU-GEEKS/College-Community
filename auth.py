@@ -132,3 +132,83 @@ def verifyotp():
         else:
             return "invalid otp entered."
     return render_template('verifyOTP.html')
+
+@auth.route('/forget_Password', methods=['POST'])
+def forget_password():
+    email = request.form.get('email')
+    user = users_collection.find_one({"email": email})
+
+    if not user:
+        return render_template('login.html', error="Email not registered")
+
+    # Generate and send OTP
+    otp = generate_otp()
+    users_collection.update_one({"email": email}, {"$set": {"otp": otp}})
+    send_otp(email, otp)
+
+    # Store email in session for verification
+    session['reset_email'] = email
+    return redirect(url_for('auth.verify_reset_otp'))
+
+@auth.route('/verify_reset_otp', methods=['GET', 'POST'])
+def verify_reset_otp():
+    if request.method == 'POST':
+        email = session.get('reset_email')
+        if not email:
+            return redirect(url_for('auth.forget_password'))
+
+        user = users_collection.find_one({"email": email})
+        entered_otp = "".join([
+            request.form.get('otp1', ''),
+            request.form.get('otp2', ''),
+            request.form.get('otp3', ''),
+            request.form.get('otp4', ''),
+            request.form.get('otp5', ''),
+            request.form.get('otp6', '')
+        ])
+
+        if user and user.get("otp") == entered_otp:
+            return redirect(url_for('auth.reset_password'))
+        else:
+            return "Invalid OTP. Please try again."
+
+    return render_template('verify_reset_otp.html')
+
+
+@auth.route('/reset_password', methods=['GET', 'POST'])
+def reset_password():
+    if request.method == 'POST':
+        email = session.get('reset_email')
+        if not email:
+            return redirect(url_for('auth.forget_password'))
+
+        new_password = request.form.get('new_password')
+        confirm_password = request.form.get('confirm_password')
+
+        # Password validation (same as signup)
+        if new_password != confirm_password:
+            return render_template('reset_password.html', error="Passwords do not match.")
+        
+        if len(new_password) < 8:
+            return render_template('reset_password.html', error="Password must be at least 8 characters long.")
+        
+        if not re.search(r'[A-Z]', new_password):
+            return render_template('reset_password.html', error="Password must contain at least one uppercase letter.")
+        
+        if not re.search(r'[a-z]', new_password):
+            return render_template('reset_password.html', error="Password must contain at least one lowercase letter.")
+        
+        if not re.search(r'\d', new_password):
+            return render_template('reset_password.html', error="Password must contain at least one digit.")
+        
+        if not re.search(r'[!@#$%^&*(),.?":{}|<>]', new_password):
+            return render_template('reset_password.html', error="Password must contain at least one special character (!@#$%^&* etc.).")
+
+        # Update password in database
+        users_collection.update_one({"email": email}, {"$set": {"password": new_password}})
+        
+        # Clear session and redirect to login
+        session.pop('reset_email', None)
+        return redirect(url_for('auth.login'))
+
+    return render_template('reset_password.html')
