@@ -1,337 +1,343 @@
-// DOM Elements
-document.addEventListener('DOMContentLoaded', function() {
-    // Featured Items - Sample Data (In a real app, this would come from a backend/API)
-    const featuredItems = [
-        {
-            id: 1,
-            title: 'Sheet Holder',
-            price: 120.00,
-            category: 'Lab Equipment',
-            location: 'Science Building',
-            image: 'https://m.media-amazon.com/images/I/31rJUNejimL._AC_UF1000,1000_QL80_.jpg'
-        },
-        {
-            id: 2,
-            title: 'Drafter',
-            price: 199.99,
-            category: 'Drafting Tools',
-            location: 'Engineering Dept',
-            image: 'https://rukminim3.flixcart.com/image/850/1000/xif0q/drafting-kit/m/b/y/1-mini-drafter-for-engineering-drawing-book-birds-original-imagyq3pqqqkyptt.jpeg?q=90&crop=false'
-        },
-        {
-            id: 3,
-            title: 'Lab Coat (Size M)',
-            price: 35.00,
-            category: 'Lab Wear',
-            location: 'Chemistry Dept',
-            image: 'https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcS8gWidvzT7kiYHhDZcsvoG6aLgTHDnLqf6qY-lsn9T6p11TZ5BJuKC7k8qcXSB8CJXVnN7zvdfJHJa7PjwvrXgFGMlSJ_oJqR0JS9kt2ZQQVeAlhE2LFhmR3Eku9O3zczTfcZFoQ&usqp=CAc'
-        },
-        {
-            id: 4,
-            title: 'Chemistry Textbook 2023 Edition',
-            price: 75.50,
-            category: 'Textbooks',
-            location: 'Library',
-            image: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+document.addEventListener('DOMContentLoaded', () => {
+    // Set current year in footer
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+    
+    // Mobile Menu Toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    
+    if (menuToggle && mobileMenu) {
+      menuToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('active');
+        
+        // Toggle the icon between bars and X
+        const icon = menuToggle.querySelector('i');
+        if (icon.classList.contains('fa-bars')) {
+          icon.classList.remove('fa-bars');
+          icon.classList.add('fa-times');
+        } else {
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
         }
+      });
+    }
+    
+    // Search form focus effect
+    const searchInput = document.getElementById('search-input');
+    const searchContainer = document.querySelector('.search-container');
+    
+    if (searchInput && searchContainer) {
+      searchInput.addEventListener('focus', () => {
+        searchContainer.classList.add('focused');
+      });
+      
+      searchInput.addEventListener('blur', () => {
+        searchContainer.classList.remove('focused');
+      });
+      
+      // Handle search form submission
+      const searchForm = document.getElementById('search-form');
+      if (searchForm) {
+        searchForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          console.log('Searching for:', searchInput.value);
+          // In a real application, this would trigger a search API call
+          alert(`Searching for: ${searchInput.value}`);
+        });
+      }
+    }
+    
+    // Hero Slider
+    const heroSlider = document.querySelector('.hero-slider');
+    const heroCaption = document.querySelector('.hero-caption');
+    const slideIndicatorsContainer = document.querySelector('.slide-indicators');
+    
+    // Hero slider data
+    const heroSlides = [
+      {
+        url: "https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+        caption: "Find lab equipment for your next experiment"
+      },
+      {
+        url: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+        caption: "Quality drafting tools at student-friendly prices"
+      },
+      {
+        url: "https://images.unsplash.com/photo-1606761568499-6d2451b23c66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+        caption: "Buy and sell graphic design tools within your campus"
+      },
+      {
+        url: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+        caption: "Lab coats and safety gear at discounted rates"
+      }
     ];
-
-    // Populate Featured Items on Home Page
-    const featuredItemsContainer = document.getElementById('featured-items');
-    if (featuredItemsContainer) {
-        featuredItems.forEach(item => {
-            const itemCard = document.createElement('div');
-            itemCard.className = 'item-card';
-            itemCard.innerHTML = `
-                <div class="item-image">
-                    <img src="${item.image}" alt="${item.title}">
-                </div>
-                <div class="item-info">
-                    <h3 class="item-title">${item.title}</h3>
-                    <p class="item-price">$${item.price.toFixed(2)}</p>
-                    <div class="item-meta">
-                        <span>${item.category}</span>
-                        <span>${item.location}</span>
-                    </div>
-                </div>
-            `;
-            featuredItemsContainer.appendChild(itemCard);
-        });
-    }
-
-    // Contact Form Submission
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            // In a real app, you'd send this data to your server/API
-            const formData = new FormData(contactForm);
-            const formValues = Object.fromEntries(formData.entries());
-            
-            console.log('Contact form submitted:', formValues);
-            
-            // Show success message and reset form
-            alert('Thank you for your message. We will get back to you soon!');
-            contactForm.reset();
-        });
-    }
-
-    // Newsletter Form Submission
-    const newsletterForms = document.querySelectorAll('#newsletter-form');
-    if (newsletterForms.length > 0) {
-        newsletterForms.forEach(form => {
-            form.addEventListener('submit', function(event) {
-                event.preventDefault();
-                
-                const email = form.querySelector('input[type="email"]').value;
-                
-                // In a real app, you'd send this to your server/API
-                console.log('Newsletter subscription:', email);
-                
-                // Show success message and reset form
-                alert('Thank you for subscribing to our newsletter!');
-                form.reset();
-            });
-        });
-    }
-
-    // Sell Item Form
-    const sellItemForm = document.getElementById('sell-item-form');
-    const successModal = document.getElementById('success-modal');
     
-    if (sellItemForm) {
-        // Image Upload Preview
-        const imageUploadContainer = document.getElementById('image-upload-container');
-        const imagePreviewContainer = document.getElementById('image-preview-container');
-        const imageInputs = document.querySelectorAll('.image-input');
+    let activeSlide = 0;
+    let slideInterval;
+    
+    // Initialize the hero slider
+    function initHeroSlider() {
+      if (!heroSlider || !slideIndicatorsContainer) return;
+      
+      // Create slides
+      heroSlides.forEach((slide, index) => {
+        const slideElement = document.createElement('div');
+        slideElement.className = `hero-slide ${index === 0 ? 'active' : ''}`;
+        slideElement.style.backgroundImage = `url(${slide.url})`;
+        heroSlider.appendChild(slideElement);
         
-        // Handle image uploads
-        imageInputs.forEach((input, index) => {
-            input.addEventListener('change', function(event) {
-                const file = event.target.files[0];
-                if (file && file.type.startsWith('image/')) {
-                    // Create preview
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        // Create preview element
-                        const preview = document.createElement('div');
-                        preview.className = 'image-preview';
-                        preview.innerHTML = `
-                            <img src="${e.target.result}" alt="Image preview">
-                            <span class="remove-image">&times;</span>
-                        `;
-                        
-                        // Add remove functionality
-                        preview.querySelector('.remove-image').addEventListener('click', function() {
-                            input.value = '';
-                            preview.remove();
-                            
-                            // Show the upload input again if it was the last one
-                            const uploadDiv = document.querySelector(`.image-upload:nth-child(${index + 1})`);
-                            if (uploadDiv) {
-                                uploadDiv.style.display = 'block';
-                            }
-                        });
-                        
-                        imagePreviewContainer.appendChild(preview);
-                        
-                        // Hide the upload input
-                        const uploadDiv = document.querySelector(`.image-upload:nth-child(${index + 1})`);
-                        if (uploadDiv) {
-                            uploadDiv.style.display = 'none';
-                        }
-                        
-                        // Add another upload input if less than 5 images
-                        const totalImages = document.querySelectorAll('.image-preview').length;
-                        if (totalImages < 5 && document.querySelectorAll('.image-upload').length < 5) {
-                            addImageUpload();
-                        }
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
+        // Create slide indicators
+        const indicator = document.createElement('button');
+        indicator.className = `slide-indicator ${index === 0 ? 'active' : ''}`;
+        indicator.ariaLabel = `Go to slide ${index + 1}`;
+        indicator.addEventListener('click', () => {
+          goToSlide(index);
         });
-        
-        // Function to add new image upload
-        function addImageUpload() {
-            const uploadCount = document.querySelectorAll('.image-upload').length;
-            if (uploadCount < 5) {
-                const newUpload = document.createElement('div');
-                newUpload.className = 'image-upload';
-                newUpload.innerHTML = `
-                    <label for="image${uploadCount + 1}" class="image-upload-label">
-                        <span class="upload-icon">+</span>
-                        <span>Upload Image</span>
-                    </label>
-                    <input type="file" id="image${uploadCount + 1}" name="image${uploadCount + 1}" accept="image/*" class="image-input">
-                `;
-                
-                imageUploadContainer.appendChild(newUpload);
-                
-                // Add event listener to the new input
-                const newInput = newUpload.querySelector('.image-input');
-                newInput.addEventListener('change', function(event) {
-                    const file = event.target.files[0];
-                    if (file && file.type.startsWith('image/')) {
-                        // Create preview
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            // Create preview element
-                            const preview = document.createElement('div');
-                            preview.className = 'image-preview';
-                            preview.innerHTML = `
-                                <img src="${e.target.result}" alt="Image preview">
-                                <span class="remove-image">&times;</span>
-                            `;
-                            
-                            // Add remove functionality
-                            preview.querySelector('.remove-image').addEventListener('click', function() {
-                                newInput.value = '';
-                                preview.remove();
-                                newUpload.style.display = 'block';
-                            });
-                            
-                            imagePreviewContainer.appendChild(preview);
-                            
-                            // Hide the upload input
-                            newUpload.style.display = 'none';
-                            
-                            // Add another upload input if less than 5 images
-                            const totalImages = document.querySelectorAll('.image-preview').length;
-                            if (totalImages < 5 && document.querySelectorAll('.image-upload').length < 5) {
-                                addImageUpload();
-                            }
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                });
-            }
-        }
-        
-        // Form submission
-        sellItemForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            // Validate that at least one contact method is selected
-            const contactMethods = document.querySelectorAll('input[name="contact-method"]:checked');
-            if (contactMethods.length === 0) {
-                alert('Please select at least one preferred contact method.');
-                return;
-            }
-            
-            // In a real app, you'd send this data to your server/API
-            const formData = new FormData(sellItemForm);
-            const formValues = Object.fromEntries(formData.entries());
-            
-            console.log('Item submitted:', formValues);
-            
-            // Show success modal
-            if (successModal) {
-                successModal.style.display = 'flex';
-            } else {
-                alert('Your item has been listed successfully!');
-                sellItemForm.reset();
-            }
-        });
-        
-        // Clear form button
-        const clearFormButton = document.getElementById('clear-form');
-        if (clearFormButton) {
-            clearFormButton.addEventListener('click', function() {
-                sellItemForm.reset();
-                
-                // Clear image previews
-                imagePreviewContainer.innerHTML = '';
-                
-                // Reset image uploads
-                imageUploadContainer.innerHTML = '';
-                const initialUpload = document.createElement('div');
-                initialUpload.className = 'image-upload';
-                initialUpload.innerHTML = `
-                    <label for="image1" class="image-upload-label">
-                        <span class="upload-icon">+</span>
-                        <span>Upload Image</span>
-                    </label>
-                    <input type="file" id="image1" name="image1" accept="image/*" class="image-input">
-                `;
-                imageUploadContainer.appendChild(initialUpload);
-                
-                // Add event listener to the reset input
-                const newInput = initialUpload.querySelector('.image-input');
-                newInput.addEventListener('change', function(event) {
-                    // Reuse the same change handler logic as above
-                    const file = event.target.files[0];
-                    if (file && file.type.startsWith('image/')) {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            const preview = document.createElement('div');
-                            preview.className = 'image-preview';
-                            preview.innerHTML = `
-                                <img src="${e.target.result}" alt="Image preview">
-                                <span class="remove-image">&times;</span>
-                            `;
-                            
-                            preview.querySelector('.remove-image').addEventListener('click', function() {
-                                newInput.value = '';
-                                preview.remove();
-                                initialUpload.style.display = 'block';
-                            });
-                            
-                            imagePreviewContainer.appendChild(preview);
-                            initialUpload.style.display = 'none';
-                            
-                            if (document.querySelectorAll('.image-preview').length < 5) {
-                                addImageUpload();
-                            }
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                });
-            });
-        }
+        slideIndicatorsContainer.appendChild(indicator);
+      });
+      
+      // Set the initial caption
+      if (heroCaption) {
+        heroCaption.textContent = heroSlides[0].caption;
+      }
+      
+      // Start the automatic slideshow
+      startSlideshow();
     }
     
-    // Modal functionality
-    const modal = document.getElementById('success-modal');
-    if (modal) {
-        const closeModal = document.querySelector('.close-modal');
-        const modalCloseBtn = document.getElementById('modal-close-btn');
-        
-        function hideModal() {
-            modal.style.display = 'none';
-            // Redirect to home page in a real app
-            window.location.href = 'index.html';
+    // Go to a specific slide
+    function goToSlide(index) {
+      if (!heroSlider) return;
+      
+      // Reset the slideshow timer
+      if (slideInterval) {
+        clearInterval(slideInterval);
+        startSlideshow();
+      }
+      
+      // Update active slide
+      const slides = heroSlider.querySelectorAll('.hero-slide');
+      const indicators = slideIndicatorsContainer.querySelectorAll('.slide-indicator');
+      
+      slides.forEach((slide, i) => {
+        if (i === index) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
         }
-        
-        if (closeModal) {
-            closeModal.addEventListener('click', hideModal);
+      });
+      
+      indicators.forEach((indicator, i) => {
+        if (i === index) {
+          indicator.classList.add('active');
+        } else {
+          indicator.classList.remove('active');
         }
-        
-        if (modalCloseBtn) {
-            modalCloseBtn.addEventListener('click', hideModal);
-        }
-        
-        // Close modal when clicking outside
-        window.addEventListener('click', function(event) {
-            if (event.target === modal) {
-                hideModal();
-            }
-        });
+      });
+      
+      // Update caption
+      if (heroCaption) {
+        heroCaption.textContent = heroSlides[index].caption;
+      }
+      
+      activeSlide = index;
     }
     
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(event) {
-            if (this.getAttribute('href') !== '#') {
-                event.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            }
+    // Move to the next slide
+    function nextSlide() {
+      const newIndex = (activeSlide + 1) % heroSlides.length;
+      goToSlide(newIndex);
+    }
+    
+    // Start the automatic slideshow
+    function startSlideshow() {
+      slideInterval = setInterval(nextSlide, 5000); // Change slides every 5 seconds
+    }
+    
+    // Initialize hero slider
+    initHeroSlider();
+    
+    // Categories data
+    const categories = [
+      { name: "Lab Equipment", icon: "🔬", count: 145 },
+      { name: "Drafting Tools", icon: "📏", count: 87 },
+      { name: "Design Supplies", icon: "🎨", count: 112 },
+      { name: "Textbooks", icon: "📚", count: 201 },
+      { name: "Lab Coats", icon: "🥼", count: 63 },
+      { name: "Calculators", icon: "🧮", count: 79 }
+    ];
+    
+    // Featured items data
+    const featuredItems = [
+      {
+        title: "Engineering Drafting Set",
+        price: "$45",
+        seller: "Alex M.",
+        college: "MIT",
+        condition: "Like New",
+        image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+      },
+      {
+        title: "Chemistry Lab Kit",
+        price: "$120",
+        seller: "Sofia L.",
+        college: "Stanford",
+        condition: "Good",
+        image: "https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+      },
+      {
+        title: "Professional Graphics Tablet",
+        price: "$85",
+        seller: "Marcus J.",
+        college: "RISD",
+        condition: "Excellent",
+        image: "https://images.unsplash.com/photo-1595078475328-1ab05d0a6a0e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+      },
+      {
+        title: "Lab Safety Glasses (Pack of 2)",
+        price: "$15",
+        seller: "Priya K.",
+        college: "CalTech",
+        condition: "New",
+        image: "https://images.unsplash.com/photo-1555696958-c5049b866f6f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+      }
+    ];
+    
+    // Testimonials data
+    const testimonials = [
+      {
+        name: "Jessica T.",
+        role: "Engineering Student, UCLA",
+        text: "I saved over $200 on drafting tools by buying them from a senior student. The quality was excellent, and it was so easy to arrange the pickup on campus."
+      },
+      {
+        name: "Michael R.",
+        role: "Chemistry Major, NYU",
+        text: "When I graduated, I sold all my lab equipment on College Bazaar. Made back almost half of what I originally paid, and helped out freshmen who needed the supplies."
+      },
+      {
+        name: "Aisha K.",
+        role: "Graphic Design Student, RISD",
+        text: "Found a practically new graphics tablet for half the retail price. The seller was in my dorm building, so I didn't even have to go far to pick it up. Love this platform!"
+      }
+    ];
+    
+    // Initialize categories
+    function initCategories() {
+      const categoryGrid = document.querySelector('.category-grid');
+      if (!categoryGrid) return;
+      
+      categories.forEach((category, index) => {
+        const categoryEl = document.createElement('div');
+        categoryEl.className = 'category-card staggered-item';
+        categoryEl.innerHTML = `
+          <div class="category-icon">${category.icon}</div>
+          <h3 class="category-name">${category.name}</h3>
+          <p class="category-count">${category.count} items</p>
+        `;
+        // Set a delay based on the index
+        categoryEl.style.transitionDelay = `${index * 0.1}s`;
+        categoryGrid.appendChild(categoryEl);
+      });
+    }
+    
+    // Initialize featured items
+    function initFeaturedItems() {
+      const itemsGrid = document.querySelector('.items-grid');
+      if (!itemsGrid) return;
+      
+      featuredItems.forEach((item, index) => {
+        const itemEl = document.createElement('div');
+        itemEl.className = 'item-card staggered-item';
+        itemEl.innerHTML = `
+          <div class="item-image-container">
+            <img src="${item.image}" alt="${item.title}" class="item-image">
+            <div class="item-price">${item.price}</div>
+          </div>
+          <div class="item-content">
+            <h3 class="item-title">${item.title}</h3>
+            <div class="item-seller">
+              <span>${item.seller}</span>
+              <span>•</span>
+              <span>${item.college}</span>
+            </div>
+            <div class="item-footer">
+              <span class="item-condition">${item.condition}</span>
+              <a href="#" class="item-link">View Details</a>
+            </div>
+          </div>
+        `;
+        // Set a delay based on the index
+        itemEl.style.transitionDelay = `${index * 0.1}s`;
+        itemsGrid.appendChild(itemEl);
+      });
+    }
+    
+    // Initialize testimonials
+    function initTestimonials() {
+      const testimonialsGrid = document.querySelector('.testimonials-grid');
+      if (!testimonialsGrid) return;
+      
+      testimonials.forEach((testimonial, index) => {
+        const testimonialEl = document.createElement('div');
+        testimonialEl.className = 'testimonial-card staggered-item';
+        testimonialEl.innerHTML = `
+          <div class="testimonial-header">
+            <div class="testimonial-avatar"></div>
+            <div class="testimonial-info">
+              <h4>${testimonial.name}</h4>
+              <p>${testimonial.role}</p>
+            </div>
+          </div>
+          <p class="testimonial-text">"${testimonial.text}"</p>
+        `;
+        // Set a delay based on the index
+        testimonialEl.style.transitionDelay = `${index * 0.1}s`;
+        testimonialsGrid.appendChild(testimonialEl);
+      });
+    }
+    
+    // Initialize all dynamic content
+    initCategories();
+    initFeaturedItems();
+    initTestimonials();
+    
+    // Add scroll animation to all sections
+    const animateOnScroll = () => {
+      const sections = document.querySelectorAll('section');
+      const staggeredItems = document.querySelectorAll('.staggered-item');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
         });
-    });
-});
+      }, { threshold: 0.1 });
+      
+      sections.forEach(section => {
+        observer.observe(section);
+      });
+      
+      staggeredItems.forEach(item => {
+        observer.observe(item);
+      });
+    };
+    
+    // Run the scroll animation
+    animateOnScroll();
+    
+    // Make the header sticky and add shadow on scroll
+    const header = document.querySelector('.header');
+    
+    if (header) {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 10) {
+          header.style.boxShadow = 'var(--shadow)';
+        } else {
+          header.style.boxShadow = 'var(--shadow-sm)';
+        }
+      });
+    }
+  });

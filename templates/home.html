@@ -1,158 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>College Trade Bazaar</title>
-    <link rel="stylesheet" href="/static/stylesheets/home.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uni Cache - Buy & Sell College Supplies</title>
+  <link rel="stylesheet" href="/static/stylesheets/home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta name="description" content="College Bazaar - The marketplace for college students to buy and sell course-related supplies.">
 </head>
 <body>
-    {% include 'navbar.html' %}
+  <!-- Navigation -->
+  <header class="header">
+    <div class="container">
+      <div class="navbar">
+        <!-- Logo -->
+        <a href="home.html" class="logo">
+          <img src="/static/images/image.png" alt="" class="logo-img">
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="nav-menu">
+          <a href="home.html" class="nav-link active">Home</a>
+          <a href="sell.html" class="nav-link">Sell</a>
+          <a href="notes.html" class="nav-link">Notes</a>
+          <a href="about.html" class="nav-link">About</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+
+        <!-- User and Mobile Menu -->
+        <div class="nav-right">
+          <a href="profile.html" class="user-icon">
+            <i class="fas fa-user"></i>
+          </a>
+          <button class="menu-toggle" aria-label="Toggle menu">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile menu -->
+      <div class="mobile-menu">
+        <a href="index.html" class="mobile-nav-link active">Home</a>
+        <a href="sell.html" class="mobile-nav-link">Sell</a>
+        <a href="notes.html" class="mobile-nav-link">Notes</a>
+        <a href="about.html" class="mobile-nav-link">About</a>
+        <a href="contact.html" class="mobile-nav-link">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
     <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Buy & Sell Laboratory Equipment on Campus</h1>
-                <p>Your one-stop marketplace for lab equipment, drafters, and more!</p>
-                <div class="cta-buttons">
-                    <a href="#featured" class="btn btn-primary">Browse Items</a>
-                    <a href="/sell" class="btn btn-secondary">Sell Item</a>
-                </div>
-            </div>
+      <div class="hero-slider">
+        <!-- Hero slides will be injected here by JavaScript -->
+      </div>
+
+      <!-- Content -->
+      <div class="hero-content">
+        <span class="badge">Uni Cache Marketplace</span>
+        <h1>Buy & Sell College Supplies</h1>
+        <p class="hero-caption">Find lab equipment for your next experiment with ease</p>
+        
+        <!-- Search Bar -->
+        <div class="search-container">
+          <form id="search-form">
+            <input type="text" id="search-input" placeholder="Search for lab equipment, drafting tools, textbooks...">
+            <button type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </form>
         </div>
+      </div>
+
+      <!-- Slide Indicators -->
+      <div class="slide-indicators">
+        <!-- Will be populated by JavaScript -->
+      </div>
     </section>
 
-    <section id="featured" class="featured">
-        <div class="container">
-            <h2 class="section-title">Featured Items</h2>
-            <div class="items-grid" id="featured-items">
-                <!-- Items will be populated by JavaScript -->
-            </div>
-        </div>
-    </section>
-
+    <!-- Categories Section -->
     <section class="categories">
-        <div class="container">
-            <h2 class="section-title">Browse Categories</h2>
-            <div class="category-cards">
-                <div class="category-card">
-                    <div class="category-icon">🧪</div>
-                    <h3>Lab Equipment</h3>
-                    <p>Microscopes, beakers, bunsen burners and more</p>
-                </div>
-                <div class="category-card">
-                    <div class="category-icon">📐</div>
-                    <h3>Drafting Tools</h3>
-                    <p>Drafting tables, T-squares, compasses and rulers</p>
-                </div>
-                <div class="category-card">
-                    <div class="category-icon">👔</div>
-                    <h3>Lab Wear</h3>
-                    <p>Lab coats, safety goggles, gloves and aprons</p>
-                </div>
-                <div class="category-card">
-                    <div class="category-icon">📚</div>
-                    <h3>Textbooks</h3>
-                    <p>Science and engineering textbooks and references</p>
-                </div>
-            </div>
+      <div class="container">
+        <div class="section-header">
+          <span class="badge badge-blue">Explore</span>
+          <h2>Popular Categories</h2>
+          <p>Find exactly what you need for your courses from these popular categories</p>
         </div>
+
+        <div class="category-grid">
+          <!-- Categories will be injected by JavaScript -->
+        </div>
+      </div>
     </section>
 
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">About Us</h2>
-            <div class="about-content">
-                <div class="about-info">
-                    <p>College Trade Bazaar is a platform created by students, for students. We understand the high costs of educational materials and lab equipment, so we've built this marketplace to help students buy and sell used items at affordable prices.</p>
-                    <p>Our mission is to promote sustainability and affordability in education by giving laboratory equipment and educational materials a second life.</p>
-                </div>
-                <div class="values">
-                    <div class="value-card">
-                        <h3>Sustainability</h3>
-                        <p>Reducing waste by reusing quality equipment</p>
-                    </div>
-                    <div class="value-card">
-                        <h3>Affordability</h3>
-                        <p>Making education more accessible through reasonable prices</p>
-                    </div>
-                    <div class="value-card">
-                        <h3>Community</h3>
-                        <p>Building connections between students across departments</p>
-                    </div>
-                </div>
-            </div>
+    <!-- Featured Items -->
+    <section class="featured-items">
+      <div class="container">
+        <div class="section-header">
+          <span class="badge badge-green">Featured</span>
+          <h2>Latest Listings</h2>
+          <p>Check out these recently added items from students at top universities</p>
         </div>
+
+        <div class="items-grid">
+          <!-- Featured items will be injected by JavaScript -->
+        </div>
+
+        <div class="center-btn">
+          <button class="btn btn-outline">View All Listings</button>
+        </div>
+      </div>
     </section>
 
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Contact Us</h2>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <h3>Email</h3>
-                        <p>support@collegetradebazaar.com</p>
-                    </div>
-                    <div class="contact-item">
-                        <h3>Phone</h3>
-                        <p>(123) 456-7890</p>
-                    </div>
-                    <div class="contact-item">
-                        <h3>Office Hours</h3>
-                        <p>Monday-Friday: 9am-5pm</p>
-                    </div>
-                </div>
-                <form id="contact-form" class="contact-form">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
-                </form>
-            </div>
+    <!-- How It Works -->
+    <section class="how-it-works">
+      <div class="container">
+        <div class="section-header">
+          <span class="badge badge-purple">Simple Process</span>
+          <h2>How Uni Cache Works</h2>
+          <p>Buy and sell college supplies with just a few simple steps</p>
         </div>
+
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>List Your Item</h3>
+            <p>Take a few photos, add a description, and set your price. Listing is free and takes less than 5 minutes.</p>
+          </div>
+
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Connect with Buyers</h3>
+            <p>Receive messages from interested students at your college. Arrange a safe on-campus meeting.</p>
+          </div>
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <h3>Complete the Sale</h3>
+            <p>Meet up, exchange the item, and get paid. Rate each other to build your reputation.</p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <h2>College Trade Bazaar</h2>
-                    <p>Your campus marketplace</p>
-                </div>
-                <div class="footer-links">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="/home">Home</a></li>
-                        <li><a href="/sell">Sell Item</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-newsletter">
-                    <h3>Stay Updated</h3>
-                    <p>Subscribe to our newsletter for the latest items</p>
-                    <form id="newsletter-form">
-                        <input type="email" placeholder="Your email address" required>
-                        <button type="submit" class="btn btn-secondary">Subscribe</button>
-                    </form>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2023 College Trade Bazaar. All rights reserved.</p>
-            </div>
+    <!-- CTA Section -->
+    <section class="cta">
+      <div class="container">
+        <div class="cta-content">
+          <h2>Ready to sell your unused college supplies?</h2>
+          <p>Join thousands of students who save money and reduce waste by buying and selling used college items.</p>
+          <div class="cta-buttons">
+            <a href="sell.html" class="btn btn-white">Start Selling</a>
+            <a href="browse.html" class="btn btn-outline-white">Browse Items</a>
+          </div>
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <script src="/static/javascripts/home.js"></script>
+    <!-- Testimonials -->
+    <section class="testimonials">
+      <div class="container">
+        <div class="section-header">
+          <span class="badge badge-orange">Student Experiences</span>
+          <h2>What Students Are Saying</h2>
+          <p>Hear from students who have used Uni Cache to buy and sell their college supplies</p>
+        </div>
+
+        <div class="testimonials-grid">
+          <!-- Testimonials will be injected by JavaScript -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-logo">
+            <i class="fas fa-shopping-bag"></i>
+            <span>Uni Cache</span>
+          </div>
+          <p>The marketplace for college students to buy and sell course-related supplies.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="browse.html">Browse Items</a></li>
+            <li><a href="sell.html">Sell an Item</a></li>
+            <li><a href="#">How It Works</a></li>
+            <li><a href="#">College Directory</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Information</h3>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Newsletter</h3>
+          <p>Subscribe to our newsletter for exclusive deals and tips.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your email">
+            <button type="submit">
+              <i class="fas fa-envelope"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; <span id="current-year"></span> Uni Cache. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/static/javascripts/home.js"></script>
 </body>
 </html>
