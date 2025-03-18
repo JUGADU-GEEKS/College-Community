@@ -93,6 +93,9 @@ def login():
                 'email': user['email'],
                 'contact': user['contact']
             }
+            user_NonVerified = users_collection.find_one({"email":email, "isVerified": False})
+            if(user_NonVerified):
+                return redirect(url_for("auth.resendotp"))
             return redirect(url_for('views.test'))
         else:
             return render_template('login.html', error='Invalid email or password.')
@@ -101,6 +104,8 @@ def login():
 
 @auth.route('/verifyotp', methods=['POST','GET'])
 def verifyotp():
+    message = request.args.get('message') or None  # Get message from query parameters
+
     if request.method=='POST':
         n_user = session.get('user')
         email = n_user.get('email')
@@ -124,7 +129,31 @@ def verifyotp():
             return redirect(url_for('views.test'))
         else:
             return "invalid otp entered."
-    return render_template('verifyOTP.html')
+    return render_template('verifyOTP.html', message=message)
+
+@auth.route('/resendotp', methods=['GET'])
+def resendotp():
+    # Get the user from session
+    session_user = session.get('user')
+    email = session_user.get('email')
+
+    # Fetch the actual User object from the database
+    user = User.get_data(email)
+    if not user:
+        return "User not found.", 404
+
+    # Generate and update OTP
+    otp = generate_otp()
+    users_collection.update_one(
+        {"email": email},
+        {"$set": {"otp": otp, "isVerified": False}}
+    )
+    send_otp(email, otp)
+
+    # Redirect to OTP verification page
+    return redirect(url_for('auth.verifyotp', message = "OTP Sent Again !"))
+
+
 
 @auth.route('/forget_Password', methods=['POST'])
 def forget_password():
