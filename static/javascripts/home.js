@@ -161,47 +161,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const categories = [
       { name: "Lab Equipment", icon: "🔬", count: 145 },
       { name: "Drafting Tools", icon: "📏", count: 87 },
-      { name: "Design Supplies", icon: "🎨", count: 112 },
+      { name: "Safety Aprons", icon: "🎽", count: 112 },
       { name: "Textbooks", icon: "📚", count: 201 },
       { name: "Lab Coats", icon: "🥼", count: 63 },
       { name: "Calculators", icon: "🧮", count: 79 }
     ];
     
-    // Featured items data
-    const featuredItems = [
-      {
-        title: "Engineering Drafting Set",
-        price: "$45",
-        seller: "Alex M.",
-        college: "MIT",
-        condition: "Like New",
-        image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-      },
-      {
-        title: "Chemistry Lab Kit",
-        price: "$120",
-        seller: "Sofia L.",
-        college: "Stanford",
-        condition: "Good",
-        image: "https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-      },
-      {
-        title: "Professional Graphics Tablet",
-        price: "$85",
-        seller: "Marcus J.",
-        college: "RISD",
-        condition: "Excellent",
-        image: "https://images.unsplash.com/photo-1595078475328-1ab05d0a6a0e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-      },
-      {
-        title: "Lab Safety Glasses (Pack of 2)",
-        price: "$15",
-        seller: "Priya K.",
-        college: "CalTech",
-        condition: "New",
-        image: "https://images.unsplash.com/photo-1555696958-c5049b866f6f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-      }
-    ];
+   
     
     // Testimonials data
     const testimonials = [
