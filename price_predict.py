@@ -31,25 +31,27 @@ def predict_price_equipment(item_type, months_old, condition):
     
     return model.predict([arr])
 
-def predict_price_calculator(item_type):
-    # Load the model dictionary
-    model_dict = joblib.load('./model/PricePredictorCollegeCalculator.joblib')
+def predict_price_calculator(item_type, condition, months_old, demand):
+    model_dict = joblib.load('./model/calculatorModel.joblib')
+    model = model_dict['model']
+    arr = [months_old, demand]
+    if item_type == 'Model_fx-570ES':
+        arr.extend([1,0,0])
+    elif item_type == 'Model_fx-82MS':
+        arr.extend([0,1,0])
+    elif item_type == 'Model_fx-991MS':
+        arr.extend([0,0,1])
+
+    if condition == 'Condition_Heavily Used':
+        arr.extend([1,0,0,0])
+    elif condition == 'Condition_Like New':
+        arr.extend([0,1,0,0])
+    elif condition == 'Condition_New':
+        arr.extend([0,0,1,0])
+    elif condition == 'Condition_Used':
+        arr.extend([0,0,0,1])
     
-    # Get the model and convert it to XGBoost format if needed
-    if isinstance(model_dict['model'], xgb.XGBRegressor):
-        model = model_dict['model']
-    else:
-        # If it's a raw booster, convert it to XGBRegressor
-        model = xgb.XGBRegressor()
-        model.load_model(model_dict['model'])
-    
-    arr = [10]
-    if item_type == 'Type_570ES':
-        arr.extend([1, 0, 0])
-    elif item_type == 'Type_82MS':
-        arr.extend([0, 1, 0])
-    elif item_type == 'Type_991MS':
-        arr.extend([0, 0, 1])
     return model.predict([arr])
 
-print(predict_price_calculator('Type_570ES'))
+print(predict_price_calculator('Model_fx-991MS', 'Condition_Like New', 20, 6))
+

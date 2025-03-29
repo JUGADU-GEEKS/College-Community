@@ -37,7 +37,10 @@ def price():
             
         elif item_type == 'calculator':
             calculator_type = request.form.get('calculatorType')
-            predicted_price = predict_price_calculator(calculator_type)
+            calculator_condition = request.form.get('calculatorCondition')
+            calculator_months_old = request.form.get('calculatorMonthsOld')
+            calculator_demand = request.form.get('calculatorDemand')    
+            predicted_price = predict_price_calculator(calculator_type, calculator_condition, int(calculator_months_old), int(calculator_demand))
             
         elif item_type == 'books':
             predicted_price = 25  # Fixed price for books

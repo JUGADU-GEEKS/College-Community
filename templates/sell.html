@@ -58,10 +58,29 @@
                     <div class="form-group">
                         <label for="calculatorType">Calculator Model</label>
                         <select id="calculatorType" name="calculatorType">
-                            <option value="Type_82MS">82MS</option>
-                            <option value="Type_991MS">991MS</option>
-                            <option value="Type_570ES">570ES</option>
+                            <option value="Model_fx-82MS">82MS</option>
+                            <option value="Model_fx-991MS">991MS</option>
+                            <option value="Model_fx-570ES">570ES</option>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="calculatorType">Calculator Condition</label>
+                        <select id="calculatorCondition" name="calculatorCondition">
+                            <option value="Condition_Heavily Used">Heavily Used</option>
+                            <option value="Condition_Used">Used</option>
+                            <option value="Condition_Like New">Like New</option>
+                            <option value="Condition_New">New</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="calculatorMonthsOld">Months Old</label>
+                            <input type="number" id="calculatorMonthsOld" name="calculatorMonthsOld" min="1" max="36" value="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="calculatorDemand">Demand</label>
+                        <input type="number" id="calculatorDemand" name="calculatorDemand" min="1" max="10" value="1">
                     </div>
                 </div>
 
