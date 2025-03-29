@@ -20,6 +20,10 @@ def home():
 
 @views.route('/sell',methods=['POST','GET'])
 def sell():
+    return render_template('sell.html')
+
+@views.route('/price',methods=['POST','GET'])
+def price():
     predicted_price = None
     if request.method == 'POST':
         item_type = request.form.get('itemType')
@@ -33,13 +37,12 @@ def sell():
             
         elif item_type == 'calculator':
             calculator_type = request.form.get('calculatorType')
-            calculator_months_old = request.form.get('calculatorMonthsOld')
-            predicted_price = predict_price_calculator(calculator_type, int(calculator_months_old))
+            predicted_price = predict_price_calculator(calculator_type)
             
         elif item_type == 'books':
             predicted_price = 25  # Fixed price for books
             
         print("Predicted Price:", predicted_price)  # Debug print
-        return render_template('sell.html', predicted_price=predicted_price)
-    return render_template('sell.html', predicted_price=predicted_price)
+        return render_template('price.html', predicted_price=predicted_price)
+    return render_template('price.html', predicted_price=predicted_price)
     

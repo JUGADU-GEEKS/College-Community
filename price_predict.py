@@ -31,7 +31,7 @@ def predict_price_equipment(item_type, months_old, condition):
     
     return model.predict([arr])
 
-def predict_price_calculator(item_type, months_old):
+def predict_price_calculator(item_type):
     # Load the model dictionary
     model_dict = joblib.load('./model/PricePredictorCollegeCalculator.joblib')
     
@@ -43,14 +43,13 @@ def predict_price_calculator(item_type, months_old):
         model = xgb.XGBRegressor()
         model.load_model(model_dict['model'])
     
-    arr = [months_old]
-    if item_type == '573ms':
+    arr = [10]
+    if item_type == 'Type_570ES':
         arr.extend([1, 0, 0])
-    elif item_type == '81ms':
+    elif item_type == 'Type_82MS':
         arr.extend([0, 1, 0])
-    elif item_type == '991ms':
+    elif item_type == 'Type_991MS':
         arr.extend([0, 0, 1])
     return model.predict([arr])
 
-print(predict_price_equipment('apron', 1, 'good'))
-
+print(predict_price_calculator('Type_570ES'))

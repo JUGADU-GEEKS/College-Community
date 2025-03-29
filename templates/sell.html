@@ -4,198 +4,81 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Student Garage Sales</title>
-    <meta name="description" content="Sell your academic items at the best price" />
+    <title>Student Marketplace</title>
     <link rel="stylesheet" href="static/stylesheets/sell.css">
-  </head>
-  <body>
+</head>
+<body>
     <div class="container">
-      <div class="card glass-card">
-        <div class="text-center">
-          <h2 class="title text-gradient">
-            Student Marketplace
-          </h2>
-          <p class="subtitle">
-            Sell your academic items at the best price
-          </p>
-        </div>
-        
-        <form id="sellForm" class="form" action="/sell" method="POST">
-          <div class="form-section delay-1">
-            <label for="itemType" class="form-label">
-              What are you selling?
-            </label>
-            <select
-              id="itemType"
-              class="form-select animate-pulse-subtle"
-              required 
-              name="itemType"
-            >
-              <option value="" disabled selected>Select an item type</option>
-              <option value="equipment">Equipment</option>
-              <option value="books">Akash Books</option>
-              <option value="calculator">Calculator</option>
-            </select>
-          </div>
-          
-          <div id="equipmentSection" class="hidden">
-            <div class="form-section delay-2">
-              <label for="monthsOld" class="form-label">
-                How many months old? (<span id="monthsValue">1</span>)
-              </label>
-              <input
-                type="range"
-                id="monthsOld"
-                min="1"
-                max="24"
-                value="1"
-                class="form-range"
-                name="monthsOld"
-              />
-            </div>
+        <div class="card">
+            <h2>Student Marketplace</h2>
+            <p>Sell your academic items at the best price</p>
             
-            <div class="form-section delay-3">
-              <label class="form-label">Equipment Items</label>
-              <div class="equipment-grid">
-                <div class="equipment-item">
-                  <input
-                    type="radio"
-                    id="apron"
-                    name="equipmentItem"
-                    value="apron"
-                    class="form-radio"
-                    required
-                  />
-                  <label for="apron" class="equipment-label">
-                    Apron
-                  </label>
+            <form id="sellForm" action="/price" method="POST">
+                <!-- Item Type Selection -->
+                <div class="form-group">
+                    <label for="itemType">What are you selling?</label>
+                    <select id="itemType" name="itemType" required>
+                        <option value="" disabled selected>Select an item type</option>
+                        <option value="equipment">Equipment</option>
+                        <option value="calculator">Calculator</option>
+                        <option value="books">Books</option>
+                    </select>
                 </div>
-                <div class="equipment-item">
-                  <input
-                    type="radio"
-                    id="drafter"
-                    name="equipmentItem"
-                    value="drafter"
-                    class="form-radio"
-                  />
-                  <label for="drafter" class="equipment-label">
-                    Drafter
-                  </label>
-                </div>
-                <div class="equipment-item">
-                  <input
-                    type="radio"
-                    id="sheetholder"
-                    name="equipmentItem"
-                    value="sheetholder"
-                    class="form-radio"
-                  />
-                  <label for="sheetholder" class="equipment-label">
-                    Sheet Holder
-                  </label>
-                </div>
-                <div class="equipment-item">
-                  <input
-                    type="radio"
-                    id="labcoat"
-                    name="equipmentItem"
-                    value="labcoat"
-                    class="form-radio"
-                  />
-                  <label for="labcoat" class="equipment-label">
-                    Lab Coat
-                  </label>
-                </div>
-              </div>
-            </div>
-            
-            <div class="form-section delay-4">
-              <label for="condition" class="form-label">
-                Condition
-              </label>
-              <select
-                id="condition"
-                class="form-select"
-                name="condition"
-              >
-                <option value="new">New</option>
-                <option value="good" selected>Good</option>
-                <option value="fair">Fair</option>
-                <option value="wornout">Worn Out</option>
-              </select>
-            </div>
-          </div>
-          
-          <div id="calculatorSection" class="hidden">
-            <div class="form-section delay-2">
-              <label for="calculatorType" class="form-label">
-                Calculator Model
-              </label>
-              <select
-                id="calculatorType"
-                class="form-select"
-                name="calculatorType"
-              >
-                <option value="Type_82MS" selected>82MS</option>
-                <option value="Type_991MS">991MS</option>
-                <option value="Type_570ES">570ES</option>
-              </select>
-            </div>
-            
-            <div class="form-section delay-3">
-              <label for="calculatorMonthsOld" class="form-label">
-                How many months old? (<span id="calculatorMonthsValue">1</span>)
-              </label>
-              <input
-                type="range"
-                id="calculatorMonthsOld"
-                min="1"
-                max="36"
-                value="1"
-                class="form-range"
-                name="calculatorMonthsOld"
-              />
-            </div>
-          </div>
-          
-          <div id="priceSection" class="hidden form-section delay-5">
-            <div class="text-center price-container">
-              <p class="price-label">Estimated Price</p>
-              <div id="predictedPrice" class="predicted-price animate-glow">
-                ₹{{ predicted_price }}
-              </div>
-            </div>
-          </div>
-          
-          <div class="button-container">
-            <button
-              type="submit"
-              id="submitButton"
-              class="submit-button"
-            >
-              Predict Price
-            </button>
-          </div>
-        </form>
-      </div>
-      
-      <div class="footer">
-        <p>© 2023 Student Marketplace. All rights reserved.</p>
-      </div>
-    </div>
-    
-    <!-- Decorative elements -->
-    <div class="decoration decoration-bottom-left"></div>
-    <div class="decoration decoration-top-right"></div>
 
-    <div id="toast" class="toast hidden">
-      <div class="toast-content">
-        <div class="toast-title">Price Predicted {{predicted_price}}</div>
-        <div id="toast-description" class="toast-description"></div>
-      </div>
+                <!-- Equipment Section -->
+                <div id="equipmentSection" class="hidden">
+                    <div class="form-group">
+                        <label for="equipmentItem">Select Equipment</label>
+                        <select id="equipmentItem" name="equipmentItem">
+                            <option value="apron">Apron</option>
+                            <option value="drafter">Drafter</option>
+                            <option value="labcoat">Lab Coat</option>
+                            <option value="sheetholder">Sheet Holder</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="monthsOld">Months Old</label>
+                        <input type="number" id="monthsOld" name="monthsOld" min="1" max="24" value="1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="condition">Condition</label>
+                        <select id="condition" name="condition">
+                            <option value="new">New</option>
+                            <option value="good">Good</option>
+                            <option value="fair">Fair</option>
+                            <option value="wornout">Worn Out</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Calculator Section -->
+                <div id="calculatorSection" class="hidden">
+                    <div class="form-group">
+                        <label for="calculatorType">Calculator Model</label>
+                        <select id="calculatorType" name="calculatorType">
+                            <option value="Type_82MS">82MS</option>
+                            <option value="Type_991MS">991MS</option>
+                            <option value="Type_570ES">570ES</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Price Display -->
+                <div id="priceSection" class="hidden">
+                    <div class="price-display">
+                        <h3>Estimated Price</h3>
+                        <div id="predictedPrice">₹{{ predicted_price }}</div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="submitButton" disabled>Predict Price</button>
+            </form>
+        </div>
     </div>
-    
+
     <script src="static/javascripts/sell.js"></script>
-    
-  </body>
+</body>
 </html>
