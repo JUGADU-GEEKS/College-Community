@@ -49,7 +49,7 @@ def signup():
             return render_template('signup.html', error='Only Gmail or Outlook emails are allowed.')
 
         if not (enrollment.isdigit() and len(enrollment) == 11):
-            return render_template('signup.html', error='Enrollment number must be exactly 10 digits.')
+            return render_template('signup.html', error='Enrollment number must be exactly 11 digits.')
 
         if not (contact.isdigit() and len(contact) == 10):
             return render_template('signup.html', error='Contact number must be exactly 10 digits.')
