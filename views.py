@@ -48,4 +48,7 @@ def price():
         print("Predicted Price:", predicted_price)  # Debug print
         return render_template('price.html', predicted_price=predicted_price)
     return render_template('price.html', predicted_price=predicted_price)
-    
+
+@views.route('/test2')
+def test2():
+    return render_template('test2.html')

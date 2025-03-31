@@ -2,93 +2,88 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="/static/stylesheets/login.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ghibli Dreamscape Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/login.css') }}">
+
 </head>
 
 <body>
-    <script src="/static/javascripts/login.js"></script>
-    <div class="app-container">
+    <div class="container">
+        <canvas id="background-canvas"></canvas>
+
         <div class="left-side">
-            <div class="form-container appear">
-                <h2 class="title">Login Account</h2>
-                <p class="subtitle">Fill in your details to login</p>
-
-                <form id="login-form" method="POST" action="/login">
-                    <div class="form-row">
-                        <div class="form-group slide-up">
-                            <input type="email" placeholder="Email" required class="form-input" name="email">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group slide-up">
-                            <input type="password" id="password" placeholder="Password" required class="form-input"
-                                name="password">
-                            <i class="fas fa-eye eye-icon" onclick="togglePassword('password', this)"></i>
-                        </div>
-                    </div>
-
-                    <!-- Display error messages -->
-                    {% if error %}
-                    <p class="error-message" style="color: red; text-align: center;">{{ error }}</p>
-                    {% endif %}
-
-                    <p class="signin-text fade-in">
-                        <a href="#" class="signin-link" onclick="showForgotPasswordModal()">Forgot Password?</a>
-                    </p>
-
-                    <button class="btn-submit slide-up" type="submit">
-                        <span class="btn-text">Login</span>
-                    </button>
-                </form>
-
-                <p class="signin-text fade-in">
-                    Don't have an account? <a href="/signup" class="signin-link">Sign up</a>
+            <div class="animate-fade-in">
+                <h1 class="font-ghibli text-4xl md:text-5xl mb-6 text-center text-gradient">
+                    Magic Awaits
+                </h1>
+                <p class="font-ghibli text-xl mb-8 text-center opacity-90">
+                    Enter the realm of dreams and wonder
                 </p>
+                <div id="lanterns-container" class="relative w-full h-96">
+                    <!-- Ghibli Nightscape Background -->
+                    <img src="https://images.unsplash.com/photo-1470813740244-df37b8c1edcb" alt="Ghibli Nightscape"
+                        class="w-full h-full object-cover rounded-2xl opacity-40 absolute top-0 left-0 z-0" />
+                    <img src="{{ url_for('static', filename='images/goku.gif') }}" alt="Goku"
+                        class="absolute top-0 left-0 z-10" />
+                </div>
+
             </div>
         </div>
 
         <div class="right-side">
-            <div class="image-container">
-                <img class="main-image" src="/static/images/signup.gif" alt="Signup illustration">
+            <div class="form-container glass-morphism">
+                <h2 class="text-gradient">Login Account</h2>
+                <p>Fill in your details to login</p>
+
+                <form id="login-form" method="POST" action="/login">
+                    <div class="form-group animate-slide-up">
+                        <span class="icon">📧</span>
+                        <input type="email" placeholder="Email" name="email" required />
+                    </div>
+
+                    <div class="form-group animate-slide-up">
+                        <span class="icon">🔒</span>
+                        <input type="password" id="password" placeholder="Password" name="password" required />
+                        <span class="toggle-password" id="toggle-password">👁️</span>
+                    </div>
+
+                    <div class="forgot-password animate-fade-in">
+                        <a href="#" id="forgot-password-link">Forgot Password?</a>
+                    </div>
+                    <img class="goku" src="{{ url_for('static', filename='images/goku.gif') }}" alt="Goku" />
+                    <button type="submit" class="pulse-animation animate-slide-up">Login</button>
+
+                    <div class="signup-link animate-fade-in">
+                        Don't have an account? <a href="/signup">Sign up</a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
-    <!-- Forgot Password Model -->
-    <!-- Forgot Password Modal -->
-    <div id="forgot-password-modal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <span class="close" onclick="closeForgotPasswordModal()">&times;</span>
-            <h2>Forgot Password</h2>
-            <p>Enter your email to receive a reset link.</p>
-            <form id="forgot-password-form" method="POST" action="/forget_Password">
-                <input type="email" name="email" placeholder="Enter your email" required class="glow-input" />
-                <button type="submit" class="pulse-button">Send OTP</button>
+    <!-- Forgot Password Dialog -->
+    <div id="forgot-password-dialog" class="dialog">
+        <div class="dialog-content glass-morphism">
+            <span class="dialog-close" id="dialog-close">×</span>
+            <h2 class="text-gradient">Forgot Password</h2>
+            <p>Enter your email to receive a reset link</p>
+
+            <form id="reset-form" method="POST" action="/forget_Password">
+                <div class="form-group">
+                    <span class="icon">📧</span>
+                    <input type="email" placeholder="Enter your email" name="email" required />
+                </div>
+
+                <button type="submit" class="pulse-animation">Send OTP</button>
             </form>
-            <p id="forgot-error-message" style="color: red; display: none; text-align: center;"></p>
-            <div class="floating-particles"></div>
         </div>
     </div>
-
-
-
-    <script>
-        function showForgotPasswordModal() {
-            document.getElementById("forgot-password-modal").style.display = "flex";
-        }
-
-        function closeForgotPasswordModal() {
-            document.getElementById("forgot-password-modal").style.display = "none";
-        }
-    </script>
 </body>
-
+<script src="{{ url_for('static', filename='javascripts/login.js') }}"></script>
 </html>
