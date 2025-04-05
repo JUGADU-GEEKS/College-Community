@@ -1,4 +1,3 @@
-
 // Apply random positions to particles
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize animations
@@ -15,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
       particle.style.setProperty('--random', Math.random());
       particle.style.left = `${Math.random() * 100}%`;
     });
-  });
+});
 
 
-  
