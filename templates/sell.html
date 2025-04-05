@@ -6,98 +6,168 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student Marketplace</title>
     <link rel="stylesheet" href="static/stylesheets/sell.css">
+    <link rel="stylesheet" href="static/stylesheets/componentsSheets/scroll.css">
 </head>
+
 <body>
     <div class="container">
-        <div class="card">
-            <h2>Student Marketplace</h2>
-            <p>Sell your academic items at the best price</p>
-            
-            <form id="sellForm" action="/price" method="POST">
-                <!-- Item Type Selection -->
-                <div class="form-group">
-                    <label for="itemType">What are you selling?</label>
-                    <select id="itemType" name="itemType" required>
-                        <option value="" disabled selected>Select an item type</option>
-                        <option value="equipment">Equipment</option>
-                        <option value="calculator">Calculator</option>
-                        <option value="books">Books</option>
-                    </select>
+        <nav class="navbar">
+            <div class="navbar-container">
+                <a href="#" class="logo">Student Sell Sphere</a>
+
+                <!-- Desktop Navigation -->
+                <div class="desktop-nav">
+                    <a href="#" class="nav-item active"><span class="nav-icon">🏠</span> Home</a>
+                    <a href="#" class="nav-item"><span class="nav-icon">🏷️</span> Sell</a>
+                    <a href="#" class="nav-item"><span class="nav-icon">📚</span> Notes</a>
+                    <a href="#" class="nav-item"><span class="nav-icon">ℹ️</span> About</a>
+                    <a href="#" class="nav-item"><span class="nav-icon">✉️</span> Contact</a>
                 </div>
 
-                <!-- Equipment Section -->
-                <div id="equipmentSection" class="hidden">
-                    <div class="form-group">
-                        <label for="equipmentItem">Select Equipment</label>
-                        <select id="equipmentItem" name="equipmentItem">
-                            <option value="apron">Apron</option>
-                            <option value="drafter">Drafter</option>
-                            <option value="labcoat">Lab Coat</option>
-                            <option value="sheetholder">Sheet Holder</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="monthsOld">Months Old</label>
-                        <input type="number" id="monthsOld" name="monthsOld" min="1" max="24" value="1">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="condition">Condition</label>
-                        <select id="condition" name="condition">
-                            <option value="new">New</option>
-                            <option value="good">Good</option>
-                            <option value="fair">Fair</option>
-                            <option value="wornout">Worn Out</option>
-                        </select>
-                    </div>
+                <!-- Mobile Menu Button -->
+                <button class="menu-button" aria-label="Toggle menu">
+                    <span class="menu-icon">☰</span>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div class="mobile-nav">
+                <a href="#" class="nav-item active"><span class="nav-icon">🏠</span> Home</a>
+                <a href="#" class="nav-item"><span class="nav-icon">🏷️</span> Sell</a>
+                <a href="#" class="nav-item"><span class="nav-icon">📚</span> Notes</a>
+                <a href="#" class="nav-item"><span class="nav-icon">ℹ️</span> About</a>
+                <a href="#" class="nav-item"><span class="nav-icon">✉️</span> Contact</a>
+            </div>
+        </nav>
+        <header>
+            <h1 class="fluid">you can<br />sell.</h1>
+        </header>
+        <main>
+            <section class="content fluid">
+                <h2><span aria-hidden="true">Can&nbsp;sell</span>
+                    <span class="sr-only">you can sell things.</span>
+                </h2>
+                <ul aria-hidden="true" style="--count: 6">
+                    <li style="--i: 0">drafter.</li>
+                    <li style="--i: 1">labcoat.</li>
+                    <li style="--i: 2">apron.</li>
+                    <li style="--i: 3">sheet holder.</li>
+                    <li style="--i: 4">calculator.</li>
+                    <li style="--i: 5">books.</li>
+                    <li style="--i: 6">lab equipment.</li>
+                </ul>
+            </section>
+            <section>
+                <h2 class="fluid">Buddy.</h2>
+            </section>
+        </main>
+
+        <div class="container">
+            <h1 class="title">SELL YOUR GOODS</h1>
+            <p class="subtitle">Get the best price for your academic items</p>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Student Marketplace</h2>
+                    <p class="card-description">Sell your academic items at the best price</p>
                 </div>
 
-                <!-- Calculator Section -->
-                <div id="calculatorSection" class="hidden">
-                    <div class="form-group">
-                        <label for="calculatorType">Calculator Model</label>
-                        <select id="calculatorType" name="calculatorType">
-                            <option value="Model_fx-82MS">82MS</option>
-                            <option value="Model_fx-991MS">991MS</option>
-                            <option value="Model_fx-570ES">570ES</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="calculatorType">Calculator Condition</label>
-                        <select id="calculatorCondition" name="calculatorCondition">
-                            <option value="Condition_Heavily Used">Heavily Used</option>
-                            <option value="Condition_Used">Used</option>
-                            <option value="Condition_Like New">Like New</option>
-                            <option value="Condition_New">New</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="calculatorMonthsOld">Months Old</label>
-                            <input type="number" id="calculatorMonthsOld" name="calculatorMonthsOld" min="1" max="36" value="1">
-                    </div>
+                <div class="card-content">
+                    <form id="sellForm" method="POST" action="/price">
+                        <!-- Item Type Selection -->
+                        <div class="form-group">
+                            <label for="itemType">What are you selling?</label>
+                            <select id="itemType" name="itemType" required>
+                                <option value="" disabled selected>Select an item type</option>
+                                <option value="equipment">Equipment</option>
+                                <option value="calculator">Calculator</option>
+                                <option value="books">Books</option>
+                            </select>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="calculatorDemand">Demand</label>
-                        <input type="number" id="calculatorDemand" name="calculatorDemand" min="1" max="10" value="1">
-                    </div>
+                        <!-- Equipment Section -->
+                        <div id="equipmentSection" class="form-section hidden">
+                            <div class="form-group">
+                                <label for="equipmentItem">Select Equipment</label>
+                                <select id="equipmentItem" name="equipmentItem">
+                                    <option value="apron">Apron</option>
+                                    <option value="drafter">Drafter</option>
+                                    <option value="labcoat">Lab Coat</option>
+                                    <option value="sheetholder">Sheet Holder</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="monthsOld">Months Old</label>
+                                <input type="number" id="monthsOld" name="monthsOld" min="1" max="24" value="1">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="condition">Condition</label>
+                                <select id="condition" name="condition">
+                                    <option value="new">New</option>
+                                    <option value="good">Good</option>
+                                    <option value="fair">Fair</option>
+                                    <option value="wornout">Worn Out</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Calculator Section -->
+                        <div id="calculatorSection" class="form-section hidden">
+                            <div class="form-group">
+                                <label for="calculatorType">Calculator Model</label>
+                                <select id="calculatorType" name="calculatorType">
+                                    <option value="Model_fx-82MS">82MS</option>
+                                    <option value="Model_fx-991MS">991MS</option>
+                                    <option value="Model_fx-570ES">570ES</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="calculatorCondition">Calculator Condition</label>
+                                <select id="calculatorCondition" name="calculatorCondition">
+                                    <option value="Condition_Heavily Used">Heavily Used</option>
+                                    <option value="Condition_Used">Used</option>
+                                    <option value="Condition_Like New">Like New</option>
+                                    <option value="Condition_New">New</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="calculatorMonthsOld">Months Old</label>
+                                <input type="number" id="calculatorMonthsOld" name="calculatorMonthsOld" min="1"
+                                    max="36" value="1">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="calculatorDemand">Demand (1-10)</label>
+                                <input type="number" id="calculatorDemand" name="calculatorDemand" min="1" max="10"
+                                    value="5">
+                            </div>
+                        </div>
+
+                        <!-- Books Section -->
+                        <div id="booksSection" class="form-section hidden">
+                            <p class="coming-soon">Book pricing coming soon!</p>
+                        </div>
+
+                        <!-- Price Display -->
+                        <div id="priceSection" class="hidden">
+                            <div class="price-display">
+                                <h3>Estimated Price</h3>
+                                <div id="predictedPrice" class="price">{{predicted_price}}</div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" id="submitButton">Predict Price</button>
+                    </form>
                 </div>
+            </div>
 
-                <!-- Price Display -->
-                <div id="priceSection" class="hidden">
-                    <div class="price-display">
-                        <h3>Estimated Price</h3>
-                        <div id="predictedPrice">₹{{ predicted_price }}</div>
-                    </div>
-                </div>
-
-                <!-- Submit Button -->
-                <button type="submit" id="submitButton" disabled>Predict Price</button>
-            </form>
-        </div>
-    </div>
-
-    <script src="static/javascripts/sell.js"></script>
+                <script src="static/javascripts/sell.js"></script>
+                <script type="module" src="static/javascripts/components/scroll.js"></script>
 </body>
+
 </html>
