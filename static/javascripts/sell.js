@@ -102,3 +102,59 @@ function showToast(title, description) {
   }, 5000);
 }
 
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  // DOM Elements
+  const form = document.getElementById('sellForm');
+  const itemTypeSelect = document.getElementById('itemType');
+  const equipmentSection = document.getElementById('equipmentSection');
+  const calculatorSection = document.getElementById('calculatorSection');
+  const booksSection = document.getElementById('booksSection');
+  const priceSection = document.getElementById('priceSection');
+  const predictedPriceElement = document.getElementById('predictedPrice');
+  const submitButton = document.getElementById('submitButton');
+  const menuButton = document.querySelector('.menu-button');
+  const mobileNav = document.querySelector('.mobile-nav');
+  const toast = document.getElementById('toast');
+
+  // Toggle Mobile Menu
+  menuButton.addEventListener('click', function() {
+      mobileNav.classList.toggle('show');
+  });
+
+  // Handle item type change
+  itemTypeSelect.addEventListener('change', function() {
+      const selectedValue = this.value;
+      
+      // Hide all sections
+      equipmentSection.classList.add('hidden');
+      calculatorSection.classList.add('hidden');
+      booksSection.classList.add('hidden');
+      priceSection.classList.add('hidden');
+      
+      // Enable submit button if an item type is selected
+      submitButton.disabled = !selectedValue;
+      
+      // Show the relevant section
+      if (selectedValue === 'equipment') {
+          equipmentSection.classList.remove('hidden');
+      } else if (selectedValue === 'calculator') {
+          calculatorSection.classList.remove('hidden');
+      } else if (selectedValue === 'books') {
+          booksSection.classList.remove('hidden');
+      }
+  });
+
+  // Function to update the predicted price
+  function showToast(message) {
+    const toastMessage = document.querySelector('.toast-message');
+    toastMessage.textContent = message;
+    
+    toast.classList.remove('hidden');
+    
+    setTimeout(function() {
+        toast.classList.add('hidden');
+    }, 3000);
+}
+});
