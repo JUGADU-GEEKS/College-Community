@@ -34,6 +34,9 @@ def price():
             months_old = request.form.get('monthsOld')
             condition = request.form.get('condition')
             predicted_price = predict_price_equipment(equipment_item, int(months_old), condition)
+            print(f'condition:{condition}')
+            return render_template('addSell.html', predicted_price=int(predicted_price[0]), equipment_item=equipment_item[0].upper() + equipment_item[1:], months_old=months_old, condition=condition)
+
             
         elif item_type == 'calculator':
             calculator_type = request.form.get('calculatorType')
@@ -41,14 +44,15 @@ def price():
             calculator_months_old = request.form.get('calculatorMonthsOld')
             calculator_demand = request.form.get('calculatorDemand')    
             predicted_price = predict_price_calculator(calculator_type, calculator_condition, int(calculator_months_old), int(calculator_demand))
-            
+            return render_template('addSell.html', predicted_price=int(predicted_price[0]), equipment_item="Calculator"+calculator_type, months_old=calculator_months_old, condition=calculator_condition)
+
         elif item_type == 'books':
             predicted_price = 25  # Fixed price for books
-            
-        print("Predicted Price:", predicted_price)  # Debug print
-        return render_template('price.html', predicted_price=predicted_price)
-    return render_template('price.html', predicted_price=predicted_price)
+            return render_template('addSell.html', predicted_price=int(predicted_price), equipment_item="Akash Books", months_old="NA", condition="NA")
+
+    return render_template('addSell.html', predicted_price=int(predicted_price[0]))
 
 @views.route('/test2')
 def test2():
-    return render_template('test2.html')
+    return render_template('addSell.html')
+
