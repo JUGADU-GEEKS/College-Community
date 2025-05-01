@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/browse.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Simple Custom Navbar -->
+    <nav style="width:100%; background: linear-gradient(to right, #0f172a, #4d6a92); color:white; padding: 1.5rem 0; display:flex; align-items:center; justify-content:space-between; font-family:sans-serif; position:sticky; top:0; z-index:100;">
+        <div style="font-weight:bold; font-size:1.5rem; margin-left:2rem;">UniCash</div>
+        <div style="margin-right:2rem;">
+            <a href="/home" style="color:white; text-decoration:none; margin:0 1rem; font-size:1rem; transition:color 0.2s;">Home</a>
+            <a href="/sell" style="color:white; text-decoration:none; margin:0 1rem; font-size:1rem; transition:color 0.2s;">Sell</a>
+            <a href="notes.html" style="color:white; text-decoration:none; margin:0 1rem; font-size:1rem; transition:color 0.2s;">Notes</a>
+            <a href="/home/#about" style="color:white; text-decoration:none; margin:0 1rem; font-size:1rem; transition:color 0.2s;">About</a>
+            <a href="/home/#contact" style="color:white; text-decoration:none; margin:0 1rem; font-size:1rem; transition:color 0.2s;">Contact</a>
+        </div>
+    </nav>
+
+    <section class="top">
+		<h1>Browse Item</h1>
+		<div class="scroll-indicator">
+			<div class="mouse">
+				<div class="wheel"></div>
+			</div>
+			<div class="scroll-text">Scroll down</div>
+		</div>
+	</section>
+
+	<section class="main">
+		<div class="container">
+			<div class="text-overlay">
+				<div class="text-wrapper">
+					<h2 class="filled-text">From one student to another — pass it on.</h2>
+					<h2 class="outline-text">From one student to another — pass it on.</h2>
+				</div>
+			</div>
+			<img class="image" src="https://habitatbroward.org/wp-content/uploads/2021/09/Top-8-Benefits-of-Community-Service-for-Students.jpg">
+		</div>
+	</section>
+
+	<section class="footer">
+		<h1 class="reupyog-glow">ReUpyog These Equipments</h1>
+		<div class="featured-products-section">
+			<h2 class="featured-title">Featured Products</h2>
+			<div class="featured-products-grid">
+				<div class="featured-card">
+					<img src="https://5.imimg.com/data5/SELLER/Default/2023/7/324360386/TS/OE/HI/359736/stainless-steel-mini-drafter.jpeg" alt="Apple iPad">
+					<div class="featured-info">
+						<div class="featured-name">Drafter</div>
+						<div class="featured-rating">★★★★★</div>
+						<div class="featured-prices"><span class="old-price">₹200</span> <span class="new-price">₹36,900</span></div>
+						<button class="add-to-cart">ADD TO CART</button>
+					</div>
+				</div>
+				<div class="featured-card">
+					<img src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Sony Headphone">
+					<div class="featured-info">
+						<div class="featured-name">Sony Headphone</div>
+						<div class="featured-rating">★★★★★</div>
+						<div class="featured-prices"><span class="old-price">₹2,500</span> <span class="new-price">₹2,399</span></div>
+						<button class="add-to-cart">ADD TO CART</button>
+					</div>
+				</div>
+				<div class="featured-card">
+					<img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Macbook Air">
+					<div class="featured-info">
+						<div class="featured-name">Macbook Air</div>
+						<div class="featured-rating">★★★★★</div>
+						<div class="featured-prices"><span class="old-price">₹89,000</span> <span class="new-price">₹64,900</span></div>
+						<button class="add-to-cart">ADD TO CART</button>
+					</div>
+				</div>
+				<div class="featured-card">
+					<img src="https://images.unsplash.com/photo-1519183071298-a2962be56693?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Nikon DSLR">
+					<div class="featured-info">
+						<div class="featured-name">Nikon DSLR</div>
+						<div class="featured-rating">★★★★★</div>
+						<div class="featured-prices"><span class="old-price">₹41,500</span> <span class="new-price">₹25,000</span></div>
+						<button class="add-to-cart">ADD TO CART</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/ScrollTrigger.min.js"></script>
+
+<script type="text/javascript">
+
+		gsap.to(".filled-text, .outline-text", {
+			scrollTrigger:{
+				trigger: ".filled-text, .outline-text", 
+			start: "top bottom", 
+				end: "bottom top", 
+				scrub: 1
+			},
+			x: 200
+		})
+
+		gsap.to(".image", {
+			scrollTrigger:{
+				trigger: ".image",
+				start: "top bottom", 
+				end: "bottom top", 
+				scrub: 1
+			},
+			x: -250,
+		})
+	</script>
+</body>
+<script type="module">
+    import { gsap } from "https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js";
+    import { ScrollTrigger } from "https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js";
+    import { ScrollSmoother } from "https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollSmoother.js";
+    import { SplitText } from "https://cdn.jsdelivr.net/npm/gsap@3.12.5/SplitText.js";
+  
+    // Make plugins available globally if needed
+    gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText);
+  </script>
+    
+<script type="module" src="{{ url_for('static', filename='javascripts/browse.js') }}"></script>
+<script>
+document.querySelector('.scroll-icon').addEventListener('click', function() {
+    document.querySelector('.main').scrollIntoView({ 
+        behavior: 'smooth' 
+    });
+});
+</script>
+<script>
+document.querySelector('.scroll-indicator').addEventListener('click', function() {
+    document.querySelector('.main').scrollIntoView({ 
+        behavior: 'smooth' 
+    });
+});
+</script>
+<script>
+// GSAP fade-in animation for product cards
+if (window.gsap) {
+    gsap.utils.toArray('.featured-card').forEach((card, i) => {
+        gsap.from(card, {
+            opacity: 0,
+            y: 40,
+            duration: 0.8,
+            delay: 0.2 + i * 0.15,
+            scrollTrigger: {
+                trigger: card,
+                start: 'top 90%',
+                toggleActions: 'play none none reverse'
+            }
+        });
+    });
+}
+</script>
+</html>
