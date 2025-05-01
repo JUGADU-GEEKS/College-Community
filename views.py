@@ -35,7 +35,7 @@ def price():
             condition = request.form.get('condition')
             predicted_price = predict_price_equipment(equipment_item, int(months_old), condition)
             print(f'condition:{condition}')
-            return render_template('addSell.html', predicted_price=int(predicted_price[0]), equipment_item=equipment_item[0].upper() + equipment_item[1:], months_old=months_old, condition=condition)
+            return render_template('addSell.html', predicted_price=int(predicted_price[0]), equipment_item=equipment_item[0].upper() + equipment_item[1:], months_old=months_old, condition=condition[0].upper()+condition[1:])
 
             
         elif item_type == 'calculator':
@@ -44,7 +44,7 @@ def price():
             calculator_months_old = request.form.get('calculatorMonthsOld')
             calculator_demand = request.form.get('calculatorDemand')    
             predicted_price = predict_price_calculator(calculator_type, calculator_condition, int(calculator_months_old), int(calculator_demand))
-            return render_template('addSell.html', predicted_price=int(predicted_price[0]), equipment_item="Calculator"+calculator_type, months_old=calculator_months_old, condition=calculator_condition)
+            return render_template('addSell.html', predicted_price=int(predicted_price[0]), equipment_item="Calculator"+calculator_type, months_old=calculator_months_old, condition=calculator_condition[10:])
 
         elif item_type == 'books':
             predicted_price = 25  # Fixed price for books
