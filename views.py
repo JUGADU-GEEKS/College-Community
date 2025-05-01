@@ -13,7 +13,9 @@ def test():
     email = user_new.get('email')
     user = User.get_data(email)
     return render_template('test.html', user=user)
-
+@views.route('/browse')
+def browse():
+    return render_template('browse.html')
 @views.route('/home', methods=['POST','GET'])
 def home():
     return render_template('home.html')
