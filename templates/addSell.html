@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Product Listing</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --primary-dark: #000000;
+            --secondary-dark: #121212;
+            --accent-dark: #1e1e1e;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --accent-color: #1D4ED8;
+            --success-color: #2ecc71;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, #4d6a92, #1D4ED8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 100px auto 50px;
+            padding: 2rem;
+        }
+        
+        .title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        
+        .title span {
+            color: var(--accent-color);
+        }
+        
+        .product-form-container {
+            background-color: var(--secondary-dark);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        
+        .form-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--accent-dark);
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(156, 39, 176, 0.3);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .image-upload {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .upload-btn {
+            background-color: var(--accent-dark);
+            color: var(--text-secondary);
+            border: 1px dashed #555;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+        
+        .upload-btn:hover {
+            border-color: var(--accent-color);
+            color: var(--text-primary);
+        }
+        
+        .upload-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .preview-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            object-fit: cover;
+            display: none;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(90deg, #4d6a92, #1D4ED8);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            width: 100%;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(45deg, #8e24aa, #5e35b1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(156, 39, 176, 0.4);
+        }
+        
+        .product-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .product-card {
+            background-color: var(--secondary-dark);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .product-details {
+            padding: 1.5rem;
+        }
+        
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-description {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #333;
+        }
+        
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--success-color);
+        }
+        
+        .product-age {
+            background-color: var(--accent-dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .category-badge {
+            background: linear-gradient(45deg, #9c27b0, #673ab7);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--primary-dark);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #7b1fa2;
+        }
+        
+        /* Success alert */
+        .alert {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background-color: var(--success-color);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateX(200%);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 1000;
+        }
+        
+        .alert.show {
+            transform: translateX(0);
+        }
+        
+        /* Loading spinner */
+        .loader {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+            display: none;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .product-form-container {
+                padding: 1.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">DarkList</div>
+        <div class="nav-links">
+            <a href="#" class="active">Home</a>
+            <a href="#">Products</a>
+            <a href="#">Categories</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </div>
+    </nav>
+    
+    <!-- Success Alert -->
+    <div class="alert" id="alert">Product added successfully!</div>
+    
+    <div class="container">
+        <h1 class="title">Add Your <span>Product</span></h1>
+        
+        <!-- Product Form -->
+        <div class="product-form-container">
+            <h2 class="form-title">Product Information</h2>
+            <form id="productForm">
+                <div class="form-group">
+                    <label class="form-label">Product Image</label>
+                    <div class="image-upload">
+                        <label for="productImage" class="upload-btn">
+                            <div class="upload-icon">📷</div>
+                            <div>Click to upload image</div>
+                        </label>
+                        <input type="file" id="productImage" style="display: none" accept="image/*">
+                        <img src="/api/placeholder/100/100" alt="Preview" class="preview-image" id="imagePreview">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="productTitle">Titile</label>
+                    <input type="text" id="productTitle" class="form-control" value="{{equipment_item}}" placeholder="{{equipment_item}}" disabled>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="productDescription">Product Description</label>
+                    <textarea id="productDescription" class="form-control" placeholder="Enter detailed product description"></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="productPrice">Price(₹)</label>
+                        <input type="number" id="productPrice" class="form-control" placeholder="{{predicted_price}}" disabled>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="productAge">Months Old</label>
+                        <input type="number" id="productAge" class="form-control" placeholder="{{months_old}}" value="{{months_old}}" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="Condition">Condition</label>
+                        <input type="number" id="productAge" class="form-control" placeholder="{{condition}}" value="{{condition}}" disabled>
+                    </div>
+                    
+                
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span class="loader" id="submitLoader"></span>
+                    Add Product
+                </button>
+            </form>
+        </div>
+        
+    </div>
+    
+    <script>
+        // Initialize GSAP
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Initial animations
+        window.addEventListener('DOMContentLoaded', () => {
+            // Animate title
+            gsap.to(".title", {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: "power3.out"
+            });
+            
+            // Animate form container
+            gsap.to(".product-form-container", {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                delay: 0.3,
+                ease: "power3.out"
+            });
+            
+            // Animate navbar
+            gsap.from(".navbar", {
+                y: -100,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
+            });
+            
+            // Animate nav links
+            gsap.from(".nav-links a", {
+                opacity: 0,
+                y: -20,
+                stagger: 0.1,
+                duration: 0.8,
+                delay: 0.5,
+                ease: "power3.out"
+            });
+        });
+        
+        // Handle image upload preview
+        const productImage = document.getElementById('productImage');
+        const imagePreview = document.getElementById('imagePreview');
+        
+        productImage.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                    
+                    // Animate the preview image
+                    gsap.from(imagePreview, {
+                        scale: 0.5,
+                        opacity: 0,
+                        duration: 0.5,
+                        ease: "back.out(1.7)"
+                    });
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Form submission
+        const productForm = document.getElementById('productForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const submitLoader = document.getElementById('submitLoader');
+        const alert = document.getElementById('alert');
+        
+        productForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loader
+            submitLoader.style.display = 'inline-block';
+            submitBtn.disabled = true;
+            
+            // Get form values
+            const title = document.getElementById('productTitle').value;
+            const description = document.getElementById('productDescription').value;
+            const price = parseFloat(document.getElementById('productPrice').value);
+            const age = parseInt(document.getElementById('productAge').value);
+            const category = document.getElementById('productCategory').value;
+            
+            // Simulate form submission delay
+            setTimeout(() => {
+                // Add new product to sample products
+                if (title && price) {
+                    sampleProducts.unshift({
+                        image: imagePreview.style.display === 'block' ? imagePreview.src : "/api/placeholder/300/200",
+                        title,
+                        description,
+                        price,
+                        age,
+                        category
+                    });
+                    
+                    // Regenerate product cards
+                    generateProductCards();
+                    
+                    // Reset form
+                    productForm.reset();
+                    imagePreview.style.display = 'none';
+                    
+                    // Show success alert
+                    alert.classList.add('show');
+                    setTimeout(() => {
+                        alert.classList.remove('show');
+                    }, 3000);
+                    
+                    // Scroll to products
+                    setTimeout(() => {
+                        document.getElementById('productCards').scrollIntoView({ behavior: 'smooth' });
+                    }, 500);
+                }
+                
+                // Hide loader
+                submitLoader.style.display = 'none';
+                submitBtn.disabled = false;
+            }, 1500);
+        });
+        
+        // Animate form inputs on focus
+        const formInputs = document.querySelectorAll('.form-control');
+        formInputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                gsap.to(input, {
+                    borderColor: '#9c27b0',
+                    boxShadow: '0 0 0 3px rgba(156, 39, 176, 0.3)',
+                    duration: 0.3
+                });
+            });
+            
+            input.addEventListener('blur', () => {
+                if (!input.value) {
+                    gsap.to(input, {
+                        borderColor: '#333',
+                        boxShadow: 'none',
+                        duration: 0.3
+                    });
+                }
+            });
+        });
+        
+        // Navbar animation on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.padding = '0.7rem 2rem';
+                navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
+            } else {
+                navbar.style.padding = '1rem 2rem';
+                navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+            }
+        });
+    </script>
+</body>
+</html>
