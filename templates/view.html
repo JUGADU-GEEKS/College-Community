@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Product</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/browse.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(to right, #0f172a, #4d6a92);
+            overflow-y: auto;
+        }
+        .view-container {
+            max-width: 900px;
+            margin: 60px auto 0 auto;
+            background: rgba(20, 30, 50, 0.92);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+            display: flex;
+            gap: 40px;
+            padding: 40px 32px;
+            align-items: flex-start;
+        }
+        .view-image {
+            flex: 1 1 320px;
+            max-width: 320px;
+            border-radius: 14px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+            background: #222;
+            object-fit: contain;
+            height: 320px;
+        }
+        .view-details {
+            flex: 2 1 0;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .view-title {
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: #f7d08a;
+        }
+        .view-price {
+            font-size: 1.4rem;
+            color: #4d6a92;
+            font-weight: 600;
+        }
+        .view-desc {
+            font-size: 1.1rem;
+            color: #e0e6ed;
+        }
+        .seller-info {
+            margin-top: 18px;
+            background: rgba(30,40,60,0.7);
+            padding: 14px 18px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .seller-name {
+            font-weight: 600;
+            color: #f7d08a;
+        }
+        .seller-linkedin a {
+            color: #0e76a8;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+        /* Footer */
+.footer {
+    background-color: #1F2937;
+    color: white;
+    height: 400px;
+    max-height: 500px;
+    min-height: 400px;
+    margin-top: 3rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.footer .container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    box-sizing: border-box;
+}
+
+.footer-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    align-items: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    box-sizing: border-box;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.footer-logo i {
+    color: var(--primary-color);
+    margin-right: 0.5rem;
+}
+
+.footer-col p {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1.5rem;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: var(--transition);
+}
+
+.social-links a:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.footer-col h3 {
+    font-size: 1.125rem;
+    margin-bottom: 1.25rem;
+}
+
+.footer-col ul li {
+    margin-bottom: 0.75rem;
+}
+
+.footer-col ul li a {
+    color: rgba(255, 255, 255, 0.7);
+    transition: var(--transition);
+}
+
+.footer-col ul li a:hover {
+    color: white;
+    padding-left: 5px;
+}
+
+.newsletter-form {
+    display: flex;
+}
+
+.newsletter-form input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border-radius: 0.25rem 0 0 0.25rem;
+    border: none;
+}
+
+.newsletter-form button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 0 0.25rem 0.25rem 0;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.newsletter-form button:hover {
+    background-color: var(--primary-dark);
+}
+
+.footer-bottom {
+    margin-top: 1rem;
+    padding-top: 0.5rem;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.875rem;
+}
+
+/* Media Queries */
+@media (min-width: 640px) {
+    .hero-content h1 {
+        font-size: 3.5rem;
+    }
+    
+    .category-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .items-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .testimonials-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .cta-buttons {
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+
+@media (min-width: 768px) {
+    .nav-menu {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .menu-toggle {
+        display: none;
+    }
+    
+    .items-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .steps-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .testimonials-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .footer-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+        @media (max-width: 700px) {
+            .view-container {
+                flex-direction: column;
+                align-items: center;
+                padding: 24px 8px;
+            }
+            .view-image {
+                max-width: 90vw;
+                width: 100%;
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Simple Custom Navbar (copied from browse.html) -->
+    <nav style="width:100%; background: linear-gradient(to right, #0f172a, #4d6a92); color:white; padding: 1.5rem 0; display:flex; align-items:center; justify-content:space-between; font-family:sans-serif; position:sticky; top:0; z-index:100;">
+        <div style="font-weight:bold; font-size:1.5rem; margin-left:2rem;">UniCash</div>
+        <div style="display: flex; align-items: center; margin-right:2rem; gap: 1.5rem;">
+            <div>
+                <a href="/home" style="color:#f7d08a; text-decoration:none; margin:0 1rem; font-size:1rem; transition:color 0.2s;">Home</a>
+                <a href="/sell" style="color: #f7d08a; text-decoration:none; margin:0 1rem; font-size:1rem; transition:color 0.2s;">Sell</a>
+                <a href="notes.html" style="color:#f7d08a; text-decoration:none; margin:0 1rem; font-size:1rem; transition:color 0.2s;">Notes</a>
+                <a href="/home/#about" style="color:#f7d08a; text-decoration:none; margin:0 1rem; font-size:1rem; transition:color 0.2s;">About</a>
+                <a href="/home/#contact" style="color: #f7d08a; text-decoration:none; margin:0 1rem; font-size:1rem; transition:color 0.2s;">Contact</a>
+            </div>
+            <a href="profile.html" style="display: flex; align-items: center; justify-content: center; width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 2.5px solid #f7d08a; margin-left: 1.5rem; color: #f7d08a; background: rgba(255,255,255,0.04); transition: background 0.2s;">
+                <i class="fas fa-user" style="font-size: 1.3rem;"></i>
+            </a>
+        </div>
+    </nav>
+    <main>
+        <div class="view-container">
+            <img class="view-image" src="https://5.imimg.com/data5/SELLER/Default/2023/7/324360386/TS/OE/HI/359736/stainless-steel-mini-drafter.jpeg" alt="Product Image">
+            <div class="view-details">
+                <div class="view-title">Drafter</div>
+                <div class="view-price">₹200</div>
+                <div class="view-price">fair</div>
+                <div class="view-price">8 months old</div>
+                <div class="view-desc">A high-quality stainless steel mini drafter, perfect for engineering students. Lightly used and in excellent condition.</div>
+                <div class="seller-info">
+                    <span class="seller-name">Seller: Rohan Sharma</span>
+                    <span class="seller-linkedin"><a href="https://www.linkedin.com/in/rohan-sharma-123456/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></span>
+                </div>
+            </div>
+        </div>
+    </main>
+     <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-logo">
+            <i class="fas fa-shopping-bag"></i>
+            <span>Uni Cache</span>
+          </div>
+          <p>The marketplace for college students to buy and sell course-related supplies.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="browse.html">Browse Items</a></li>
+            <li><a href="sell.html">Sell an Item</a></li>
+            <li><a href="#">How It Works</a></li>
+            <li><a href="#">College Directory</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Information</h3>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Newsletter</h3>
+          <p>Subscribe to our newsletter for exclusive deals and tips.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your email">
+            <button type="submit">
+              <i class="fas fa-envelope"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; <span id="current-year"></span> Uni Cache. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html> 

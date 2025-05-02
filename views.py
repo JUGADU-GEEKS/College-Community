@@ -16,6 +16,9 @@ def test():
 @views.route('/browse')
 def browse():
     return render_template('browse.html')
+@views.route('/view')
+def view():
+    return render_template('view.html')
 @views.route('/home', methods=['POST','GET'])
 def home():
     return render_template('home.html')
