@@ -33,6 +33,7 @@ def signup():
             "branch": request.form.get('branch'),
             "section": request.form.get('section'),
             "password": request.form.get('password'),
+            "linkedin": request.form.get('linkedin'),
         }
 
         # Validations
@@ -65,6 +66,7 @@ def signup():
         new_user = User(data)
         success, message = new_user.save_to_db()
         if(success):
+            print(data)
             otp = generate_otp()
             new_user.update_otp(otp)
             send_otp(data['email'], otp)
