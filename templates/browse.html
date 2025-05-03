@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Browse Products - UniCache</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/browse.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <!-- Simple Custom Navbar -->
     <nav style="width:100%; background: linear-gradient(to right, #0f172a, #4d6a92); color:white; padding: 1.5rem 0; display:flex; align-items:center; justify-content:space-between; font-family:sans-serif; position:sticky; top:0; z-index:100;">
-        <div style="font-weight:bold; font-size:1.5rem; margin-left:2rem;">UniCash</div>
+        <div style="font-weight:bold; font-size:1.5rem; margin-left:2rem;">UniCache</div>
         <div style="display: flex; align-items: center; margin-right:2rem; gap: 1.5rem;">
             <div style="display: flex; align-items: center;">
                 <a href="/home" style="color:#f7d08a; text-decoration:none; margin:0 1rem; font-size:1rem; transition:color 0.2s;">Home</a>
                 <a href="/sell" style="color:#f7d08a; text-decoration:none; margin:0 1rem; font-size:1rem; transition:color 0.2s;">Sell</a>
                 <a href="/browse" style="color:#f7d08a; text-decoration:none; margin:0 1rem; font-size:1rem; transition:color 0.2s;">Browse</a>
-                <a href="notes.html" style="color:#f7d08a; text-decoration:none; margin:0 1rem; font-size:1rem; transition:color 0.2s;">Notes</a>
-                <a href="/home/#about" style="color:#f7d08a; text-decoration:none; margin:0 1rem; font-size:1rem; transition:color 0.2s;">About</a>
-                <a href="/home/#contact" style="color:#f7d08a; text-decoration:none; margin:0 1rem; font-size:1rem; transition:color 0.2s;">Contact</a>
+                <a href="" style="color:#f7d08a; text-decoration:none; margin:0 1rem; font-size:1rem; transition:color 0.2s;">Notes</a>
+                <a href="/about" style="color:#f7d08a; text-decoration:none; margin:0 1rem; font-size:1rem; transition:color 0.2s;">About</a>
+                <a href="/contact" style="color:#f7d08a; text-decoration:none; margin:0 1rem; font-size:1rem; transition:color 0.2s;">Contact</a>
             </div>
-            <a href="profile.html" style="display: flex; align-items: center; justify-content: center; width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 2.5px solid #f7d08a; margin-left: 1.5rem; color: #f7d08a; background: rgba(255,255,255,0.04); transition: background 0.2s;">
+            <a href="/profile" style="display: flex; align-items: center; justify-content: center; width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 2.5px solid #f7d08a; margin-left: 1.5rem; color: #f7d08a; background: rgba(255,255,255,0.04); transition: background 0.2s;">
                 <i class="fas fa-user" style="font-size: 1.3rem;"></i>
             </a>
         </div>
@@ -99,7 +99,7 @@
         <div class="footer-col">
           <div class="footer-logo">
             <i class="fas fa-shopping-bag"></i>
-            <span>Uni Cache</span>
+            <span>UniCache</span>
           </div>
           <p>The marketplace for college students to buy and sell course-related supplies.</p>
           <div class="social-links">
@@ -112,19 +112,19 @@
         <div class="footer-col">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="browse.html">Browse Items</a></li>
-            <li><a href="sell.html">Sell an Item</a></li>
-            <li><a href="#">How It Works</a></li>
-            <li><a href="#">College Directory</a></li>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/browse">Browse Items</a></li>
+            <li><a href="/sell">Sell an Item</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="/profile">My Profile</a></li>
           </ul>
         </div>
 
         <div class="footer-col">
           <h3>Information</h3>
           <ul>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/contact">Contact Us</a></li>
             <li><a href="#">Privacy Policy</a></li>
             <li><a href="#">Terms of Service</a></li>
             <li><a href="#">FAQ</a></li>
@@ -144,7 +144,7 @@
       </div>
 
       <div class="footer-bottom">
-        <p>&copy; <span id="current-year"></span> Uni Cache. All rights reserved.</p>
+        <p>&copy; <span id="current-year"></span> UniCache. All rights reserved.</p>
       </div>
     </div>
   </footer>

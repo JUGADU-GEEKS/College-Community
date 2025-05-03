@@ -10,15 +10,206 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <meta name="description"
     content="College Bazaar - The marketplace for college students to buy and sell course-related supplies.">
+  <style>
+    .no-products i {
+      font-size: 2rem;
+      color: #4d6a92;
+      margin-bottom: 1rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .filter-controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .filter-group {
+        width: 100%;
+        min-width: auto;
+      }
+    }
+    
+    /* About Section Styles */
+    .about-section {
+      padding: 5rem 0;
+      background: linear-gradient(to right, #0f172a, #4d6a92);
+      color: white;
+    }
+    
+    .about-content {
+      display: flex;
+      margin-top: 3rem;
+      gap: 3rem;
+      align-items: center;
+    }
+    
+    .about-text {
+      flex: 1;
+      color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .about-text p {
+      margin-bottom: 1.2rem;
+      line-height: 1.6;
+    }
+    
+    .about-text ul {
+      padding-left: 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+    
+    .about-text li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .about-image {
+      flex: 1;
+    }
+    
+    .about-image img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Contact Section Styles */
+    .contact-section {
+      padding: 5rem 0;
+      background: linear-gradient(to left, #0f172a, #4d6a92);
+      color: white;
+    }
+    
+    .contact-content {
+      display: flex;
+      margin-top: 3rem;
+      gap: 3rem;
+    }
+    
+    .contact-form {
+      flex: 3;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: #334155;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      background-color: white;
+      color: #334155;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #4d6a92;
+      box-shadow: 0 0 0 2px rgba(77, 106, 146, 0.2);
+      outline: none;
+    }
+    
+    .submit-btn {
+      background: linear-gradient(to right, #0f172a, #4d6a92);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      opacity: 0.95;
+    }
+    
+    .contact-info {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .contact-card {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .contact-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    }
+    
+    .contact-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(to right, #0f172a, #4d6a92);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      font-size: 1.5rem;
+    }
+    
+    .contact-card h3 {
+      color: #0f172a;
+      margin-bottom: 0.8rem;
+      font-size: 1.2rem;
+    }
+    
+    .contact-card p {
+      color: #64748b;
+      margin: 0.2rem 0;
+    }
+    
+    .badge.badge-green {
+      background-color: #dcfce7;
+      color: #166534;
+    }
+    
+    /* Responsive styles for about and contact sections */
+    @media (max-width: 768px) {
+      .about-content,
+      .contact-content {
+        flex-direction: column;
+      }
+      
+      .about-image {
+        margin-top: 2rem;
+      }
+      
+      .contact-info {
+        margin-top: 2rem;
+      }
+    }
+  </style>
 </head>
 
-<body>
+<body {% if scroll_to %}data-scroll-to="{{ scroll_to }}"{% endif %}>
   <!-- Navigation -->
   <header class="header">
     <div class="container">
       <div class="navbar">
         <!-- Logo -->
-        <a href="home.html" class="logo">
+        <a href="/home" class="logo">
           <img src="/static/images/image.png" alt="" class="logo-img">
         </a>
         <!-- Desktop Navigation -->
@@ -27,13 +218,13 @@
           <a href="/sell" class="nav-link">Sell</a>
           <a href="/browse" class="nav-link">Browse</a>
           <a href="" class="nav-link">Notes</a>
-          <a href="#about" class="nav-link">About</a>
-          <a href="#contact" class="nav-link">Contact</a>
+          <a href="/about" class="nav-link">About</a>
+          <a href="/contact" class="nav-link">Contact</a>
         </nav>
 
         <!-- User and Mobile Menu -->
         <div class="nav-right">
-          <a href="profile.html" class="user-icon">
+          <a href="/profile" class="user-icon">
             <i class="fas fa-user"></i>
           </a>
           <button class="menu-toggle" aria-label="Toggle menu">
@@ -44,12 +235,12 @@
 
       <!-- Mobile menu -->
       <div class="mobile-menu">
-        <a href="/index" class="mobile-nav-link active">Home</a>
+        <a href="/home" class="mobile-nav-link active">Home</a>
         <a href="/sell" class="mobile-nav-link">Sell</a>
-        <a href="/browse" class="nav-link">Contact</a>
+        <a href="/browse" class="mobile-nav-link">Browse</a>
         <a href="" class="mobile-nav-link">Notes</a>
-        <a href="#about" class="mobile-nav-link">About</a>
-        <a href="#contact" class="mobile-nav-link">Contact</a>
+        <a href="/about" class="mobile-nav-link">About</a>
+        <a href="/contact" class="mobile-nav-link">Contact</a>
       </div>
     </div>
   </header>
@@ -247,6 +438,98 @@
         </div>
       </div>
     </section>
+    
+    <!-- About Section -->
+    <section id="about" class="about-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="badge badge-blue" style="background-color: #f7d08a; color: #0f172a;">Our Story</span>
+          <h2 style="color: white;">About UniCache</h2>
+          <p style="color: rgba(255, 255, 255, 0.8);">Learn about our mission to help college students save money and reduce waste</p>
+        </div>
+        
+        <div class="about-content">
+          <div class="about-text">
+            <p>UniCache was founded by a group of college students who were frustrated with the high cost of college supplies and the waste created when perfectly good items were thrown away at the end of each semester.</p>
+            <p>Our mission is to create a sustainable marketplace where students can buy and sell used course materials, lab equipment, and other college essentials at affordable prices.</p>
+            <p>By connecting students directly with each other, we help:</p>
+            <ul>
+              <li>Reduce the financial burden of education</li>
+              <li>Promote sustainability through reuse</li>
+              <li>Build a stronger campus community</li>
+            </ul>
+            <p>Since our launch, we've helped thousands of students save money and reduce waste across multiple campuses in India.</p>
+          </div>
+          <div class="about-image">
+            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="College students collaborating">
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="badge badge-green" style="background-color: #f7d08a; color: #0f172a;">Get In Touch</span>
+          <h2 style="color: white;">Contact Us</h2>
+          <p style="color: rgba(255, 255, 255, 0.8);">Have questions or feedback? We'd love to hear from you!</p>
+        </div>
+        
+        <div class="contact-content">
+          <div class="contact-form">
+            <form>
+              <div class="form-group">
+                <label for="name" style="color: rgba(255, 255, 255, 0.9);">Your Name</label>
+                <input type="text" id="name" placeholder="Enter your name">
+              </div>
+              <div class="form-group">
+                <label for="email" style="color: rgba(255, 255, 255, 0.9);">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email">
+              </div>
+              <div class="form-group">
+                <label for="subject" style="color: rgba(255, 255, 255, 0.9);">Subject</label>
+                <input type="text" id="subject" placeholder="What is this regarding?">
+              </div>
+              <div class="form-group">
+                <label for="message" style="color: rgba(255, 255, 255, 0.9);">Message</label>
+                <textarea id="message" rows="5" placeholder="Your message here..."></textarea>
+              </div>
+              <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+          </div>
+          
+          <div class="contact-info">
+            <div class="contact-card">
+              <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <h3>Email Us</h3>
+              <p>support@unicache.com</p>
+              <p>info@unicache.com</p>
+            </div>
+            
+            <div class="contact-card">
+              <div class="contact-icon">
+                <i class="fas fa-phone"></i>
+              </div>
+              <h3>Call Us</h3>
+              <p>+91 1234567890</p>
+              <p>Mon-Fri, 9AM-5PM</p>
+            </div>
+            
+            <div class="contact-card">
+              <div class="contact-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <h3>Visit Us</h3>
+              <p>Campus Hub, Building 5</p>
+              <p>New Delhi, India</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- Footer -->
@@ -256,7 +539,7 @@
         <div class="footer-col">
           <div class="footer-logo">
             <i class="fas fa-shopping-bag"></i>
-            <span>Uni Cache</span>
+            <span>UniCache</span>
           </div>
           <p>The marketplace for college students to buy and sell course-related supplies.</p>
           <div class="social-links">
@@ -269,19 +552,19 @@
         <div class="footer-col">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="browse.html">Browse Items</a></li>
-            <li><a href="sell.html">Sell an Item</a></li>
-            <li><a href="#">How It Works</a></li>
-            <li><a href="#">College Directory</a></li>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/browse">Browse Items</a></li>
+            <li><a href="/sell">Sell an Item</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="/profile">My Profile</a></li>
           </ul>
         </div>
 
         <div class="footer-col">
           <h3>Information</h3>
           <ul>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/contact">Contact Us</a></li>
             <li><a href="#">Privacy Policy</a></li>
             <li><a href="#">Terms of Service</a></li>
             <li><a href="#">FAQ</a></li>
@@ -301,7 +584,7 @@
       </div>
 
       <div class="footer-bottom">
-        <p>&copy; <span id="current-year"></span> Uni Cache. All rights reserved.</p>
+        <p>&copy; <span id="current-year"></span> UniCache. All rights reserved.</p>
       </div>
     </div>
   </footer>

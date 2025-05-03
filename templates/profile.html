@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - UniCache</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background: linear-gradient(to right, #0f172a, #4d6a92);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .navbar-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .navbar-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .navbar-link {
+            color: #f7d08a;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .navbar-link:hover {
+            color: white;
+        }
+        
+        /* Profile Header */
+        .profile-header {
+            background: linear-gradient(to right, #0f172a, #4d6a92);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .profile-header-container {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #f7d08a;
+            overflow: hidden;
+            background-color: #e9ecef;
+        }
+        
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-name {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .profile-info {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+        
+        /* Profile Content */
+        .profile-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        /* Profile Sidebar */
+        .profile-sidebar {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .sidebar-header {
+            background: linear-gradient(to right, #0f172a, #4d6a92);
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+        }
+        
+        .sidebar-content {
+            padding: 1.5rem;
+        }
+        
+        .user-details-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .user-details-item {
+            display: flex;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 1rem;
+        }
+        
+        .user-details-item:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .user-details-label {
+            flex: 1;
+            font-weight: 500;
+            color: #64748b;
+        }
+        
+        .user-details-value {
+            flex: 2;
+            color: #334155;
+        }
+        
+        /* Add Item Button */
+        .add-item-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: #f7d08a;
+            color: #0f172a;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        
+        .add-item-btn:hover {
+            background: #f5c76b;
+        }
+        
+        /* Product Tabs */
+        .product-tabs {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .tabs-header {
+            display: flex;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 1rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: #64748b;
+            transition: all 0.2s;
+            position: relative;
+        }
+        
+        .tab-btn.active {
+            color: #0f172a;
+        }
+        
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #f7d08a;
+        }
+        
+        .tab-content {
+            padding: 1.5rem;
+            min-height: 300px;
+        }
+        
+        .tab-pane {
+            display: none;
+        }
+        
+        .tab-pane.active {
+            display: block;
+        }
+        
+        /* Product Cards */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #f1f5f9;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-img-container {
+            height: 160px;
+            overflow: hidden;
+        }
+        
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-content {
+            padding: 1rem;
+        }
+        
+        .product-category {
+            font-size: 0.8rem;
+            color: #64748b;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-name {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #0f172a;
+        }
+        
+        .product-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #4d6a92;
+        }
+        
+        .product-status {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 0.3rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+        
+        .product-status.sold {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .product-status.active {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: #64748b;
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            color: #cbd5e1;
+            margin-bottom: 1rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: linear-gradient(to right, #0f172a, #4d6a92);
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-col h3 {
+            color: #f7d08a;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-col ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-col ul li a:hover {
+            color: #f7d08a;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .profile-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="/home" class="navbar-logo">UniCache</a>
+            <div class="navbar-links">
+                <a href="/home" class="navbar-link">Home</a>
+                <a href="/sell" class="navbar-link">Sell</a>
+                <a href="/browse" class="navbar-link">Browse</a>
+                <a href="" class="navbar-link">Notes</a>
+                <a href="#about" class="navbar-link">About</a>
+                <a href="#contact" class="navbar-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Header -->
+    <header class="profile-header">
+        <div class="container profile-header-container">
+            <div class="profile-avatar">
+                <img src="{{ user.profile_photo or 'https://via.placeholder.com/150' }}" alt="Profile Picture" id="current-avatar">
+            </div>
+            <div class="profile-details">
+                <h1 class="profile-name">{{ user.full_name }}</h1>
+                <div class="profile-info">
+                    {{ user.college }} | {{ user.course }} - {{ user.branch }}
+                </div>
+                <!-- Edit Profile Button -->
+                <button id="edit-profile-btn" class="add-item-btn" style="width:auto; margin-top:1.5rem;">
+                    <i class="fas fa-edit"></i> Edit Profile Photo
+                </button>
+                <!-- Avatar Selection & Upload (Hidden by Default) -->
+                <form id="avatar-form" action="/upload_avatar" method="POST" enctype="multipart/form-data" style="margin-top:1.5rem; display:none;">
+                    <div style="margin-bottom:1rem; font-weight:600; color:#f7d08a;">Choose an Avatar:</div>
+                    <div style="display:flex; gap:1rem; align-items:center; margin-bottom:1rem;">
+                        {% set preset_avatars = [
+                            'https://randomuser.me/api/portraits/men/32.jpg',
+                            'https://randomuser.me/api/portraits/women/44.jpg',
+                            'https://randomuser.me/api/portraits/men/85.jpg',
+                            'https://randomuser.me/api/portraits/women/65.jpg',
+                            'https://randomuser.me/api/portraits/men/12.jpg',
+                            'https://randomuser.me/api/portraits/women/22.jpg'
+                        ] %}
+                        {% for avatar in preset_avatars %}
+                        <label style="cursor:pointer;">
+                            <input type="radio" name="avatar_url" value="{{ avatar }}" style="display:none;">
+                            <img src="{{ avatar }}" alt="Avatar" style="width:48px; height:48px; border-radius:50%; border:2px solid #f7d08a; object-fit:cover;">
+                        </label>
+                        {% endfor %}
+                    </div>
+                    <div style="margin-bottom:0.5rem; color:#64748b;">Or upload your own:</div>
+                    <input type="file" name="avatar_file" accept="image/*" style="margin-bottom:1rem;">
+                    <button type="submit" class="add-item-btn" style="width:auto; margin-top:0;">Update Avatar</button>
+                    <button type="button" id="cancel-edit-btn" class="add-item-btn" style="width:auto; margin-top:0.5rem; background-color:#64748b;">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <!-- Profile Content -->
+    <main class="container">
+        <div class="profile-content">
+            <!-- Sidebar -->
+            <div class="profile-sidebar">
+                <div class="sidebar-header">
+                    User Information
+                </div>
+                <div class="sidebar-content">
+                    <ul class="user-details-list">
+                        <li class="user-details-item">
+                            <div class="user-details-label">Full Name:</div>
+                            <div class="user-details-value">{{ user.full_name }}</div>
+                        </li>
+                        <li class="user-details-item">
+                            <div class="user-details-label">Email:</div>
+                            <div class="user-details-value">{{ user.email }}</div>
+                        </li>
+                        <li class="user-details-item">
+                            <div class="user-details-label">Contact:</div>
+                            <div class="user-details-value">{{ user.contact }}</div>
+                        </li>
+                        <li class="user-details-item">
+                            <div class="user-details-label">Enrollment:</div>
+                            <div class="user-details-value">{{ user.enrollment }}</div>
+                        </li>
+                        <li class="user-details-item">
+                            <div class="user-details-label">College:</div>
+                            <div class="user-details-value">{{ user.college }}</div>
+                        </li>
+                        <li class="user-details-item">
+                            <div class="user-details-label">Course:</div>
+                            <div class="user-details-value">{{ user.course }}</div>
+                        </li>
+                        <li class="user-details-item">
+                            <div class="user-details-label">Branch:</div>
+                            <div class="user-details-value">{{ user.branch }}</div>
+                        </li>
+                        <li class="user-details-item">
+                            <div class="user-details-label">Section:</div>
+                            <div class="user-details-value">{{ user.section }}</div>
+                        </li>
+                        {% if user.linkedin %}
+                        <li class="user-details-item">
+                            <div class="user-details-label">LinkedIn:</div>
+                            <div class="user-details-value">
+                                <a href="{{ user.linkedin }}" target="_blank">{{ user.linkedin }}</a>
+                            </div>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    <a href="/sell" class="add-item-btn">
+                        <i class="fas fa-plus"></i> Add New Item
+                    </a>
+                </div>
+            </div>
+
+            <!-- Product Tabs -->
+            <div class="product-tabs">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="active-listings">Active Listings</button>
+                    <button class="tab-btn" data-tab="sold-items">Sold Items</button>
+                </div>
+                <div class="tab-content">
+                    <!-- Active Listings Tab -->
+                    <div class="tab-pane active" id="active-listings">
+                        {% if active_products %}
+                        <div class="products-grid">
+                            {% for product in active_products %}
+                            <div class="product-card">
+                                <div class="product-img-container">
+                                    <img src="{{ product.image }}" alt="{{ product.title }}" class="product-img">
+                                </div>
+                                <div class="product-content">
+                                    <div class="product-category">{{ product.category }}</div>
+                                    <h3 class="product-name">{{ product.title }}</h3>
+                                    <div class="product-price">{{ product.price }}</div>
+                                    <div class="product-status active">Active</div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        <div class="empty-state">
+                            <i class="fas fa-box-open"></i>
+                            <h3>No Active Listings</h3>
+                            <p>You don't have any items listed for sale right now.</p>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Sold Items Tab -->
+                    <div class="tab-pane" id="sold-items">
+                        {% if sold_products %}
+                        <div class="products-grid">
+                            {% for product in sold_products %}
+                            <div class="product-card">
+                                <div class="product-img-container">
+                                    <img src="{{ product.image }}" alt="{{ product.title }}" class="product-img">
+                                </div>
+                                <div class="product-content">
+                                    <div class="product-category">{{ product.category }}</div>
+                                    <h3 class="product-name">{{ product.title }}</h3>
+                                    <div class="product-price">{{ product.price }}</div>
+                                    <div class="product-status sold">Sold</div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        <div class="empty-state">
+                            <i class="fas fa-shopping-cart"></i>
+                            <h3>No Sold Items</h3>
+                            <p>You haven't sold any items yet.</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>UniCache</h3>
+                    <p>The marketplace for college students to buy and sell course-related supplies.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/home">Home</a></li>
+                        <li><a href="/browse">Browse</a></li>
+                        <li><a href="/sell">Sell</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li>Email: support@unicache.com</li>
+                        <li>Phone: +91 1234567890</li>
+                        <li>Address: College Campus, New Delhi</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year"></span> UniCache. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Tab functionality
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabPanes = document.querySelectorAll('.tab-pane');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and panes
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabPanes.forEach(pane => pane.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Show corresponding tab pane
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Avatar edit functionality
+        document.getElementById('edit-profile-btn').addEventListener('click', function() {
+            document.getElementById('avatar-form').style.display = 'block';
+            this.style.display = 'none';
+        });
+        
+        document.getElementById('cancel-edit-btn').addEventListener('click', function() {
+            document.getElementById('avatar-form').style.display = 'none';
+            document.getElementById('edit-profile-btn').style.display = 'block';
+        });
+    </script>
+</body>
+</html> 

@@ -22,6 +22,60 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
     
+    // Smooth scrolling for About and Contact links
+    const smoothScrollLinks = document.querySelectorAll('a[href^="#"]');
+    smoothScrollLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80, // Account for header height
+            behavior: 'smooth'
+          });
+          
+          // Close mobile menu if open
+          if (mobileMenu && mobileMenu.classList.contains('active')) {
+            mobileMenu.classList.remove('active');
+            const icon = menuToggle.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+          }
+        }
+      });
+    });
+    
+    // Check for URL hash on page load for About and Contact sections
+    if (window.location.hash) {
+      const targetElement = document.querySelector(window.location.hash);
+      if (targetElement) {
+        setTimeout(() => {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }, 100);
+      }
+    }
+    
+    // Handle scroll-to from the server side (e.g., /about, /contact routes)
+    const scrollTo = document.querySelector('body').getAttribute('data-scroll-to');
+    if (scrollTo) {
+      const targetElement = document.getElementById(scrollTo);
+      if (targetElement) {
+        setTimeout(() => {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }, 100);
+      }
+    }
+    
     // Search form focus effect
     const searchInput = document.getElementById('search-input');
     const searchContainer = document.querySelector('.search-container');
