@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,21 +17,21 @@
             --accent-color: #1D4ED8;
             --success-color: #2ecc71;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
             background-color: var(--primary-dark);
             color: var(--text-primary);
             min-height: 100vh;
             overflow-x: hidden;
         }
-        
+
         .navbar {
             background-color: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(10px);
@@ -45,7 +46,7 @@
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
-        
+
         .logo {
             font-size: 1.8rem;
             font-weight: bold;
@@ -55,12 +56,12 @@
             color: transparent;
             letter-spacing: 1px;
         }
-        
+
         .nav-links {
             display: flex;
             gap: 2rem;
         }
-        
+
         .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
@@ -70,11 +71,11 @@
             position: relative;
             transition: all 0.3s ease;
         }
-        
+
         .nav-links a:hover {
             color: var(--text-primary);
         }
-        
+
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -85,17 +86,17 @@
             background: var(--accent-color);
             transition: width 0.3s ease;
         }
-        
+
         .nav-links a:hover::after {
             width: 100%;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 100px auto 50px;
             padding: 2rem;
         }
-        
+
         .title {
             text-align: center;
             font-size: 2.5rem;
@@ -103,11 +104,11 @@
             opacity: 0;
             transform: translateY(50px);
         }
-        
+
         .title span {
             color: var(--accent-color);
         }
-        
+
         .product-form-container {
             background-color: var(--secondary-dark);
             border-radius: 15px;
@@ -117,24 +118,24 @@
             opacity: 0;
             transform: translateY(50px);
         }
-        
+
         .form-title {
             font-size: 1.5rem;
             margin-bottom: 1.5rem;
             color: var(--accent-color);
         }
-        
+
         .form-group {
             margin-bottom: 1.5rem;
         }
-        
+
         .form-label {
             display: block;
             margin-bottom: 0.5rem;
             font-size: 0.9rem;
             color: var(--text-secondary);
         }
-        
+
         .form-control {
             width: 100%;
             padding: 1rem;
@@ -145,24 +146,24 @@
             font-size: 1rem;
             transition: all 0.3s ease;
         }
-        
+
         .form-control:focus {
             outline: none;
             border-color: var(--accent-color);
             box-shadow: 0 0 0 2px rgba(156, 39, 176, 0.3);
         }
-        
+
         textarea.form-control {
             min-height: 150px;
             resize: vertical;
         }
-        
+
         .image-upload {
             display: flex;
             align-items: center;
             gap: 1rem;
         }
-        
+
         .upload-btn {
             background-color: var(--accent-dark);
             color: var(--text-secondary);
@@ -174,17 +175,17 @@
             transition: all 0.3s ease;
             flex: 1;
         }
-        
+
         .upload-btn:hover {
             border-color: var(--accent-color);
             color: var(--text-primary);
         }
-        
+
         .upload-icon {
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
         }
-        
+
         .preview-image {
             width: 100px;
             height: 100px;
@@ -192,13 +193,13 @@
             object-fit: cover;
             display: none;
         }
-        
+
         .form-row {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1rem;
         }
-        
+
         .submit-btn {
             background: linear-gradient(90deg, #4d6a92, #1D4ED8);
             color: white;
@@ -214,20 +215,20 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        
+
         .submit-btn:hover {
             background: linear-gradient(45deg, #8e24aa, #5e35b1);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(156, 39, 176, 0.4);
         }
-        
+
         .product-cards {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
         }
-        
+
         .product-card {
             background-color: var(--secondary-dark);
             border-radius: 15px;
@@ -237,27 +238,27 @@
             opacity: 0;
             transform: translateY(50px);
         }
-        
+
         .product-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
-        
+
         .product-image {
             width: 100%;
             height: 200px;
             object-fit: cover;
         }
-        
+
         .product-details {
             padding: 1.5rem;
         }
-        
+
         .product-title {
             font-size: 1.3rem;
             margin-bottom: 0.5rem;
         }
-        
+
         .product-description {
             color: var(--text-secondary);
             margin-bottom: 1rem;
@@ -267,7 +268,7 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
-        
+
         .product-meta {
             display: flex;
             justify-content: space-between;
@@ -276,13 +277,13 @@
             padding-top: 1rem;
             border-top: 1px solid #333;
         }
-        
+
         .product-price {
             font-size: 1.5rem;
             font-weight: bold;
             color: var(--success-color);
         }
-        
+
         .product-age {
             background-color: var(--accent-dark);
             padding: 0.3rem 0.8rem;
@@ -300,25 +301,25 @@
             display: inline-block;
             margin-bottom: 1rem;
         }
-        
+
         /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
-        
+
         ::-webkit-scrollbar-track {
             background: var(--primary-dark);
         }
-        
+
         ::-webkit-scrollbar-thumb {
             background: var(--accent-color);
             border-radius: 10px;
         }
-        
+
         ::-webkit-scrollbar-thumb:hover {
             background: #7b1fa2;
         }
-        
+
         /* Success alert */
         .alert {
             position: fixed;
@@ -333,11 +334,11 @@
             transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
             z-index: 1000;
         }
-        
+
         .alert.show {
             transform: translateX(0);
         }
-        
+
         /* Loading spinner */
         .loader {
             display: inline-block;
@@ -350,31 +351,34 @@
             margin-right: 10px;
             display: none;
         }
-        
+
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
-        
+
         /* Responsive styles */
         @media (max-width: 768px) {
             .container {
                 padding: 1rem;
             }
-            
+
             .title {
                 font-size: 2rem;
             }
-            
+
             .product-form-container {
                 padding: 1.5rem;
             }
-            
+
             .nav-links {
                 display: none;
             }
         }
     </style>
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar">
@@ -387,17 +391,17 @@
             <a href="#">Contact</a>
         </div>
     </nav>
-    
+
     <!-- Success Alert -->
     <div class="alert" id="alert">Product added successfully!</div>
-    
+
     <div class="container">
         <h1 class="title">Add Your <span>Product</span></h1>
-        
+
         <!-- Product Form -->
         <div class="product-form-container">
             <h2 class="form-title">Product Information</h2>
-            <form id="productForm">
+            <form id="productForm" action="/addProduct" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label class="form-label">Product Image</label>
                     <div class="image-upload">
@@ -405,52 +409,66 @@
                             <div class="upload-icon">📷</div>
                             <div>Click to upload image</div>
                         </label>
-                        <input type="file" id="productImage" style="display: none" accept="image/*">
+                        <input type="file" id="productImage" name="image" style="display: none" accept="image/*">
                         <img src="/api/placeholder/100/100" alt="Preview" class="preview-image" id="imagePreview">
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <label class="form-label" for="productTitle">Titile</label>
-                    <input type="text" id="productTitle" class="form-control" value="{{equipment_item}}" placeholder="{{equipment_item}}" disabled>
+                    <input type="text" id="productTitle" name="title" class="form-control" value="{{equipment_item}}"
+                        placeholder="{{equipment_item}}">
                 </div>
-                
+
                 <div class="form-group">
                     <label class="form-label" for="productDescription">Product Description</label>
-                    <textarea id="productDescription" class="form-control" placeholder="Enter detailed product description"></textarea>
+                    <textarea id="productDescription" class="form-control" name="description"
+                        placeholder="Enter detailed product description"></textarea>
                 </div>
-                
+
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label" for="productPrice">Price(₹)</label>
-                        <input type="number" id="productPrice" class="form-control" placeholder="{{predicted_price}}" disabled>
+                        <input type="text" id="productPrice" name="price" class="form-control"
+                            value="{{predicted_price}}" placeholder="{{predicted_price}}">
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="form-label" for="productAge">Months Old</label>
-                        <input type="number" id="productAge" class="form-control" placeholder="{{months_old}}" value="{{months_old}}" disabled>
+                        <input type="text" id="productAge" name="monthsold" class="form-control"
+                            placeholder="{{months_old}}" value="{{months_old}}">
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="Condition">Condition</label>
-                        <input type="number" id="productAge" class="form-control" placeholder="{{condition}}" value="{{condition}}" disabled>
+                        <input type="text" id="productAge" name="condition" class="form-control"
+                            placeholder="{{condition}}" value="{{condition}}">
                     </div>
-                    
-                
-                <button type="submit" class="submit-btn" id="submitBtn">
-                    <span class="loader" id="submitLoader"></span>
-                    Add Product
-                </button>
+
+
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <span class="loader" id="submitLoader"></span>
+                        Add Product
+                    </button>
             </form>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
         </div>
-        
+
     </div>
-    
-    
+
+
     <script>
         // Initialize GSAP
         gsap.registerPlugin(ScrollTrigger);
-        
+
         // Initial animations
         window.addEventListener('DOMContentLoaded', () => {
             // Animate title
@@ -460,7 +478,7 @@
                 duration: 1,
                 ease: "power3.out"
             });
-            
+
             // Animate form container
             gsap.to(".product-form-container", {
                 opacity: 1,
@@ -469,7 +487,7 @@
                 delay: 0.3,
                 ease: "power3.out"
             });
-            
+
             // Animate navbar
             gsap.from(".navbar", {
                 y: -100,
@@ -477,7 +495,7 @@
                 duration: 1,
                 ease: "power3.out"
             });
-            
+
             // Animate nav links
             gsap.from(".nav-links a", {
                 opacity: 0,
@@ -488,19 +506,19 @@
                 ease: "power3.out"
             });
         });
-        
+
         // Handle image upload preview
         const productImage = document.getElementById('productImage');
         const imagePreview = document.getElementById('imagePreview');
-        
-        productImage.addEventListener('change', function(e) {
+
+        productImage.addEventListener('change', function (e) {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     imagePreview.src = e.target.result;
                     imagePreview.style.display = 'block';
-                    
+
                     // Animate the preview image
                     gsap.from(imagePreview, {
                         scale: 0.5,
@@ -512,65 +530,9 @@
                 reader.readAsDataURL(file);
             }
         });
+
         
-        // Form submission
-        const productForm = document.getElementById('productForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const submitLoader = document.getElementById('submitLoader');
-        const alert = document.getElementById('alert');
-        
-        productForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Show loader
-            submitLoader.style.display = 'inline-block';
-            submitBtn.disabled = true;
-            
-            // Get form values
-            const title = document.getElementById('productTitle').value;
-            const description = document.getElementById('productDescription').value;
-            const price = parseFloat(document.getElementById('productPrice').value);
-            const age = parseInt(document.getElementById('productAge').value);
-            const category = document.getElementById('productCategory').value;
-            
-            // Simulate form submission delay
-            setTimeout(() => {
-                // Add new product to sample products
-                if (title && price) {
-                    sampleProducts.unshift({
-                        image: imagePreview.style.display === 'block' ? imagePreview.src : "/api/placeholder/300/200",
-                        title,
-                        description,
-                        price,
-                        age,
-                        category
-                    });
-                    
-                    // Regenerate product cards
-                    generateProductCards();
-                    
-                    // Reset form
-                    productForm.reset();
-                    imagePreview.style.display = 'none';
-                    
-                    // Show success alert
-                    alert.classList.add('show');
-                    setTimeout(() => {
-                        alert.classList.remove('show');
-                    }, 3000);
-                    
-                    // Scroll to products
-                    setTimeout(() => {
-                        document.getElementById('productCards').scrollIntoView({ behavior: 'smooth' });
-                    }, 500);
-                }
-                
-                // Hide loader
-                submitLoader.style.display = 'none';
-                submitBtn.disabled = false;
-            }, 1500);
-        });
-        
+
         // Animate form inputs on focus
         const formInputs = document.querySelectorAll('.form-control');
         formInputs.forEach(input => {
@@ -581,7 +543,7 @@
                     duration: 0.3
                 });
             });
-            
+
             input.addEventListener('blur', () => {
                 if (!input.value) {
                     gsap.to(input, {
@@ -592,7 +554,7 @@
                 }
             });
         });
-        
+
         // Navbar animation on scroll
         window.addEventListener('scroll', () => {
             const navbar = document.querySelector('.navbar');
@@ -606,4 +568,5 @@
         });
     </script>
 </body>
+
 </html>
