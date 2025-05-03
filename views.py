@@ -1,12 +1,5 @@
-<<<<<<< HEAD
-from flask import Flask, Blueprint, render_template, request, session, jsonify, redirect, url_for, flash
-import os
-from werkzeug.utils import secure_filename
-from model import User
-=======
 from flask import Flask, Blueprint, render_template, request, session, jsonify, flash, redirect, url_for
 from model import User, Product  # Make sure Product is also imported properly
->>>>>>> b2cc9c0a8e45d3143ac89b9dfad1fe5e2efab46e
 from price_predict import predict_price_equipment, predict_price_calculator
 import os
 from werkzeug.utils import secure_filename
@@ -35,35 +28,6 @@ def test():
 
 @views.route('/browse')
 def browse():
-<<<<<<< HEAD
-    # Get filter parameters
-    category = request.args.get('category', 'all')
-    condition = request.args.get('condition')
-    max_price = request.args.get('max_price')
-    
-    # Get all categories for the filter dropdown
-    categories = {'all': 'All Products', 'drafter': 'Drafters', 'lab_apron': 'Lab Aprons', 'sheet_holder': 'Sheet Holders', 'calculator': 'Calculators'}
-    
-    # In the real implementation, you would get filtered products from the database
-    # For now, empty products list as a placeholder
-    products = []
-    
-    return render_template('browse.html', 
-                          products=products, 
-                          categories=categories, 
-                          selected_category=category, 
-                          selected_condition=condition, 
-                          selected_max_price=max_price)
-
-@views.route('/view')
-def view():
-    product_id = request.args.get('id')
-    # In the real implementation, you would get the product from the database
-    # For now, return error page
-    return render_template('error.html', message="Product not found")
-
-@views.route('/home', methods=['POST','GET'])
-=======
     products = Product.get_all_products()
     combined_data = []
 
@@ -87,30 +51,19 @@ def view():
 
 @views.route('/view')
 def view():
+    product_id = request.args.get('id')
+    # If product_id is provided, get the product from the database
+    if product_id:
+        product = Product.get_product_by_id(product_id)
+        if product:
+            seller = User.get_data(product.get('seller'))
+            return render_template('view.html', product=product, seller=seller)
+    
     return render_template('view.html')
 
 @views.route('/home', methods=['POST', 'GET'])
->>>>>>> b2cc9c0a8e45d3143ac89b9dfad1fe5e2efab46e
 def home():
-    # Get all categories for the filter section
-    categories = {'all': 'All Products', 'drafter': 'Drafters', 'lab_apron': 'Lab Aprons', 'sheet_holder': 'Sheet Holders', 'calculator': 'Calculators'}
-    
-    # Get filter parameters
-    category = request.args.get('category', 'all')
-    condition = request.args.get('condition')
-    max_price = request.args.get('max_price')
-    
-    # In the real implementation, you would get filtered products from the database
-    # For now, empty products list as a placeholder
-    products = []
-    
-    return render_template('home.html', 
-                          products=products, 
-                          categories=categories,
-                          selected_category=category,
-                          selected_condition=condition,
-                          selected_max_price=max_price)
-
+    return render_template('home.html')
 @views.route('/profile')
 def profile():
     # Check if user is logged in
@@ -131,12 +84,9 @@ def profile():
                           user=user,
                           active_products=active_products,
                           sold_products=sold_products)
-
 @views.route('/sell', methods=['POST', 'GET'])
 def sell():
-    # Get categories for dropdowns
-    categories = {'all': 'All Products', 'drafter': 'Drafters', 'lab_apron': 'Lab Aprons', 'sheet_holder': 'Sheet Holders', 'calculator': 'Calculators'}
-    return render_template('sell.html', categories=categories)
+    return render_template('sell.html')
 
 @views.route('/price', methods=['POST', 'GET'])
 def price():
@@ -168,9 +118,6 @@ def price():
             return render_template('addSell.html', predicted_price=predicted_price,
                                    equipment_item="Akash Books", months_old="NA", condition="NA")
 
-<<<<<<< HEAD
-    return render_template('addSell.html', predicted_price=25)  # Default value for GET request
-=======
     return render_template('addSell.html', predicted_price=0)
 @views.route('/addProduct', methods=['GET', 'POST'])
 def addProduct():
@@ -178,14 +125,37 @@ def addProduct():
         if 'image' not in request.files:
             flash('No image part')
             return redirect(request.url)
->>>>>>> b2cc9c0a8e45d3143ac89b9dfad1fe5e2efab46e
 
         file = request.files['image']
         if file.filename == '':
             flash('No selected file')
             return redirect(request.url)
 
-<<<<<<< HEAD
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(UPLOAD_FOLDER, filename)
+            file.save(filepath)
+
+            data = {
+                'title': request.form.get('title'),
+                'image': '/' + filepath,
+                'description': request.form.get('description'),
+                'price': request.form.get('price'),
+                'monthsold': request.form.get('monthsold'),
+                'condition': request.form.get('condition'),
+                'selleremail': session.get('user').get('email')
+            }
+            print(data)
+            product = Product(data)
+            success, message = product.save_to_db()
+            flash(message)
+            return render_template('test.html', method="Post")  # Update as needed
+
+        flash('Invalid file format')
+        return redirect(request.url)
+
+    # For GET request
+    return render_template("test.html", method="GET")
 @views.route('/about')
 def about():
     return render_template('home.html', scroll_to="about")
@@ -193,8 +163,6 @@ def about():
 @views.route('/contact')
 def contact():
     return render_template('home.html', scroll_to="contact")
-
-# API endpoint for AJAX product filtering
 @views.route('/api/products', methods=['GET'])
 def api_products():
     category = request.args.get('category', 'all')
@@ -247,31 +215,3 @@ def upload_avatar():
         flash('Please select or upload an avatar.', 'warning')
 
     return redirect(url_for('views.profile'))
-
-=======
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            filepath = os.path.join(UPLOAD_FOLDER, filename)
-            file.save(filepath)
-
-            data = {
-                'title': request.form.get('title'),
-                'image': '/' + filepath,
-                'description': request.form.get('description'),
-                'price': request.form.get('price'),
-                'monthsold': request.form.get('monthsold'),
-                'condition': request.form.get('condition'),
-                'selleremail': session.get('user').get('email')
-            }
-            print(data)
-            product = Product(data)
-            success, message = product.save_to_db()
-            flash(message)
-            return render_template('test.html', method="Post")  # Update as needed
-
-        flash('Invalid file format')
-        return redirect(request.url)
-
-    # For GET request
-    return render_template("test.html", method="GET")
->>>>>>> b2cc9c0a8e45d3143ac89b9dfad1fe5e2efab46e
