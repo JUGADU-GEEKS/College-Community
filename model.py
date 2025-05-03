@@ -27,6 +27,11 @@ class User:
         self.otp = None
         self.linkedin = data.get('linkedin')
         self.isVerified = False
+        # New lists for tracking product relations
+        self.bought = []  # product _id values of bought items
+        self.sold = []    # product _id values of sold items
+        self.cart = []    # product _id values added to cart
+
 
     def save_to_db(self):
         if users_collection.find_one({"email": self.email}):

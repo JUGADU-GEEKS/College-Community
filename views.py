@@ -28,7 +28,26 @@ def test():
 
 @views.route('/browse')
 def browse():
-    return render_template('browse.html')
+    products = Product.get_all_products()
+    combined_data = []
+
+    for product in products:
+        seller_email = product.get('seller')
+        seller = User.get_data(seller_email)
+        if seller:
+            combined_data.append({
+                'product': product,
+                'seller': {
+                    'full_name': seller.get('full_name'),
+                    'email': seller.get('email'),
+                    'contact': seller.get('contact'),
+                    'college': seller.get('college'),
+                    'branch': seller.get('branch'),
+                    'profile_photo': seller.get('profile_photo')
+                }
+            })
+
+    return render_template('browse.html', items=combined_data)
 
 @views.route('/view')
 def view():
