@@ -432,7 +432,8 @@ h1{
     font-size: 1.1em;
   }
   
-  .add-to-cart {
+  /* Remove this class as we're using standardized .btn instead */
+  /* .add-to-cart {
     background: #111;
     color: #4d6a92;
     border: 1.5px solid #4d6a92;
@@ -448,7 +449,51 @@ h1{
   .add-to-cart:hover {
     background: #506e98;
     color: #181818;
-  }
+  } */
+
+/* Standardized Button Styles */
+.btn {
+  background: #111;
+  color: #4d6a92;
+  border: 1.5px solid #4d6a92;
+  border-radius: 6px;
+  padding: 7px 18px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  margin-top: 6px;
+}
+
+.btn:hover {
+  background: #506e98;
+  color: #181818;
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: #4d6a92;
+  color: #fff;
+  border: 1.5px solid #4d6a92;
+}
+
+.btn-primary:hover {
+  background: #3d5a82;
+  color: #fff;
+}
+
+.btn-gold {
+  color: #f7d08a;
+  border-color: #f7d08a;
+}
+
+.btn-gold:hover {
+  background: #f7d08a;
+  color: #0f172a;
+}
 
 /* Media Queries */
 @media (min-width: 640px) {
