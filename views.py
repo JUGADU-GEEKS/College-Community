@@ -64,6 +64,7 @@ def view():
 @views.route('/home', methods=['POST', 'GET'])
 def home():
     return render_template('home.html')
+
 @views.route('/profile')
 def profile():
     # Check if user is logged in
@@ -75,15 +76,28 @@ def profile():
     email = user_data.get('email')
     user = User.get_data(email)
     
-    # In a real implementation, you would fetch the user's active and sold products
-    # For now, we'll use empty lists as placeholders
-    active_products = []
+    # Fetch the user's active and sold products using the product IDs stored in the user's 'bought' and 'sold' lists
+    buyed_products = []
     sold_products = []
+    
+    # Fetch active products (not sold yet)
+    for product_id in user.get('bought', []):
+        product = Product.get_product_by_id(product_id)
+        if product:
+            buyed_products.append(product)
+
+    # Fetch sold products
+    for product_id in user.get('sold', []):
+        product = Product.get_product_by_id(product_id)
+        if product:
+            sold_products.append(product)
     
     return render_template('profile.html', 
                           user=user,
-                          active_products=active_products,
+                          buyed_products=buyed_products,
                           sold_products=sold_products)
+
+
 @views.route('/sell', methods=['POST', 'GET'])
 def sell():
     return render_template('sell.html')
@@ -135,6 +149,8 @@ def addProduct():
             filename = secure_filename(file.filename)
             filepath = os.path.join(UPLOAD_FOLDER, filename)
             file.save(filepath)
+
+            print(session.get('user'))
 
             data = {
                 'title': request.form.get('title'),

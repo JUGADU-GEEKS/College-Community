@@ -2,6 +2,8 @@ from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
 import os
+from bson.objectid import ObjectId  # Ensure this import is at the top
+
 
 load_dotenv()
 
@@ -30,8 +32,6 @@ class User:
         # New lists for tracking product relations
         self.bought = []  # product _id values of bought items
         self.sold = []    # product _id values of sold items
-        self.cart = []    # product _id values added to cart
-
 
     def save_to_db(self):
         if users_collection.find_one({"email": self.email}):
@@ -80,7 +80,16 @@ class Product:
         self.buyer = None
 
     def save_to_db(self):
-        products_collection.insert_one(self.__dict__)
+        # Step 1: Insert the product and get the inserted ID
+        result = products_collection.insert_one(self.__dict__)
+        product_id = result.inserted_id
+
+        # Step 2: Push the product_id to the seller's 'sold' list
+        users_collection.update_one(
+            {"email": self.seller},
+            {"$push": {"sold": product_id}}
+        )
+
         return True, "Product added successfully!"
 
     @staticmethod
@@ -93,8 +102,15 @@ class Product:
             {"_id": product_id, "isSold": False},
             {"$set": {"isSold": True, "buyer": buyer_email}}
         )
-        return result.modified_count > 0
 
+        if result.modified_count > 0:
+            users_collection.update_one(
+                {"email": buyer_email},
+                {"$push": {"bought": product_id}}
+            )
+            return True
+        return False
+    
     @staticmethod
     def get_product_by_id(product_id):
         return products_collection.find_one({"_id": product_id})

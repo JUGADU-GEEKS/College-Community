@@ -14,7 +14,7 @@
             background-color: #f8f9fa;
             color: #333;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -302,6 +302,11 @@
             color: #1e40af;
         }
         
+        .product-status.purchased {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
         .empty-state {
             text-align: center;
             padding: 2rem;
@@ -500,13 +505,15 @@
                 <div class="tabs-header">
                     <button class="tab-btn active" data-tab="active-listings">Active Listings</button>
                     <button class="tab-btn" data-tab="sold-items">Sold Items</button>
+                    <button class="tab-btn" data-tab="buyed-products">Buyed Items</button>
                 </div>
                 <div class="tab-content">
                     <!-- Active Listings Tab -->
                     <div class="tab-pane active" id="active-listings">
-                        {% if active_products %}
+                        {% set filtered_active = sold_products | selectattr("isSold", "equalto", False) | list %}
+                        {% if filtered_active %}
                         <div class="products-grid">
-                            {% for product in active_products %}
+                            {% for product in filtered_active %}
                             <div class="product-card">
                                 <div class="product-img-container">
                                     <img src="{{ product.image }}" alt="{{ product.title }}" class="product-img">
@@ -514,7 +521,7 @@
                                 <div class="product-content">
                                     <div class="product-category">{{ product.category }}</div>
                                     <h3 class="product-name">{{ product.title }}</h3>
-                                    <div class="product-price">{{ product.price }}</div>
+                                    <div class="product-price">₹{{ product.price }}</div>
                                     <div class="product-status active">Active</div>
                                 </div>
                             </div>
@@ -528,12 +535,13 @@
                         </div>
                         {% endif %}
                     </div>
-
+                    
                     <!-- Sold Items Tab -->
                     <div class="tab-pane" id="sold-items">
-                        {% if sold_products %}
+                        {% set filtered_sold = sold_products | selectattr("isSold") | list %}
+                        {% if filtered_sold %}
                         <div class="products-grid">
-                            {% for product in sold_products %}
+                            {% for product in filtered_sold %}
                             <div class="product-card">
                                 <div class="product-img-container">
                                     <img src="{{ product.image }}" alt="{{ product.title }}" class="product-img">
@@ -541,7 +549,7 @@
                                 <div class="product-content">
                                     <div class="product-category">{{ product.category }}</div>
                                     <h3 class="product-name">{{ product.title }}</h3>
-                                    <div class="product-price">{{ product.price }}</div>
+                                    <div class="product-price">₹{{ product.price }}</div>
                                     <div class="product-status sold">Sold</div>
                                 </div>
                             </div>
@@ -552,6 +560,33 @@
                             <i class="fas fa-shopping-cart"></i>
                             <h3>No Sold Items</h3>
                             <p>You haven't sold any items yet.</p>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Buyed Items Tab -->
+                    <div class="tab-pane" id="buyed-products">
+                        {% if buyed_products %}
+                        <div class="products-grid">
+                            {% for product in buyed_products %}
+                            <div class="product-card">
+                                <div class="product-img-container">
+                                    <img src="{{ product.image }}" alt="{{ product.title }}" class="product-img">
+                                </div>
+                                <div class="product-content">
+                                    <div class="product-category">{{ product.category }}</div>
+                                    <h3 class="product-name">{{ product.title }}</h3>
+                                    <div class="product-price">₹{{ product.price }}</div>
+                                    <div class="product-status purchased">Purchased</div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        <div class="empty-state">
+                            <i class="fas fa-shopping-bag"></i>
+                            <h3>No Buyed Items</h3>
+                            <p>You haven't purchased any items yet.</p>
                         </div>
                         {% endif %}
                     </div>
@@ -628,4 +663,4 @@
         });
     </script>
 </body>
-</html> 
+</html>
