@@ -22,6 +22,148 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
     
+    // Contact Form Handling
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault(); // Prevent form reload
+        
+        // Validate form fields
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const subject = document.getElementById('subject').value.trim();
+        const message = document.getElementById('message').value.trim();
+        
+        // Check if any field is empty
+        if (!name || !email || !subject || !message) {
+          const errorMessage = document.createElement('div');
+          errorMessage.className = 'error-message';
+          errorMessage.textContent = 'Please fill in all fields';
+          errorMessage.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #f44336;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 1000;
+            animation: slideIn 0.5s ease-out;
+          `;
+          
+          document.body.appendChild(errorMessage);
+          
+          // Remove error message after 3 seconds
+          setTimeout(() => {
+            errorMessage.style.animation = 'slideOut 0.5s ease-out';
+            setTimeout(() => errorMessage.remove(), 500);
+          }, 3000);
+          
+          return; // Stop form submission if validation fails
+        }
+        
+        // Show loading state
+        const submitBtn = contactForm.querySelector('.submit-btn');
+        const originalBtnText = submitBtn.textContent;
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+        
+        try {
+          // Get form data
+          const formData = {
+            name: name,
+            email: email,
+            subject: subject,
+            message: message
+          };
+          
+          // Send data to Google Sheets
+          const response = await fetch('https://script.google.com/macros/s/AKfycbz3_7wxaEHu2v8RgPzMZiMwko-gbJE3V6nWAL2Iln-LC_ZgRTdMzK5h_Ln9_uDTF1wt/exec', {
+            method: 'POST',
+            body: JSON.stringify(formData),
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            mode: 'no-cors'
+          });
+          
+          // Show success message
+          const successMessage = document.createElement('div');
+          successMessage.className = 'success-message';
+          successMessage.textContent = 'Message sent successfully! We will get back to you soon.';
+          successMessage.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 1000;
+            animation: slideIn 0.5s ease-out;
+          `;
+          
+          document.body.appendChild(successMessage);
+          
+          // Remove success message after 3 seconds
+          setTimeout(() => {
+            successMessage.style.animation = 'slideOut 0.5s ease-out';
+            setTimeout(() => successMessage.remove(), 500);
+          }, 3000);
+          
+          // Reset form
+          contactForm.reset();
+          
+        } catch (error) {
+          console.error('Error:', error);
+          // Show error message
+          const errorMessage = document.createElement('div');
+          errorMessage.className = 'error-message';
+          errorMessage.textContent = 'There was a problem sending your message. Please try again.';
+          errorMessage.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #f44336;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 1000;
+            animation: slideIn 0.5s ease-out;
+          `;
+          
+          document.body.appendChild(errorMessage);
+          
+          // Remove error message after 3 seconds
+          setTimeout(() => {
+            errorMessage.style.animation = 'slideOut 0.5s ease-out';
+            setTimeout(() => errorMessage.remove(), 500);
+          }, 3000);
+        } finally {
+          // Reset button state
+          submitBtn.textContent = originalBtnText;
+          submitBtn.disabled = false;
+        }
+      });
+    }
+    
+    // Add animation keyframes
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+      }
+    `;
+    document.head.appendChild(style);
+    
     // Smooth scrolling for About and Contact links
     const smoothScrollLinks = document.querySelectorAll('a[href^="#"]');
     smoothScrollLinks.forEach(link => {

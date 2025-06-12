@@ -546,3 +546,87 @@ h1{
         grid-template-columns: repeat(4, 1fr);
     }
 }
+
+/* Navigation Styles */
+nav {
+  width: 100%;
+  background: linear-gradient(to right, #0f172a, #4d6a92);
+  color: white;
+  padding: 1.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: sans-serif;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+nav > div {
+  display: flex;
+  align-items: center;
+}
+
+nav > div:first-child {
+  margin-left: 2rem;
+}
+
+nav > div:last-child {
+  margin-right: 2.5rem;
+  gap: 1.5rem;
+}
+
+nav a {
+  color: #f7d08a;
+  text-decoration: none;
+  margin: 0 1.2rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+  letter-spacing: 0.5px;
+}
+
+nav a:hover {
+  color: white;
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+nav a.active {
+  color: white;
+}
+
+nav a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: white;
+}
+
+/* User Profile Icon */
+.user-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 2.5px solid #f7d08a;
+  color: #f7d08a;
+  background: rgba(255,255,255,0.04);
+  transition: all 0.3s ease;
+  margin-right: 1rem;
+}
+
+.user-icon:hover {
+  background: rgba(255,255,255,0.1);
+  transform: scale(1.05);
+}
+
+.user-icon i {
+  font-size: 1.5rem;
+}

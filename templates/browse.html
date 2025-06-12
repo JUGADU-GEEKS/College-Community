@@ -12,25 +12,35 @@
 <body>
   <!-- Simple Custom Navbar -->
   <nav
-    style="width:100%; background: linear-gradient(to right, #0f172a, #4d6a92); color:white; padding: 1.5rem 0; display:flex; align-items:center; justify-content:space-between; font-family:sans-serif; position:sticky; top:0; z-index:100;">
-    <div style="font-weight:bold; font-size:1.5rem; margin-left:2rem;">UniCache</div>
-    <div style="display: flex; align-items: center; margin-right:2rem; gap: 1.5rem;">
-      <div style="display: flex; align-items: center;">
+    style="width:100%; background: linear-gradient(to right, #0f172a, #4d6a92); color:white; padding: 1rem 0; display:flex; align-items:center; justify-content:space-between; font-family:sans-serif; position:sticky; top:0; z-index:100;">
+    <!-- Logo and Title -->
+    <div style="display: flex; align-items: center; margin-left: 90px;">
+      <img src="/static/images/image.png" alt="UniCache Logo" style="width: 42px; height: 42px; border-radius: 50%; margin-right: 0.8rem;">
+      <div style="font-weight:bold; font-size:1.5rem;">UniCache</div>
+    </div>
+
+    <!-- Centered Navigation Links -->
+    <div style="display: flex; align-items: center; justify-content: center; flex: 1;">
+      <div style="display: flex; align-items: center; gap: 1.2rem;">
         <a href="/home"
-          style="color:#f7d08a; text-decoration:none; margin:0 1rem; font-size:1rem; transition:color 0.2s;">Home</a>
+          style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Home</a>
         <a href="/sell"
-          style="color:#f7d08a; text-decoration:none; margin:0 1rem; font-size:1rem; transition:color 0.2s;">Sell</a>
+          style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Sell</a>
         <a href="/browse"
-          style="color:#f7d08a; text-decoration:none; margin:0 1rem; font-size:1rem; transition:color 0.2s;">Browse</a>
+          style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Browse</a>
         <a href=""
-          style="color:#f7d08a; text-decoration:none; margin:0 1rem; font-size:1rem; transition:color 0.2s;">Notes</a>
-        <a href="/home/#about"
-          style="color:#f7d08a; text-decoration:none; margin:0 1rem; font-size:1rem; transition:color 0.2s;">About</a>
-        <a href="/home/#contact"
-          style="color:#f7d08a; text-decoration:none; margin:0 1rem; font-size:1rem; transition:color 0.2s;">Contact</a>
+          style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Notes</a>
+        <a href="/home#about"
+          style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">About</a>
+        <a href="/home#contact"
+          style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Contact</a>
       </div>
+    </div>
+
+    <!-- User Profile -->
+    <div style="margin-right: 90px;">
       <a href="/profile"
-        style="display: flex; align-items: center; justify-content: center; width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 2.5px solid #f7d08a; margin-left: 1.5rem; color: #f7d08a; background: rgba(255,255,255,0.04); transition: background 0.2s;">
+        style="display: flex; align-items: center; justify-content: center; width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 2.5px solid #f7d08a; color: #f7d08a; background: rgba(255,255,255,0.04); transition: all 0.3s;">
         <i class="fas fa-user" style="font-size: 1.3rem;"></i>
       </a>
     </div>
@@ -47,20 +57,20 @@
   </section>
 
   <section class="main">
-    <div class="container">
+    <div class="container" style="width: 100%; max-width: 100%; padding: 0; margin: 0;">
       <div class="text-overlay">
-        <div class="text-wrapper">
-          <h2 class="filled-text">From one student to another — pass it on.</h2>
-          <h2 class="outline-text">From one student to another — pass it on.</h2>
+        <div class="text-wrapper" style="display: flex; flex-direction: column; align-items: flex-start;">
+          <h2 class="filled-text" id="passItOn" style="margin: 0;">— pass it on.</h2>
+          <h2 class="outline-text" id="passItOnOutline" style="margin: 0; margin-top: -10px;">— pass it on.</h2>
         </div>
       </div>
-      <img class="image"
+      <img class="image" style="width: 100%; height: auto; object-fit: cover;"
         src="https://habitatbroward.org/wp-content/uploads/2021/09/Top-8-Benefits-of-Community-Service-for-Students.jpg">
     </div>
   </section>
 
   <section class="footer">
-    <h1 class="reupyog-glow">ReUpyog These Equipments</h1>
+    <h1 class="reupyog-glow" style="color: #f7d08a;">ReUpyog These Equipments</h1>
     <div class="featured-products-section">
       <h2 class="featured-title">Featured Products</h2>
       <div class="featured-products-grid">
