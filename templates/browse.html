@@ -16,21 +16,18 @@
     style="width:100%; background: linear-gradient(to right, #0f172a, #4d6a92); color:white; padding: 1rem 0; display:flex; align-items:center; justify-content:space-between; font-family:sans-serif; position:sticky; top:0; z-index:100;">
     <!-- Logo and Title -->
     <div style="display: flex; align-items: center; margin-left: 90px;">
-      <img src="/static/images/image.png" alt="UniCache Logo" style="width: 42px; height: 42px; border-radius: 50%; margin-right: 0.8rem;">
+      <img src="/static/images/image.png" alt="UniCache Logo"
+        style="width: 42px; height: 42px; border-radius: 50%; margin-right: 0.8rem;">
       <div style="font-weight:bold; font-size:1.5rem;">UniCache</div>
     </div>
 
     <!-- Centered Navigation Links -->
     <div style="display: flex; align-items: center; justify-content: center; flex: 1;">
       <div style="display: flex; align-items: center; gap: 1.2rem;">
-        <a href="/home"
-          style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Home</a>
-        <a href="/sell"
-          style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Sell</a>
-        <a href="/browse"
-          style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Browse</a>
-        <a href=""
-          style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Notes</a>
+        <a href="/home" style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Home</a>
+        <a href="/sell" style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Sell</a>
+        <a href="/browse" style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Browse</a>
+        <a href="" style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Notes</a>
         <a href="/home#about"
           style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">About</a>
         <a href="/home#contact"
@@ -75,26 +72,29 @@
     <div class="featured-products-section">
       <h2 class="featured-title">Featured Products</h2>
       <div class="featured-products-grid">
+        {% if items %}
+        <p style="color: yellow;">Items available: {{ items | length }}</p>
+
         {% for item in items %}
-          <div class="featured-card">
-            <img src="{{ item.product.image }}" alt="{{ item.product.title }}">
-            <div class="featured-info">
-              <div class="featured-name">
-                {{ item.product.title }}
-              </div>
-              <div class="featured-rating">★★★★★</div>
-              <div class="featured-prices">₹{{ item.product.price }}
-              </div>
-              <div class="featured-seller">Seller: {{ item.seller.full_name }}
-              </div>
-              <div class="featured-age">Months Old: {{ item.product.monthsold }}
-              </div>
-              <button class="btn"><a href="/buy/{{ item.product._id }}" style="color: aliceblue;">Buy Item</a></button>
-              
-            </div>
+        <div class="featured-card">
+          <img src="{{ item.product.image }}" alt="{{ item.product.title }}">
+          <div class="featured-info">
+            <div class="featured-name">{{ item.product.title }}</div>
+            <div class="featured-rating">★★★★★</div>
+            <div class="featured-prices">₹{{ item.product.price }}</div>
+            <div class="featured-seller">Seller: {{ item.seller.full_name }}</div>
+            <div class="featured-age">Months Old: {{ item.product.monthsold }}</div>
+            <button class="btn">
+              <a href="/buy/{{ item.product._id }}" style="color: aliceblue;">Buy Item</a>
+            </button>
           </div>
+        </div>
         {% endfor %}
+        {% else %}
+        <p style="color: white;">No featured products available at the moment.</p>
+        {% endif %}
       </div>
+
     </div>
   </section>
   <!-- Footer -->

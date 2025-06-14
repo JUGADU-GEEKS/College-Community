@@ -21,19 +21,27 @@ def index():
 
 @views.route('/test')
 def test():
-    user_new = session.get('user')
-    email = user_new.get('email')
-    user = User.get_data(email)
-    return render_template('test.html', user=user)
+    products = Product.get_all_products()
+    print("📦 PRODUCTS FROM DB:", products)
+    return render_template('test.html', products=products)
 
 @views.route('/browse')
 def browse():
     products = Product.get_all_products()
+    print("📦 PRODUCTS FROM DB:", products)
+
     combined_data = []
 
     for product in products:
+        product['_id'] = str(product['_id'])
+        product['image'] = product['image'].replace('\\', '/')
+
         seller_email = product.get('seller')
+        print("📧 Seller Email:", seller_email)
+
         seller = User.get_data(seller_email)
+        print("👤 Seller Data:", seller)
+
         if seller:
             combined_data.append({
                 'product': product,
@@ -41,11 +49,14 @@ def browse():
                     'full_name': seller.get('full_name'),
                     'email': seller.get('email'),
                     'contact': seller.get('contact'),
-                    'college': seller.get('college'),
-                    'branch': seller.get('branch'),
+                    'college': seller.get('college', ''),
+                    'branch': seller.get('branch', ''),
                     'profile_photo': seller.get('profile_photo')
                 }
             })
+
+    print("✅ FINAL combined_data:", combined_data)
+    print("🧮 Count:", len(combined_data))
 
     return render_template('browse.html', items=combined_data)
 
@@ -138,12 +149,12 @@ def addProduct():
     if request.method == 'POST':
         if 'image' not in request.files:
             flash('No image part')
-            return redirect(request.url)
+            return render_template('error.html')
 
         file = request.files['image']
         if file.filename == '':
             flash('No selected file')
-            return redirect(request.url)
+            return render_template('error.html')
 
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
@@ -159,19 +170,19 @@ def addProduct():
                 'price': request.form.get('price'),
                 'monthsold': request.form.get('monthsold'),
                 'condition': request.form.get('condition'),
-                'selleremail': session.get('user').get('email')
+                'seller': session.get('user').get('email')
             }
             print(data)
             product = Product(data)
             success, message = product.save_to_db()
             flash(message)
-            return render_template('test.html', method="Post")  # Update as needed
+            return render_template("browse.html")
 
         flash('Invalid file format')
         return redirect(request.url)
 
     # For GET request
-    return render_template("test.html", method="GET")
+    return render_template("browse.html")
 @views.route('/about')
 def about():
     return render_template('home.html', scroll_to="about")
