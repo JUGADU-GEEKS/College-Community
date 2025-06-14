@@ -76,8 +76,9 @@ class Product:
         self.monthsold = data.get('monthsold')
         self.condition = data.get('condition')
         self.isSold = False
-        self.seller = data.get('selleremail')
+        self.seller = data.get('seller')
         self.buyer = None
+        self.payment = 'Pending'
 
     def save_to_db(self):
         # Step 1: Insert the product and get the inserted ID
@@ -113,8 +114,11 @@ class Product:
     
     @staticmethod
     def get_product_by_id(product_id):
-        return products_collection.find_one({"_id": product_id})
-
+        try:
+            return products_collection.find_one({"_id": ObjectId(product_id)})
+        except Exception:
+            return None
+        
     def to_dict(self):
         return {
             "title": self.title,

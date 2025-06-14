@@ -231,3 +231,15 @@ def upload_avatar():
         flash('Please select or upload an avatar.', 'warning')
 
     return redirect(url_for('views.profile'))
+
+@views.route('/buy/<id>')
+def buy(id):
+    buyer = session.get('user')
+    raw_product = Product.get_product_by_id(id)
+    if raw_product:
+        product = Product(raw_product)  # create Product instance
+        seller_name = User.get_data(product.seller).full_name
+        return render_template('buy.html', product=product, buyer=buyer, seller_name=seller_name)
+    else:
+        return "Product not found", 404
+

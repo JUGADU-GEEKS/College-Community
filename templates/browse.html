@@ -78,7 +78,8 @@
               </div>
               <div class="featured-age">Months Old: {{ item.product.monthsold }}
               </div>
-              <button class="btn">ADD TO CART</button>
+              <button class="btn"><a href="/buy/{{ item.product._id }}" style="color: aliceblue;">Buy Item</a></button>
+              
             </div>
           </div>
         {% endfor %}
