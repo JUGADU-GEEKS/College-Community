@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile - UniCache</title>
+    <link rel="icon" type="image/webp" href="{{ url_for('static', filename='images/app-icon.png') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* General Styles */
@@ -59,7 +60,7 @@
         
         /* Profile Header */
         .profile-header {
-            background: linear-gradient(to right, #0f172a, #4d6a92);
+            background: #000000;
             color: white;
             padding: 3rem 0;
             margin-bottom: 2rem;
@@ -388,14 +389,36 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container navbar-container">
-            <a href="/home" class="navbar-logo">UniCache</a>
-            <div class="navbar-links">
-                <a href="/home" class="navbar-link">Home</a>
-                <a href="/sell" class="navbar-link">Sell</a>
-                <a href="/browse" class="navbar-link">Browse</a>
-                <a href="" class="navbar-link">Notes</a>
-                <a href="#about" class="navbar-link">About</a>
-                <a href="#contact" class="navbar-link">Contact</a>
+            <!-- Logo and Title -->
+            <div style="display: flex; align-items: center; margin-left: 70px;">
+                <img src="/static/images/image.png" alt="UniCache Logo" style="width: 42px; height: 42px; border-radius: 50%; margin-right: 0.8rem;">
+                <a href="/home" class="navbar-logo" style="color: white; text-decoration: none; font-size: 1.5rem; font-weight: bold;">UniCache</a>
+            </div>
+
+            <!-- Centered Navigation Links -->
+            <div style="display: flex; align-items: center; justify-content: center; flex: 1;">
+                <div style="display: flex; align-items: center; gap: 1.2rem;">
+                    <a href="/home"
+                        style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Home</a>
+                    <a href="/sell"
+                        style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Sell</a>
+                    <a href="/browse"
+                        style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Browse</a>
+                    <a href=""
+                        style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Notes</a>
+                    <a href="/home#about"
+                        style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">About</a>
+                    <a href="/home#contact"
+                        style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Contact</a>
+                </div>
+            </div>
+
+            <!-- User Profile -->
+            <div style="margin-right: 70px;">
+                <a href="/profile"
+                    style="display: flex; align-items: center; justify-content: center; width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 2.5px solid #f7d08a; color: #f7d08a; background: rgba(255,255,255,0.04); transition: all 0.3s;">
+                    <i class="fas fa-user" style="font-size: 1.3rem;"></i>
+                </a>
             </div>
         </div>
     </nav>

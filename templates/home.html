@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Uni Cache - Buy & Sell College Supplies</title>
+  <link rel="icon" type="image/webp" href="{{ url_for('static', filename='images/app-icon.png') }}">
   <link rel="stylesheet" href="/static/stylesheets/componentsSheets/homeHero.css">
   <link rel="stylesheet" href="/static/stylesheets/home.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -211,6 +212,7 @@
         <!-- Logo -->
         <a href="/home" class="logo">
           <img src="/static/images/image.png" alt="" class="logo-img">
+          <span>UniCache</span>
         </a>
         <!-- Desktop Navigation -->
         <nav class="nav-menu">
@@ -478,22 +480,22 @@
         
         <div class="contact-content">
           <div class="contact-form">
-            <form>
+            <form id="contactForm" method="POST" action="javascript:void(0);">
               <div class="form-group">
                 <label for="name" style="color: rgba(255, 255, 255, 0.9);">Your Name</label>
-                <input type="text" id="name" placeholder="Enter your name">
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
               </div>
               <div class="form-group">
                 <label for="email" style="color: rgba(255, 255, 255, 0.9);">Email Address</label>
-                <input type="email" id="email" placeholder="Enter your email">
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
               </div>
               <div class="form-group">
                 <label for="subject" style="color: rgba(255, 255, 255, 0.9);">Subject</label>
-                <input type="text" id="subject" placeholder="What is this regarding?">
+                <input type="text" id="subject" name="subject" placeholder="What is this regarding?" required>
               </div>
               <div class="form-group">
                 <label for="message" style="color: rgba(255, 255, 255, 0.9);">Message</label>
-                <textarea id="message" rows="5" placeholder="Your message here..."></textarea>
+                <textarea id="message" name="message" rows="5" placeholder="Your message here..." required></textarea>
               </div>
               <button type="submit" class="submit-btn">Send Message</button>
             </form>

@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Student Marketplace</title>
-    <link rel="stylesheet" href="static/stylesheets/sell.css">
+    <title>Sell Products - UniCache</title>
+    <link rel="icon" type="image/webp" href="{{ url_for('static', filename='images/app-icon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/sell.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="static/stylesheets/componentsSheets/scroll.css">
 </head>
 
@@ -13,31 +15,43 @@
     <div class="container">
         <nav class="navbar">
             <div class="navbar-container">
-                <a href="/home" class="logo">Student Sell Sphere</a>
+                <a href="/home" class="logo">
+                    <img src="/static/images/image.png" alt="UniCache Logo" class="logo-img">
+                    <span>UniCache</span>
+                </a>
 
                 <!-- Desktop Navigation -->
                 <div class="desktop-nav">
-                    <a href="/home" class="nav-item active"><span class="nav-icon"></span> Home</a>
-                    <a href="/sell" class="nav-item"><span class="nav-icon"></span> Sell</a>
-                    <a href="/browse" class="nav-item"><span class="nav-icon"></span> Browse</a>
-                    <a href="/notes" class="nav-item"><span class="nav-icon"></span> Notes</a>
-                    <a href="#about" class="nav-item"><span class="nav-icon"></span> About</a>
-                    <a href="#contact" class="nav-item"><span class="nav-icon"></span> Contact</a>
+                    <a href="/home" class="nav-item">Home</a>
+                    <a href="/sell" class="nav-item active">Sell</a>
+                    <a href="/browse" class="nav-item">Browse</a>
+                    <a href="/notes" class="nav-item">Notes</a>
+                    <a href="/about" class="nav-item">About</a>
+                    <a href="/contact" class="nav-item">Contact</a>
                 </div>
 
-                <!-- Mobile Menu Button -->
-                <button class="menu-button" aria-label="Toggle menu">
-                    <span class="menu-icon">☰</span>
-                </button>
+                <!-- User Profile and Mobile Menu Button -->
+                <div class="nav-right">
+                    <a href="/profile" class="user-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </a>
+                    <button class="menu-button" aria-label="Toggle menu">
+                        <span class="menu-icon">☰</span>
+                    </button>
+                </div>
             </div>
 
             <!-- Mobile Navigation -->
             <div class="mobile-nav">
-                <a href="#" class="nav-item active"><span class="nav-icon">🏠</span> Home</a>
-                <a href="#" class="nav-item"><span class="nav-icon">🏷️</span> Sell</a>
-                <a href="#" class="nav-item"><span class="nav-icon">📚</span> Notes</a>
-                <a href="#" class="nav-item"><span class="nav-icon">ℹ️</span> About</a>
-                <a href="#" class="nav-item"><span class="nav-icon">✉️</span> Contact</a>
+                <a href="/home" class="nav-item">Home</a>
+                <a href="/sell" class="nav-item active">Sell</a>
+                <a href="/browse" class="nav-item">Browse</a>
+                <a href="/notes" class="nav-item">Notes</a>
+                <a href="/about" class="nav-item">About</a>
+                <a href="/contact" class="nav-item">Contact</a>
             </div>
         </nav>
         <header>
