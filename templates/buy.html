@@ -453,7 +453,7 @@
             <div class="product-image">
                 <div class="image-container">
                     <img src="{{ product.image }}">
-                    <div class="sold-badge">SOLD</div>
+                    <div class="sold-badge">{{ product.condition }}</div>
                 </div>
             </div>
 
@@ -477,7 +477,7 @@
                     </div>
                     <div class="info-item">
                         <div class="info-label">Seller</div>
-                        <div class="info-value">{{ product.seller }}</div>
+                        <div class="info-value">{{ seller_name }}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Buyer</div>
@@ -485,12 +485,14 @@
                     </div>
                 </div>
 
-                <button class="buy-button">
-                    PURCHASE NOW
-                </button>
+                <a href="/purchase/{{ id }}">
+                    <button class="buy-button">
+                        PURCHASE NOW
+                    </button>
+                </a>
 
                 <div class="payment-status">
-                    Payment Status: Pending
+                    Payment Status: {{ product.payment }}
                 </div>
             </div>
         </div>

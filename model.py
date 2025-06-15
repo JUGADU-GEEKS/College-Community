@@ -97,20 +97,31 @@ class Product:
     def get_all_products():
         return list(products_collection.find({"isSold": False}))
 
-    @staticmethod
-    def buy_product(product_id, buyer_email):
-        result = products_collection.update_one(
-            {"_id": product_id, "isSold": False},
-            {"$set": {"isSold": True, "buyer": buyer_email}}
-        )
+    
 
-        if result.modified_count > 0:
-            users_collection.update_one(
-                {"email": buyer_email},
-                {"$push": {"bought": product_id}}
+    @staticmethod
+    def buy_product(product_id, buyer_email, seller_email):
+        try:
+            result = products_collection.update_one(
+                {"_id": ObjectId(product_id), "isSold": False},
+                {"$set": {"isSold": True, "buyer": buyer_email}}
             )
-            return True
-        return False
+
+            if result.modified_count > 0:
+                users_collection.update_one(
+                    {"email": buyer_email},
+                    {"$push": {"bought": product_id}}
+                )
+                users_collection.update_one(
+                    {"email": seller_email},
+                    {"$push": {"sold": product_id}}
+                )
+                return True
+            return False
+        except Exception as e:
+            print("Error in buy_product:", e)
+            return False
+
     
     @staticmethod
     def get_product_by_id(product_id):

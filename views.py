@@ -1,6 +1,7 @@
 from flask import Flask, Blueprint, render_template, request, session, jsonify, flash, redirect, url_for
 from model import User, Product  # Make sure Product is also imported properly
 from price_predict import predict_price_equipment, predict_price_calculator
+from utils import notify_buyer_and_seller
 import os
 from werkzeug.utils import secure_filename
 
@@ -176,10 +177,10 @@ def addProduct():
             product = Product(data)
             success, message = product.save_to_db()
             flash(message)
-            return render_template("browse.html")
+            return redirect("/browse")
 
         flash('Invalid file format')
-        return redirect(request.url)
+        return redirect('/browse')
 
     # For GET request
     return render_template("browse.html")
@@ -249,8 +250,28 @@ def buy(id):
     raw_product = Product.get_product_by_id(id)
     if raw_product:
         product = Product(raw_product)  # create Product instance
-        seller_name = User.get_data(product.seller).full_name
-        return render_template('buy.html', product=product, buyer=buyer, seller_name=seller_name)
+        seller_data = User.get_data(product.seller)
+        seller_name = seller_data['full_name'] if seller_data else 'Unknown'
+
+        if(seller_name==buyer['full_name']):
+            return render_template('error.html', message="Buyer and Seller can't be same", backlink="/browse")
+
+        return render_template('buy.html', product=product, buyer=buyer, seller_name=seller_name, id=id)
     else:
         return "Product not found", 404
+    
+
+@views.route('/purchase/<id>')
+def purchase(id):
+    product = Product.get_product_by_id(id)
+    seller_email = product['seller']
+    buyer_email = session.get('user')['email']
+    buyer = User.get_data(buyer_email)
+    seller = User.get_data(seller_email)
+    try:
+        Product.buy_product(id, buyer['email'], seller['email'])
+        notify_buyer_and_seller(buyer['email'], buyer['linkedin'], seller['email'], seller['linkedin'])
+        return render_template('purchaseSuccess.html', seller_email = seller['email'], seller_linkedin = seller['linkedin'], product = product)
+    except Exception as e:
+        return render_template('error.html', message=e, backlink=f'/buy/{id}')
 
