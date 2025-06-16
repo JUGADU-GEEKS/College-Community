@@ -130,6 +130,14 @@ class Product:
         except Exception:
             return None
         
+    @staticmethod
+    def get_product_number_by_name(name):
+        try:
+            return products_collection.count_documents({"title": name})
+        except Exception:
+            return 0  # or None if you prefer
+
+        
     def to_dict(self):
         return {
             "title": self.title,

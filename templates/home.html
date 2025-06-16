@@ -24,84 +24,84 @@
         flex-direction: column;
         align-items: stretch;
       }
-      
+
       .filter-group {
         width: 100%;
         min-width: auto;
       }
     }
-    
+
     /* About Section Styles */
     .about-section {
       padding: 5rem 0;
       background: linear-gradient(to right, #0f172a, #4d6a92);
       color: white;
     }
-    
+
     .about-content {
       display: flex;
       margin-top: 3rem;
       gap: 3rem;
       align-items: center;
     }
-    
+
     .about-text {
       flex: 1;
       color: rgba(255, 255, 255, 0.9);
     }
-    
+
     .about-text p {
       margin-bottom: 1.2rem;
       line-height: 1.6;
     }
-    
+
     .about-text ul {
       padding-left: 1.5rem;
       margin-bottom: 1.2rem;
     }
-    
+
     .about-text li {
       margin-bottom: 0.5rem;
     }
-    
+
     .about-image {
       flex: 1;
     }
-    
+
     .about-image img {
       width: 100%;
       border-radius: 10px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
-    
+
     /* Contact Section Styles */
     .contact-section {
       padding: 5rem 0;
       background: linear-gradient(to left, #0f172a, #4d6a92);
       color: white;
     }
-    
+
     .contact-content {
       display: flex;
       margin-top: 3rem;
       gap: 3rem;
     }
-    
+
     .contact-form {
       flex: 3;
     }
-    
+
     .form-group {
       margin-bottom: 1.5rem;
     }
-    
+
     .form-group label {
       display: block;
       margin-bottom: 0.5rem;
       font-weight: 500;
       color: #334155;
     }
-    
+
     .form-group input,
     .form-group textarea {
       width: 100%;
@@ -113,14 +113,14 @@
       color: #334155;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
-    
+
     .form-group input:focus,
     .form-group textarea:focus {
       border-color: #4d6a92;
       box-shadow: 0 0 0 2px rgba(77, 106, 146, 0.2);
       outline: none;
     }
-    
+
     .submit-btn {
       background: linear-gradient(to right, #0f172a, #4d6a92);
       color: white;
@@ -131,19 +131,19 @@
       cursor: pointer;
       transition: transform 0.2s, opacity 0.2s;
     }
-    
+
     .submit-btn:hover {
       transform: translateY(-2px);
       opacity: 0.95;
     }
-    
+
     .contact-info {
       flex: 2;
       display: flex;
       flex-direction: column;
       gap: 2rem;
     }
-    
+
     .contact-card {
       background: #f8f9fa;
       padding: 1.5rem;
@@ -151,12 +151,12 @@
       text-align: center;
       transition: transform 0.3s, box-shadow 0.3s;
     }
-    
+
     .contact-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
     }
-    
+
     .contact-icon {
       width: 60px;
       height: 60px;
@@ -169,34 +169,35 @@
       margin: 0 auto 1rem;
       font-size: 1.5rem;
     }
-    
+
     .contact-card h3 {
       color: #0f172a;
       margin-bottom: 0.8rem;
       font-size: 1.2rem;
     }
-    
+
     .contact-card p {
       color: #64748b;
       margin: 0.2rem 0;
     }
-    
+
     .badge.badge-green {
       background-color: #dcfce7;
       color: #166534;
     }
-    
+
     /* Responsive styles for about and contact sections */
     @media (max-width: 768px) {
+
       .about-content,
       .contact-content {
         flex-direction: column;
       }
-      
+
       .about-image {
         margin-top: 2rem;
       }
-      
+
       .contact-info {
         margin-top: 2rem;
       }
@@ -204,7 +205,7 @@
   </style>
 </head>
 
-<body {% if scroll_to %}data-scroll-to="{{ scroll_to }}"{% endif %}>
+<body {% if scroll_to %}data-scroll-to="{{ scroll_to }}" {% endif %}>
   <!-- Navigation -->
   <header class="header">
     <div class="container">
@@ -212,7 +213,7 @@
         <!-- Logo -->
         <a href="/home" class="logo">
           <img src="/static/images/image.png" alt="" class="logo-img">
-          <span>UniCache</span>
+          <span>BPIT Cart</span>
         </a>
         <!-- Desktop Navigation -->
         <nav class="nav-menu">
@@ -264,8 +265,7 @@
             <div class="slide" data-current>
               <div class="slide__inner">
                 <div class="slide--image__wrapper">
-                  <img class="slide--image"
-                    src="/static/images/bpit.webp" alt="Image 1" />
+                  <img class="slide--image" src="/static/images/bpit.webp" alt="Image 1" />
                 </div>
               </div>
             </div>
@@ -289,8 +289,7 @@
             <div class="slide" data-previous>
               <div class="slide__inner">
                 <div class="slide--image__wrapper">
-                  <img class="slide--image" src="/static/images/hero1.webp"
-                    alt="Image 3" />
+                  <img class="slide--image" src="/static/images/hero1.webp" alt="Image 3" />
                 </div>
               </div>
             </div>
@@ -364,7 +363,7 @@
         <span class="loader__text">0%</span>
       </div>
 
-      
+
     </div>
     <!-- Categories Section -->
     <section class="categories">
@@ -440,35 +439,41 @@
         </div>
       </div>
     </section>
-    
+
     <!-- About Section -->
     <section id="about" class="about-section">
       <div class="container">
         <div class="section-header">
           <span class="badge badge-blue" style="background-color: #f7d08a; color: #0f172a;">Our Story</span>
           <h2 style="color: white;">About UniCache</h2>
-          <p style="color: rgba(255, 255, 255, 0.8);">Learn about our mission to help college students save money and reduce waste</p>
+          <p style="color: rgba(255, 255, 255, 0.8);">Learn about our mission to help college students save money and
+            reduce waste</p>
         </div>
-        
+
         <div class="about-content">
           <div class="about-text">
-            <p>UniCache was founded by a group of college students who were frustrated with the high cost of college supplies and the waste created when perfectly good items were thrown away at the end of each semester.</p>
-            <p>Our mission is to create a sustainable marketplace where students can buy and sell used course materials, lab equipment, and other college essentials at affordable prices.</p>
+            <p>UniCache was founded by a group of college students who were frustrated with the high cost of college
+              supplies and the waste created when perfectly good items were thrown away at the end of each semester.</p>
+            <p>Our mission is to create a sustainable marketplace where students can buy and sell used course materials,
+              lab equipment, and other college essentials at affordable prices.</p>
             <p>By connecting students directly with each other, we help:</p>
             <ul>
               <li>Reduce the financial burden of education</li>
               <li>Promote sustainability through reuse</li>
               <li>Build a stronger campus community</li>
             </ul>
-            <p>Since our launch, we've helped thousands of students save money and reduce waste across multiple campuses in India.</p>
+            <p>Since our launch, we've helped thousands of students save money and reduce waste across multiple campuses
+              in India.</p>
           </div>
           <div class="about-image">
-            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="College students collaborating">
+            <img
+              src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              alt="College students collaborating">
           </div>
         </div>
       </div>
     </section>
-    
+
     <!-- Contact Section -->
     <section id="contact" class="contact-section">
       <div class="container">
@@ -477,7 +482,7 @@
           <h2 style="color: white;">Contact Us</h2>
           <p style="color: rgba(255, 255, 255, 0.8);">Have questions or feedback? We'd love to hear from you!</p>
         </div>
-        
+
         <div class="contact-content">
           <div class="contact-form">
             <form id="contactForm" method="POST" action="javascript:void(0);">
@@ -500,7 +505,7 @@
               <button type="submit" class="submit-btn">Send Message</button>
             </form>
           </div>
-          
+
           <div class="contact-info">
             <div class="contact-card">
               <div class="contact-icon">
@@ -510,7 +515,7 @@
               <p>support@unicache.com</p>
               <p>info@unicache.com</p>
             </div>
-            
+
             <div class="contact-card">
               <div class="contact-icon">
                 <i class="fas fa-phone"></i>
@@ -519,7 +524,7 @@
               <p>+91 1234567890</p>
               <p>Mon-Fri, 9AM-5PM</p>
             </div>
-            
+
             <div class="contact-card">
               <div class="contact-icon">
                 <i class="fas fa-map-marker-alt"></i>
@@ -541,7 +546,7 @@
         <div class="footer-col">
           <div class="footer-logo">
             <i class="fas fa-shopping-bag"></i>
-            <span>UniCache</span>
+            <span>BPIT Cart</span>
           </div>
           <p>The marketplace for college students to buy and sell course-related supplies.</p>
           <div class="social-links">
@@ -591,8 +596,19 @@
     </div>
   </footer>
 
+  <script>
+    window.productCounts = {
+      apron: {{ apron_c }},
+    drafter: {{ drafter_c }},
+    labcoat: {{ labcoat_c }},
+    calculator: {{ calculator_c }},
+    books: {{ books_c }}
+  };
+  </script>
+
   <script src="/static/javascripts/home.js"></script>
   <script type="module" src="/static/javascripts/components/homeHero.js"></script>
+
 </body>
 
 </html>

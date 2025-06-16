@@ -16,4 +16,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+const togglePassword = (id) => {
+  const inp = document.body.querySelector(`#${id}`);
+  if (inp.getAttribute('type') === 'text') {
+    inp.setAttribute('type', 'password'); // ✅ correct usage
+  } else {
+    inp.setAttribute('type', 'text');     // ✅ correct usage
+  }
+};
+
+
 

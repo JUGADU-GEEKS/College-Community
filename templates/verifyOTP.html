@@ -181,12 +181,27 @@
         </p>
     </div>
     {% if message %}
-        <div class="message">{{ message }}</div>
+    <div class="message">{{ message }}</div>
     {% endif %}
     <script>
         function resendOTP() {
             window.location.href = '/resendotp';
         }
+        const inputs = document.querySelectorAll('.otp-input');
+
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', () => {
+                if (input.value.length === 1 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && input.value === '' && index > 0) {
+                    inputs[index - 1].focus();
+                }
+            });
+        });
     </script>
 
 </body>

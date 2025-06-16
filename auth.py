@@ -19,6 +19,9 @@ def is_valid_password(password):
     pattern = r'^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$'
     return re.match(pattern, password)
 
+def is_valid_linkedin_url(url):
+    pattern = r'^https?://(www\.)?linkedin\.com/(in|pub|company)/[a-zA-Z0-9_-]+/?$'
+    return re.match(pattern, url) is not None
 
 @auth.route('/signup', methods=["POST", "GET"])
 def signup():
@@ -42,10 +45,13 @@ def signup():
         contact = data['contact']
         password = data['password']
         confirm_password = request.form.get('confirm-password')
+        linkedin = data['linkedin']
         u = users_collection.find_one({"email":email})
         
         if u:
             return redirect('/login')
+        if not is_valid_linkedin_url(linkedin):
+            return render_template('signup.html', error='Linkedin URL is not correct.')
         if not email.endswith(('@gmail.com', '@outlook.com')):
             return render_template('signup.html', error='Only Gmail or Outlook emails are allowed.')
 
@@ -60,6 +66,7 @@ def signup():
         #to check for password constraints
         if not is_valid_password(password):
             return render_template('signup.html', error='Password Should be atleast 8 character long, should have one uppercase and one special character.')
+        
         
 
         
