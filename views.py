@@ -7,6 +7,12 @@ from werkzeug.utils import secure_filename
 
 views = Blueprint('views', __name__)
 
+@views.before_request
+def require_login():
+    if 'user' not in session:
+        return redirect(url_for('auth.login'))
+
+
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
@@ -26,10 +32,54 @@ def test():
     print("📦 PRODUCTS FROM DB:", products)
     return render_template('test.html', products=products)
 
+from flask import Blueprint, render_template, request, session, redirect, url_for
+from model import Product
+from pymongo import MongoClient
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+MONGO_URI = os.getenv("MONGO_URI")
+client = MongoClient(MONGO_URI)
+db = client['Student-Community']
+users_collection = db['users']
+
+views = Blueprint('views', __name__)
+
 @views.route('/browse')
 def browse():
-    products = Product.get_all_products()
-    print("📦 PRODUCTS FROM DB:", products)
+    filter_by = request.args.get('filter')  # e.g. ?filter=labcoat
+    print("🎯 /browse route hit with filter:", filter_by)
+
+    raw_products = Product.get_all_products()
+
+    items = []
+
+    for product in raw_products:
+        title = product.get("title", "").lower()
+        
+        # ✅ Only apply filter if it's provided
+        if filter_by and filter_by.lower() not in title:
+            continue
+
+        seller_email = product.get("seller")
+        seller_data = users_collection.find_one(
+            {"email": seller_email}, 
+            {"full_name": 1}
+        )
+
+        item = {
+            "product": product,
+            "seller": {
+                "full_name": seller_data.get("full_name") if seller_data else "Unknown"
+            }
+        }
+        items.append(item)
+
+    return render_template('browse.html', items=items)
+
+
 
     combined_data = []
 
@@ -79,7 +129,7 @@ def home():
     drafter_c = Product.get_product_number_by_name('Drafter')
     labcoat_c = Product.get_product_number_by_name('Labcoat')
     calculator_c = Product.get_product_number_by_name('Calculator')
-    books_c = Product.get_product_number_by_name('Books')
+    books_c = Product.get_product_number_by_name('Akash Books')
     return render_template('home.html', apron_c=apron_c, drafter_c=drafter_c, labcoat_c=labcoat_c, calculator_c=calculator_c, books_c=books_c)
 
 @views.route('/profile')
@@ -280,3 +330,6 @@ def purchase(id):
     except Exception as e:
         return render_template('error.html', message=e, backlink=f'/buy/{id}')
 
+@views.route('/leaderboard')
+def leaderboard():
+    return render_template('leaderboard.html')

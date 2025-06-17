@@ -352,11 +352,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const counts = window.productCounts;
 
   const categories = [
-    { name: "Drafting Tools", icon: "📏", count: counts.drafter },
-    { name: "Safety Aprons", icon: "🎽", count: counts.apron },
-    { name: "Textbooks", icon: "📚", count: counts.books },
-    { name: "Lab Coats", icon: "🥼", count: counts.labcoat },
-    { name: "Calculators", icon: "🧮", count: counts.calculator }
+    { name: "Drafting Tools", icon: "📏", count: counts.drafter, link:"drafter" },
+    { name: "Safety Aprons", icon: "🎽", count: counts.apron, link:"apron" },
+    { name: "Textbooks", icon: "📚", count: counts.books, link:"akash books" },
+    { name: "Lab Coats", icon: "🥼", count: counts.labcoat, link:"labcoats" },
+    { name: "Calculators", icon: "🧮", count: counts.calculator, link:"calculator" }
   ];
 
 
@@ -395,6 +395,9 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
       // Set a delay based on the index
       categoryEl.style.transitionDelay = `${index * 0.1}s`;
+      categoryEl.addEventListener('click', ()=>[
+        window.location.href = `/browse?filter=${encodeURIComponent(category.link)}`
+      ])
       categoryGrid.appendChild(categoryEl);
     });
   }

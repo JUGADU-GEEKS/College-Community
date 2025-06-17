@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Browse Products - UniCache</title>
+  <title>Browse Products - BPIT Cart</title>
   <link rel="icon" type="image/webp" href="{{ url_for('static', filename='images/app-icon.png') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/browse.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -18,7 +18,7 @@
     <div style="display: flex; align-items: center; margin-left: 90px;">
       <img src="/static/images/image.png" alt="UniCache Logo"
         style="width: 42px; height: 42px; border-radius: 50%; margin-right: 0.8rem;">
-      <div style="font-weight:bold; font-size:1.5rem;">UniCache</div>
+      <div style="font-weight:bold; font-size:1.5rem;">BPIT Cart</div>
     </div>
 
     <!-- Centered Navigation Links -->
@@ -78,7 +78,6 @@
           <img src="{{ item.product.image }}" alt="{{ item.product.title }}">
           <div class="featured-info">
             <div class="featured-name">{{ item.product.title }}</div>
-            <div class="featured-rating">★★★★★</div>
             <div class="featured-prices">₹{{ item.product.price }}</div>
             <div class="featured-seller">Seller: {{ item.seller.full_name }}</div>
             <div class="featured-age">Months Old: {{ item.product.monthsold }}</div>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Leaderboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/leaderboard.css') }}">
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="particles"></div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🏆 LEADERBOARD 🏆</h1>
+            <p class="subtitle">Top Performers of the Month</p>
+        </div>
+
+        <div class="toggle-buttons">
+            <div class="toggle-btn active" data-view="both">Both Categories</div>
+            <div class="toggle-btn" data-view="purchasers">Top Purchasers</div>
+            <div class="toggle-btn" data-view="sellers">Top Sellers</div>
+        </div>
+
+        <div class="leaderboards">
+            <div class="leaderboard purchasers">
+                <h2 class="leaderboard-title purchasers-title">💰 Top Purchasers</h2>
+                <div class="leaderboard-item" data-rank="1">
+                    <div class="crown">👑</div>
+                    <div class="rank gold">1</div>
+                    <div class="avatar">AJ</div>
+                    <div class="user-info">
+                        <div class="username">Alex Johnson</div>
+                        <div class="stats">152 purchases • Member since 2023</div>
+                    </div>
+                    <div class="amount">$24,890</div>
+                </div>
+                <div class="leaderboard-item" data-rank="2">
+                    <div class="rank silver">2</div>
+                    <div class="avatar">SM</div>
+                    <div class="user-info">
+                        <div class="username">Sarah Miller</div>
+                        <div class="stats">128 purchases • Member since 2022</div>
+                    </div>
+                    <div class="amount">$19,450</div>
+                </div>
+                <div class="leaderboard-item" data-rank="3">
+                    <div class="rank bronze">3</div>
+                    <div class="avatar">DW</div>
+                    <div class="user-info">
+                        <div class="username">David Wilson</div>
+                        <div class="stats">98 purchases • Member since 2023</div>
+                    </div>
+                    <div class="amount">$16,720</div>
+                </div>
+                <div class="leaderboard-item" data-rank="4">
+                    <div class="rank other">4</div>
+                    <div class="avatar">EB</div>
+                    <div class="user-info">
+                        <div class="username">Emma Brown</div>
+                        <div class="stats">87 purchases • Member since 2024</div>
+                    </div>
+                    <div class="amount">$14,320</div>
+                </div>
+                <div class="leaderboard-item" data-rank="5">
+                    <div class="rank other">5</div>
+                    <div class="avatar">MT</div>
+                    <div class="user-info">
+                        <div class="username">Mike Taylor</div>
+                        <div class="stats">76 purchases • Member since 2023</div>
+                    </div>
+                    <div class="amount">$12,890</div>
+                </div>
+            </div>
+
+            <div class="leaderboard sellers">
+                <h2 class="leaderboard-title sellers-title">🚀 Top Sellers</h2>
+                <div class="leaderboard-item" data-rank="1">
+                    <div class="crown">👑</div>
+                    <div class="rank gold">1</div>
+                    <div class="avatar">JD</div>
+                    <div class="user-info">
+                        <div class="username">Jennifer Davis</div>
+                        <div class="stats">245 sales • 4.9★ rating</div>
+                    </div>
+                    <div class="amount">$32,450</div>
+                </div>
+                <div class="leaderboard-item" data-rank="2">
+                    <div class="rank silver">2</div>
+                    <div class="avatar">RL</div>
+                    <div class="user-info">
+                        <div class="username">Robert Lee</div>
+                        <div class="stats">198 sales • 4.8★ rating</div>
+                    </div>
+                    <div class="amount">$28,790</div>
+                </div>
+                <div class="leaderboard-item" data-rank="3">
+                    <div class="rank bronze">3</div>
+                    <div class="avatar">LG</div>
+                    <div class="user-info">
+                        <div class="username">Lisa Garcia</div>
+                        <div class="stats">167 sales • 4.9★ rating</div>
+                    </div>
+                    <div class="amount">$25,320</div>
+                </div>
+                <div class="leaderboard-item" data-rank="4">
+                    <div class="rank other">4</div>
+                    <div class="avatar">KM</div>
+                    <div class="user-info">
+                        <div class="username">Kevin Martinez</div>
+                        <div class="stats">142 sales • 4.7★ rating</div>
+                    </div>
+                    <div class="amount">$21,680</div>
+                </div>
+                <div class="leaderboard-item" data-rank="5">
+                    <div class="rank other">5</div>
+                    <div class="avatar">AS</div>
+                    <div class="user-info">
+                        <div class="username">Amy Smith</div>
+                        <div class="stats">128 sales • 4.8★ rating</div>
+                    </div>
+                    <div class="amount">$19,240</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating elements
+        const floatingElements = ['💎', '⭐', '🚀', '💰', '🏆', '🎯', '⚡', '🔥'];
+        
+        function createFloatingElement() {
+            const element = document.createElement('div');
+            element.className = 'floating-element';
+            element.textContent = floatingElements[Math.floor(Math.random() * floatingElements.length)];
+            element.style.left = Math.random() * window.innerWidth + 'px';
+            element.style.top = window.innerHeight + 'px';
+            document.body.appendChild(element);
+
+            gsap.to(element, {
+                y: -window.innerHeight - 100,
+                x: Math.random() * 200 - 100,
+                rotation: Math.random() * 360,
+                duration: Math.random() * 3 + 4,
+                ease: "none",
+                onComplete: () => element.remove()
+            });
+        }
+
+        // Create stars background
+        function createStars() {
+            const starsContainer = document.querySelector('.stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                starsContainer.appendChild(star);
+
+                gsap.to(star, {
+                    opacity: Math.random() * 0.8 + 0.3,
+                    duration: Math.random() * 2 + 1,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "power2.inOut"
+                });
+            }
+        }
+
+        // Create particles
+        function createParticles() {
+            const particlesContainer = document.querySelector('.particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particlesContainer.appendChild(particle);
+
+                gsap.to(particle, {
+                    x: Math.random() * 400 - 200,
+                    y: Math.random() * 400 - 200,
+                    duration: Math.random() * 10 + 5,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "none"
+                });
+            }
+        }
+
+        // Initialize animations
+        function initAnimations() {
+            // Header animation
+            gsap.to('.header', {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: "back.out(1.7)"
+            });
+
+            // Toggle buttons animation
+            gsap.to('.toggle-buttons', {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                delay: 0.3,
+                ease: "back.out(1.7)"
+            });
+
+            // Leaderboard containers animation
+            gsap.to('.leaderboard', {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                delay: 0.5,
+                stagger: 0.2,
+                ease: "back.out(1.7)"
+            });
+
+            // Individual items animation
+            gsap.to('.leaderboard-item', {
+                opacity: 1,
+                x: 0,
+                duration: 0.8,
+                delay: 0.8,
+                stagger: 0.1,
+                ease: "back.out(1.7)"
+            });
+        }
+
+        // Hover animations for leaderboard items
+        document.querySelectorAll('.leaderboard-item').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                gsap.to(item, {
+                    scale: 1.02,
+                    y: -5,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+                
+                // Create burst effect
+                createBurstEffect(item);
+            });
+
+            item.addEventListener('mouseleave', () => {
+                gsap.to(item, {
+                    scale: 1,
+                    y: 0,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+        });
+
+        // Burst effect on hover
+        function createBurstEffect(element) {
+            const rect = element.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            for (let i = 0; i < 8; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'fixed';
+                particle.style.left = centerX + 'px';
+                particle.style.top = centerY + 'px';
+                particle.style.width = '4px';
+                particle.style.height = '4px';
+                particle.style.background = '#4ecdc4';
+                particle.style.borderRadius = '50%';
+                particle.style.pointerEvents = 'none';
+                particle.style.zIndex = '1000';
+                document.body.appendChild(particle);
+
+                const angle = (i / 8) * Math.PI * 2;
+                const distance = 50;
+
+                gsap.to(particle, {
+                    x: Math.cos(angle) * distance,
+                    y: Math.sin(angle) * distance,
+                    opacity: 0,
+                    duration: 0.6,
+                    ease: "power2.out",
+                    onComplete: () => particle.remove()
+                });
+            }
+        }
+
+        // Toggle functionality
+        document.querySelectorAll('.toggle-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const view = btn.getAttribute('data-view');
+                const leaderboards = document.querySelectorAll('.leaderboard');
+                
+                if (view === 'both') {
+                    leaderboards.forEach(board => {
+                        gsap.to(board, {
+                            opacity: 1,
+                            scale: 1,
+                            duration: 0.5,
+                            ease: "power2.out"
+                        });
+                    });
+                } else {
+                    leaderboards.forEach(board => {
+                        if (board.classList.contains(view)) {
+                            gsap.to(board, {
+                                opacity: 1,
+                                scale: 1,
+                                duration: 0.5,
+                                ease: "power2.out"
+                            });
+                        } else {
+                            gsap.to(board, {
+                                opacity: 0.3,
+                                scale: 0.95,
+                                duration: 0.5,
+                                ease: "power2.out"
+                            });
+                        }
+                    });
+                }
+            });
+        });
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            createParticles();
+            initAnimations();
+            
+            // Start floating elements
+            setInterval(createFloatingElement, 2000);
+            
+            // Initial floating elements
+            setTimeout(() => {
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(createFloatingElement, i * 400);
+                }
+            }, 1000);
+        });
+
+        // Continuous crown animation
+        gsap.to('.crown', {
+            rotation: 360,
+            duration: 10,
+            repeat: -1,
+            ease: "none"
+        });
+
+        // Avatar hover effects
+        document.querySelectorAll('.avatar').forEach(avatar => {
+            avatar.addEventListener('mouseenter', () => {
+                gsap.to(avatar, {
+                    scale: 1.2,
+                    rotation: 360,
+                    duration: 0.5,
+                    ease: "back.out(1.7)"
+                });
+            });
+            
+            avatar.addEventListener('mouseleave', () => {
+                gsap.to(avatar, {
+                    scale: 1,
+                    rotation: 0,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+        });
+    </script>
+</body>
+</html>

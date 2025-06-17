@@ -133,10 +133,14 @@ class Product:
     @staticmethod
     def get_product_number_by_name(name):
         try:
-            return products_collection.count_documents({"title": name})
+            if name.lower() == 'calculator':
+                return products_collection.count_documents({
+                    "title": {"$regex": "calculator", "$options": "i"}, # case-insensitive
+                    "isSold": False  
+                })
+            return products_collection.count_documents({"title": name, "isSold": False})
         except Exception:
-            return 0  # or None if you prefer
-
+            return 0
         
     def to_dict(self):
         return {

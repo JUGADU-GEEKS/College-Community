@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dark Product Listing</title>
+    <title>BPIT Cart Listing</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='/stylesheets/home.css')}}">
     <style>
         :root {
             --primary-dark: #000000;
@@ -381,19 +382,47 @@
 
 <body>
     <!-- Navigation -->
-    <nav class="navbar">
-        <div class="logo">DarkList</div>
-        <div class="nav-links">
-            <a href="#" class="active">Home</a>
-            <a href="#">Products</a>
-            <a href="#">Categories</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-        </div>
-    </nav>
+    <!-- Navigation -->
+  <header class="header">
+    <div class="container">
+      <div class="navbar">
+        <!-- Logo -->
+        <a href="/home" class="logo">
+          <img src="/static/images/image.png" alt="" class="logo-img">
+          <span>BPIT Cart</span>
+        </a>
+        <!-- Desktop Navigation -->
+        <nav class="nav-menu">
+          <a href="/home" class="nav-link active">Home</a>
+          <a href="/sell" class="nav-link">Sell</a>
+          <a href="/browse" class="nav-link">Browse</a>
+          <a href="" class="nav-link">Notes</a>
+          <a href="/about" class="nav-link">About</a>
+          <a href="/contact" class="nav-link">Contact</a>
+        </nav>
 
-    <!-- Success Alert -->
-    <div class="alert" id="alert">Product added successfully!</div>
+        <!-- User and Mobile Menu -->
+        <div class="nav-right">
+          <a href="/profile" class="user-icon">
+            <i class="fas fa-user"></i>
+          </a>
+          <button class="menu-toggle" aria-label="Toggle menu">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile menu -->
+      <div class="mobile-menu">
+        <a href="/home" class="mobile-nav-link active">Home</a>
+        <a href="/sell" class="mobile-nav-link">Sell</a>
+        <a href="/browse" class="mobile-nav-link">Browse</a>
+        <a href="" class="mobile-nav-link">Notes</a>
+        <a href="/about" class="mobile-nav-link">About</a>
+        <a href="/contact" class="mobile-nav-link">Contact</a>
+      </div>
+    </div>
+  </header>
 
     <div class="container">
         <h1 class="title">Add Your <span>Product</span></h1>
