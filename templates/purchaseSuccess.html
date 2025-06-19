@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Successful</title>
+    <title>Payment Successful - BPIT Cart</title>
     <style>
         * {
             margin: 0;
@@ -13,13 +14,14 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            background: linear-gradient(135deg, #1a2332 0%, #2c3e50 50%, #34495e 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
             position: relative;
+            color: #ffffff;
         }
 
         /* Animated background particles */
@@ -35,39 +37,107 @@
 
         .particle {
             position: absolute;
-            background: rgba(0, 255, 157, 0.1);
+            background: rgba(255, 193, 7, 0.1);
             border-radius: 50%;
             animation: float 6s ease-in-out infinite;
         }
 
-        .particle:nth-child(1) { width: 10px; height: 10px; left: 10%; animation-delay: 0s; }
-        .particle:nth-child(2) { width: 15px; height: 15px; left: 20%; animation-delay: 1s; }
-        .particle:nth-child(3) { width: 8px; height: 8px; left: 30%; animation-delay: 2s; }
-        .particle:nth-child(4) { width: 12px; height: 12px; left: 40%; animation-delay: 3s; }
-        .particle:nth-child(5) { width: 18px; height: 18px; left: 50%; animation-delay: 4s; }
-        .particle:nth-child(6) { width: 6px; height: 6px; left: 60%; animation-delay: 5s; }
-        .particle:nth-child(7) { width: 14px; height: 14px; left: 70%; animation-delay: 1.5s; }
-        .particle:nth-child(8) { width: 11px; height: 11px; left: 80%; animation-delay: 2.5s; }
-        .particle:nth-child(9) { width: 9px; height: 9px; left: 90%; animation-delay: 3.5s; }
+        .particle:nth-child(1) {
+            width: 10px;
+            height: 10px;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .particle:nth-child(2) {
+            width: 15px;
+            height: 15px;
+            left: 20%;
+            animation-delay: 1s;
+        }
+
+        .particle:nth-child(3) {
+            width: 8px;
+            height: 8px;
+            left: 30%;
+            animation-delay: 2s;
+        }
+
+        .particle:nth-child(4) {
+            width: 12px;
+            height: 12px;
+            left: 40%;
+            animation-delay: 3s;
+        }
+
+        .particle:nth-child(5) {
+            width: 18px;
+            height: 18px;
+            left: 50%;
+            animation-delay: 4s;
+        }
+
+        .particle:nth-child(6) {
+            width: 6px;
+            height: 6px;
+            left: 60%;
+            animation-delay: 5s;
+        }
+
+        .particle:nth-child(7) {
+            width: 14px;
+            height: 14px;
+            left: 70%;
+            animation-delay: 1.5s;
+        }
+
+        .particle:nth-child(8) {
+            width: 11px;
+            height: 11px;
+            left: 80%;
+            animation-delay: 2.5s;
+        }
+
+        .particle:nth-child(9) {
+            width: 9px;
+            height: 9px;
+            left: 90%;
+            animation-delay: 3.5s;
+        }
 
         @keyframes float {
-            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+
+            0%,
+            100% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         /* Main container */
         .success-container {
-            background: rgba(15, 15, 35, 0.9);
+            background: rgba(26, 35, 50, 0.95);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 255, 157, 0.2);
+            border: 2px solid rgba(255, 193, 7, 0.3);
             border-radius: 25px;
             padding: 60px 50px;
             text-align: center;
             position: relative;
             z-index: 10;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
             animation: slideUp 0.8s ease-out;
             max-width: 500px;
             width: 90%;
@@ -78,10 +148,41 @@
                 transform: translateY(100px);
                 opacity: 0;
             }
+
             to {
                 transform: translateY(0);
                 opacity: 1;
             }
+        }
+
+        /* BPIT Cart Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: #ffc107;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-weight: bold;
+            color: #1a2332;
+            font-size: 18px;
+        }
+
+        .brand-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ffc107;
+            text-shadow: 0 0 20px rgba(255, 193, 7, 0.5);
         }
 
         /* Success icon */
@@ -96,17 +197,26 @@
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            background: linear-gradient(45deg, #00ff9d, #00e5ff);
+            background: linear-gradient(45deg, #28a745, #20c997);
             display: flex;
             align-items: center;
             justify-content: center;
             animation: pulse 2s ease-in-out infinite;
-            box-shadow: 0 0 30px rgba(0, 255, 157, 0.5);
+            box-shadow: 0 0 30px rgba(40, 167, 69, 0.5);
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(0, 255, 157, 0.5); }
-            50% { transform: scale(1.1); box-shadow: 0 0 50px rgba(0, 255, 157, 0.8); }
+
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 30px rgba(40, 167, 69, 0.5);
+            }
+
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 0 50px rgba(40, 167, 69, 0.8);
+            }
         }
 
         .checkmark {
@@ -120,7 +230,7 @@
             position: absolute;
             width: 25px;
             height: 12px;
-            border: 4px solid #0c0c0c;
+            border: 4px solid #ffffff;
             border-top: none;
             border-right: none;
             transform: rotate(-45deg);
@@ -134,6 +244,7 @@
                 width: 0;
                 height: 0;
             }
+
             to {
                 width: 25px;
                 height: 12px;
@@ -142,12 +253,12 @@
 
         /* Text content */
         .success-title {
-            color: #00ff9d;
+            color: #ffc107;
             font-size: 2.5rem;
             font-weight: bold;
             margin-bottom: 15px;
             animation: fadeInUp 0.8s ease-out 0.2s both;
-            text-shadow: 0 0 20px rgba(0, 255, 157, 0.5);
+            text-shadow: 0 0 20px rgba(255, 193, 7, 0.5);
         }
 
         .success-message {
@@ -158,16 +269,16 @@
         }
 
         .transaction-details {
-            background: rgba(0, 255, 157, 0.1);
+            background: rgba(255, 193, 7, 0.1);
             border-radius: 15px;
             padding: 20px;
             margin-bottom: 30px;
             animation: fadeInUp 0.8s ease-out 0.6s both;
-            border: 1px solid rgba(0, 255, 157, 0.2);
+            border: 1px solid rgba(255, 193, 7, 0.3);
         }
 
         .transaction-id {
-            color: #00ff9d;
+            color: #ffc107;
             font-size: 0.9rem;
             margin-bottom: 10px;
         }
@@ -180,16 +291,16 @@
 
         /* Seller information */
         .seller-info {
-            background: rgba(0, 100, 255, 0.1);
+            background: rgba(108, 117, 125, 0.2);
             border-radius: 15px;
             padding: 25px;
             margin-bottom: 30px;
             animation: fadeInUp 0.8s ease-out 0.7s both;
-            border: 1px solid rgba(0, 100, 255, 0.2);
+            border: 1px solid rgba(108, 117, 125, 0.3);
         }
 
         .seller-title {
-            color: #64b5f6;
+            color: #ffffff;
             font-size: 1.2rem;
             font-weight: bold;
             margin-bottom: 15px;
@@ -213,35 +324,60 @@
             font-size: 1.2rem;
             width: 24px;
             text-align: center;
+            color: #ffc107;
         }
 
-        .seller-email, .seller-linkedin {
-            color: #64b5f6;
+        .seller-email,
+        .seller-linkedin {
+            color: #e0e0e0;
             text-decoration: none;
             font-size: 1rem;
             transition: all 0.3s ease;
             position: relative;
         }
 
-        .seller-email:hover, .seller-linkedin:hover {
-            color: #90caf9;
-            text-shadow: 0 0 10px rgba(100, 181, 246, 0.5);
+        .seller-email:hover,
+        .seller-linkedin:hover {
+            color: #ffc107;
+            text-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
             transform: translateX(5px);
         }
 
-        .seller-email::after, .seller-linkedin::after {
+        .seller-email::after,
+        .seller-linkedin::after {
             content: '';
             position: absolute;
             bottom: -2px;
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(90deg, #64b5f6, #90caf9);
+            background: linear-gradient(90deg, #ffc107, #ffeb3b);
             transition: width 0.3s ease;
         }
 
-        .seller-email:hover::after, .seller-linkedin:hover::after {
+        .seller-email:hover::after,
+        .seller-linkedin:hover::after {
             width: 100%;
+        }
+
+        /* Screenshot button */
+        #screenshot-btn {
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #ffc107, #ffeb3b);
+            border: none;
+            color: #1a2332;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(255, 193, 7, 0.4);
+        }
+
+        #screenshot-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(255, 193, 7, 0.7);
         }
 
         /* Redirect timer */
@@ -252,7 +388,7 @@
         }
 
         .timer {
-            color: #00ff9d;
+            color: #ffc107;
             font-weight: bold;
             font-size: 1.2rem;
             display: inline-block;
@@ -260,8 +396,15 @@
         }
 
         @keyframes timerPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
         }
 
         @keyframes fadeInUp {
@@ -269,6 +412,19 @@
                 transform: translateY(30px);
                 opacity: 0;
             }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                transform: translateY(-30px);
+                opacity: 0;
+            }
+
             to {
                 transform: translateY(0);
                 opacity: 1;
@@ -287,35 +443,41 @@
 
         .progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, #00ff9d, #00e5ff);
+            background: linear-gradient(90deg, #ffc107, #ffeb3b);
             border-radius: 2px;
-            animation: progress 3s linear;
+            animation: progress 10s linear;
             width: 0%;
         }
 
         @keyframes progress {
-            from { width: 0%; }
-            to { width: 100%; }
+            from {
+                width: 0%;
+            }
+
+            to {
+                width: 100%;
+            }
         }
 
-        /* Glowing border animation */
-        .success-container::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #00ff9d, #00e5ff, #00ff9d);
-            border-radius: 25px;
-            z-index: -1;
-            animation: borderGlow 2s ease-in-out infinite;
-            opacity: 0.3;
+        /* Screenshot mode - removes transparency and animations */
+        .screenshot-mode {
+            background: #1a2332 !important;
+            backdrop-filter: none !important;
+            animation: none !important;
+            transform: none !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
         }
 
-        @keyframes borderGlow {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.8; }
+        .screenshot-mode * {
+            animation: none !important;
+            backdrop-filter: none !important;
+            filter: none !important;
+            transform: none !important;
+            opacity: 1 !important;
+        }
+
+        .screenshot-mode .particles {
+            display: none !important;
         }
 
         /* Responsive design */
@@ -324,22 +486,27 @@
                 padding: 40px 30px;
                 margin: 20px;
             }
-            
+
             .success-title {
                 font-size: 2rem;
             }
-            
+
             .success-message {
                 font-size: 1rem;
             }
-            
+
             .check-circle {
                 width: 100px;
                 height: 100px;
             }
+
+            .brand-name {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
+
 <body>
     <!-- Animated background particles -->
     <div class="particles">
@@ -355,27 +522,37 @@
     </div>
 
     <!-- Main success container -->
-    <div class="success-container">
+    <div class="success-container" id="screenshot-area">
+        <!-- BPIT Cart Header -->
+        <div class="header">
+            <div class="logo">🛒</div>
+            <div class="brand-name">BPIT Cart</div>
+        </div>
+
         <div class="success-icon">
             <div class="check-circle">
                 <div class="checkmark"></div>
             </div>
         </div>
-        
+
         <h1 class="success-title">Purchase Successful!</h1>
-        <p class="success-message">Your purchase has been completed successfully</p>
-        
+        <p class="success-message">Your purchase for {{ product.title }} has been completed successfully</p>
+
         <div class="transaction-details">
-            <div class="transaction-id">Purchase ID: {{ product._id }}</div>
-            <div class="amount">Pay to the seller {{ product.price }}</div>
+            <div class="transaction-id">Purchase ID: {{product._id}}</div>
+            <div class="amount">Pay to the seller ₹{{ product.price }}</div>
         </div>
-        
+
         <div class="seller-info">
             <h3 class="seller-title">Seller Information</h3>
             <div class="seller-details">
                 <div class="seller-item">
                     <span class="seller-icon">📧</span>
-                    <a href="mailto:seller@example.com" class="seller-email" id="sellerEmail">{{ seller_email }}</a>
+                    <a href="mailto:{{ seller_email }}" class="seller-email" id="sellerEmail">{{ seller_email }}</a>
+                </div>
+                <div class="seller-item">
+                    <span class="seller-icon">Seller Enrollment Number: </span>
+                    <a href="#" class="seller-email" id="sellerEmail">{{ seller_enrollment }}</a>
                 </div>
                 <div class="seller-item">
                     <span class="seller-icon">💼</span>
@@ -383,52 +560,124 @@
                 </div>
             </div>
         </div>
-        
+
+        <button id="screenshot-btn">📸 Take Screenshot</button>
+
         <div class="redirect-info">
             Redirecting you in <span class="timer" id="countdown">10</span> seconds...
         </div>
-        
+
         <div class="progress-container">
             <div class="progress-bar"></div>
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
     <script>
         // Countdown timer and redirect functionality
         let timeLeft = 10;
         const countdownElement = document.getElementById('countdown');
-        
+
         // Change this URL to your desired redirect destination
         const redirectURL = '/home'; // CHANGE THIS URL
-        
+
         const timer = setInterval(() => {
             timeLeft--;
             countdownElement.textContent = timeLeft;
-            
+
             if (timeLeft <= 0) {
                 clearInterval(timer);
-                // Uncomment the line below to enable actual redirect
+                // Redirect is now enabled
                 window.location.href = redirectURL;
             }
         }, 1000);
 
         // Add extra visual effects
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Add random particle movement
             const particles = document.querySelectorAll('.particle');
             particles.forEach((particle, index) => {
                 particle.style.animationDelay = Math.random() * 6 + 's';
                 particle.style.left = Math.random() * 100 + '%';
             });
-            
+
             // Add click interaction
-            document.querySelector('.success-container').addEventListener('click', function() {
-                this.style.transform = 'scale(1.05)';
+            document.querySelector('.success-container').addEventListener('click', function () {
+                this.style.transform = 'scale(1.02)';
                 setTimeout(() => {
                     this.style.transform = 'scale(1)';
                 }, 150);
             });
         });
+
+        // Screenshot functionality - FIXED
+        document.getElementById('screenshot-btn').addEventListener('click', () => {
+            const target = document.getElementById('screenshot-area');
+            const body = document.body;
+
+            // Temporarily clean styles for screenshot
+            target.classList.add('screenshot-mode');
+            body.style.overflow = 'visible';
+
+            // Delay to ensure styles apply
+            setTimeout(() => {
+                html2canvas(target, {
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: "#1a2332",
+                    scale: 2, // Higher quality
+                    logging: false,
+                    width: target.offsetWidth,
+                    height: target.offsetHeight
+                }).then(canvas => {
+                    // Revert styles
+                    target.classList.remove('screenshot-mode');
+                    body.style.overflow = 'hidden';
+
+                    // Download image
+                    const link = document.createElement('a');
+                    link.download = 'BPIT_Cart_Payment_Success.png';
+                    link.href = canvas.toDataURL('image/png', 1.0);
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }).catch(error => {
+                    console.error('Screenshot failed:', error);
+                    // Revert styles even if screenshot fails
+                    target.classList.remove('screenshot-mode');
+                    body.style.overflow = 'hidden';
+                    alert('Screenshot failed. Please try again.');
+                });
+            }, 200); // Increased delay for better style application
+        });
+
+        // Pause timer when taking screenshot
+        let screenshotInProgress = false;
+        document.getElementById('screenshot-btn').addEventListener('click', () => {
+            if (!screenshotInProgress) {
+                screenshotInProgress = true;
+                clearInterval(timer);
+                
+                // Resume timer after screenshot
+                setTimeout(() => {
+                    screenshotInProgress = false;
+                    // Restart timer if time is still left
+                    if (timeLeft > 0) {
+                        const newTimer = setInterval(() => {
+                            timeLeft--;
+                            countdownElement.textContent = timeLeft;
+
+                            if (timeLeft <= 0) {
+                                clearInterval(newTimer);
+                                window.location.href = redirectURL;
+                            }
+                        }, 1000);
+                    }
+                }, 3000);
+            }
+        });
     </script>
 </body>
+
 </html>

@@ -22,9 +22,6 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@views.route('/')
-def index():
-    return render_template('welcome.html')
 
 @views.route('/test')
 def test():
@@ -81,35 +78,35 @@ def browse():
 
 
 
-    combined_data = []
+    # combined_data = []
 
-    for product in products:
-        product['_id'] = str(product['_id'])
-        product['image'] = product['image'].replace('\\', '/')
+    # for product in products:
+    #     product['_id'] = str(product['_id'])
+    #     product['image'] = product['image'].replace('\\', '/')
 
-        seller_email = product.get('seller')
-        print("📧 Seller Email:", seller_email)
+    #     seller_email = product.get('seller')
+    #     print("📧 Seller Email:", seller_email)
 
-        seller = User.get_data(seller_email)
-        print("👤 Seller Data:", seller)
+    #     seller = User.get_data(seller_email)
+    #     print("👤 Seller Data:", seller)
 
-        if seller:
-            combined_data.append({
-                'product': product,
-                'seller': {
-                    'full_name': seller.get('full_name'),
-                    'email': seller.get('email'),
-                    'contact': seller.get('contact'),
-                    'college': seller.get('college', ''),
-                    'branch': seller.get('branch', ''),
-                    'profile_photo': seller.get('profile_photo')
-                }
-            })
+    #     if seller:
+    #         combined_data.append({
+    #             'product': product,
+    #             'seller': {
+    #                 'full_name': seller.get('full_name'),
+    #                 'email': seller.get('email'),
+    #                 'contact': seller.get('contact'),
+    #                 'college': seller.get('college', ''),
+    #                 'branch': seller.get('branch', ''),
+    #                 'profile_photo': seller.get('profile_photo')
+    #             }
+    #         })
 
-    print("✅ FINAL combined_data:", combined_data)
-    print("🧮 Count:", len(combined_data))
+    # print("✅ FINAL combined_data:", combined_data)
+    # print("🧮 Count:", len(combined_data))
 
-    return render_template('browse.html', items=combined_data)
+    # return render_template('browse.html', items=combined_data)
 
 @views.route('/view')
 def view():
@@ -324,9 +321,11 @@ def purchase(id):
     buyer = User.get_data(buyer_email)
     seller = User.get_data(seller_email)
     try:
+        if(seller_email==buyer_email):
+            return render_template('error.html', message="Buyer and Seller can't be same", backlink="/browse")
         Product.buy_product(id, buyer['email'], seller['email'])
         notify_buyer_and_seller(buyer['email'], buyer['linkedin'], seller['email'], seller['linkedin'])
-        return render_template('purchaseSuccess.html', seller_email = seller['email'], seller_linkedin = seller['linkedin'], product = product)
+        return render_template('purchaseSuccess.html',seller_enrollment=seller['enrollment'], seller_email = seller['email'], seller_linkedin = seller['linkedin'], product = product)
     except Exception as e:
         return render_template('error.html', message=e, backlink=f'/buy/{id}')
 

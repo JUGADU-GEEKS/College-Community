@@ -23,6 +23,10 @@ def is_valid_linkedin_url(url):
     pattern = r'^https?://(www\.)?linkedin\.com/(in|pub|company)/[a-zA-Z0-9_-]+/?$'
     return re.match(pattern, url) is not None
 
+@auth.route('/')
+def index():
+    return render_template('welcome.html')
+
 @auth.route('/signup', methods=["POST", "GET"])
 def signup():
     if request.method=='POST':
