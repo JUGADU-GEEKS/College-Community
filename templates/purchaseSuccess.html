@@ -539,26 +539,12 @@
         <p class="success-message">Your purchase for {{ product.title }} has been completed successfully</p>
 
         <div class="transaction-details">
-            <div class="transaction-id">Purchase ID: {{product._id}}</div>
-            <div class="amount">Pay to the seller ₹{{ product.price }}</div>
+            <div class="transaction-id">Purchase ID: {{ purchase_id }}</div>
+            <div class="amount">Pay to the seller ₹{{ product.price|int + 30 }}</div>
         </div>
 
-        <div class="seller-info">
-            <h3 class="seller-title">Seller Information</h3>
-            <div class="seller-details">
-                <div class="seller-item">
-                    <span class="seller-icon">📧</span>
-                    <a href="mailto:{{ seller_email }}" class="seller-email" id="sellerEmail">{{ seller_email }}</a>
-                </div>
-                <div class="seller-item">
-                    <span class="seller-icon">Seller Enrollment Number: </span>
-                    <a href="#" class="seller-email" id="sellerEmail">{{ seller_enrollment }}</a>
-                </div>
-                <div class="seller-item">
-                    <span class="seller-icon">💼</span>
-                    <a href="{{ seller_linkedin }}" target="_blank" class="seller-linkedin" id="sellerLinkedin">LinkedIn Profile</a>
-                </div>
-            </div>
+        <div class="creative-message" style="margin-bottom: 30px; color: #ffc107; font-size: 1.2rem; text-align: center;">
+            Thank you for your purchase! Our team will contact you soon with further details and next steps. Stay tuned for more updates in your profile and email.
         </div>
 
         <button id="screenshot-btn">📸 Take Screenshot</button>

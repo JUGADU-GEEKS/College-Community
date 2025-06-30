@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ product.title }}</title>
+    <title>BPIT Cart{{ product.title }}</title>
     <style>
         * {
             margin: 0;
@@ -373,8 +373,8 @@
     <nav class="navbar">
         <div class="navbar-container">
             <a href="/home" class="navbar-logo">
-                <img src="/static/images/image.png" alt="UniCache Logo">
-                UniCache
+                <img src="/static/images/Logo.png" alt="UniCache Logo">
+                BPIT Cart
             </a>
 
             <div class="navbar-links">
@@ -408,7 +408,7 @@
             <!-- Product Details -->
             <div class="product-details">
                 <h1 class="product-title">{{ product.title }}</h1>
-                <div class="price">₹{{ product.price }}</div>
+                <div class="price">₹{{ product.price|int +30 }}</div>
                 
                 <p class="description">
                     {{ product.description }}

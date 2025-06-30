@@ -6,6 +6,7 @@ from utils import generate_otp, send_otp
 import os
 import re
 load_dotenv()
+import bcrypt
 
 MONGO_URI = os.getenv("MONGO_URI")
 print(f"Loaded MONGO_URI: {MONGO_URI}")
@@ -247,3 +248,24 @@ def reset_password():
         return redirect(url_for('auth.login'))
 
     return render_template('reset_password.html')
+
+
+
+
+@auth.route('/adminLogin', methods=['GET', 'POST'])
+def admin_login():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        if email != os.getenv("ADMIN_EMAIL"):
+            return render_template('error.html', message='Invalid Credentials')
+
+        stored_hash = os.getenv("ADMIN_PASSWORD")
+
+        if not bcrypt.checkpw(password.encode(), stored_hash.encode()):
+            return render_template('error.html', message='Invalid Credentials')
+
+        return redirect(url_for('views.admin_dashboard'))
+
+    return render_template('adminLogin.html')

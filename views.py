@@ -1,9 +1,11 @@
 from flask import Flask, Blueprint, render_template, request, session, jsonify, flash, redirect, url_for
-from model import User, Product  # Make sure Product is also imported properly
+from model import User, Product, Purchase, FaultyBuyer  # Make sure Product and Purchase are also imported properly
 from price_predict import predict_price_equipment, predict_price_calculator
-from utils import notify_buyer_and_seller
+from utils import notify_buyer_and_seller, send_otp, send_faulty_buyer_warning
 import os
+from email.message import EmailMessage
 from werkzeug.utils import secure_filename
+from bson.objectid import ObjectId
 
 views = Blueprint('views', __name__)
 
@@ -50,22 +52,22 @@ def browse():
     print("🎯 /browse route hit with filter:", filter_by)
 
     raw_products = Product.get_all_products()
-
     items = []
+    current_user_email = session.get('user', {}).get('email')
 
     for product in raw_products:
         title = product.get("title", "").lower()
-        
-        # ✅ Only apply filter if it's provided
+        # Only apply filter if it's provided
         if filter_by and filter_by.lower() not in title:
             continue
-
         seller_email = product.get("seller")
+        # Skip products listed by the current user
+        if seller_email == current_user_email:
+            continue
         seller_data = users_collection.find_one(
             {"email": seller_email}, 
             {"full_name": 1}
         )
-
         item = {
             "product": product,
             "seller": {
@@ -324,11 +326,86 @@ def purchase(id):
         if(seller_email==buyer_email):
             return render_template('error.html', message="Buyer and Seller can't be same", backlink="/browse")
         Product.buy_product(id, buyer['email'], seller['email'])
-        notify_buyer_and_seller(buyer['email'], buyer['linkedin'], seller['email'], seller['linkedin'])
-        return render_template('purchaseSuccess.html',seller_enrollment=seller['enrollment'], seller_email = seller['email'], seller_linkedin = seller['linkedin'], product = product)
+        notify_buyer_and_seller(buyer['email'], buyer.get('linkedin'), seller['email'], seller.get('linkedin'))
+
+        # Save purchase record
+        purchase_data = {
+            'product_id': str(product['_id']),
+            'seller_name': seller.get('full_name'),
+            'buyer_name': buyer.get('full_name'),
+            'seller_contact': seller.get('contact'),
+            'buyer_contact': buyer.get('contact'),
+            'seller_email': seller.get('email'),
+            'buyer_email': buyer.get('email'),
+            'selling_price': product.get('price'),
+            'buying_price': int(product.get('price')) + 30,  # Assuming same as selling price
+            'payment_status': product.get('payment', 'Pending')
+        }
+        purchase_record = Purchase(purchase_data)
+        result = purchase_record.save_to_db()
+        # Get the inserted purchase_id
+        if hasattr(result, 'inserted_id'):
+            purchase_id = str(result.inserted_id)
+        elif isinstance(result, tuple) and hasattr(result[0], 'inserted_id'):
+            purchase_id = str(result[0].inserted_id)
+        else:
+            # fallback: try to get the last inserted purchase
+            last_purchase = db['purchases'].find_one(sort=[('_id', -1)])
+            purchase_id = str(last_purchase['_id']) if last_purchase else 'N/A'
+
+        return render_template('purchaseSuccess.html', purchase_id=purchase_id, product=product)
     except Exception as e:
         return render_template('error.html', message=e, backlink=f'/buy/{id}')
 
 @views.route('/leaderboard')
 def leaderboard():
     return render_template('leaderboard.html')
+
+@views.route('/adminDashboard')
+def admin_dashboard():
+    from model import Purchase
+    purchases = Purchase.get_all_purchases()
+    return render_template('adminDashboard.html', purchases=purchases)
+
+@views.route('/faulty_buyer/<product_id>/<buyer_email>', methods=['POST'])
+def mark_faulty_buyer(product_id, buyer_email):
+    # Set product isSold to False and buyer to None
+    db['products'].update_one(
+        {'_id': ObjectId(product_id)},
+        {'$set': {'isSold': False, 'buyer': None}}
+    )
+    # Increment fault count and terminate if needed
+    terminated = FaultyBuyer.increment_fault(buyer_email)
+    # Get current fault count
+    fault_count = FaultyBuyer.get_fault_count(buyer_email)
+    # Delete the purchase from the purchases collection
+    db['purchases'].delete_one({'product_id': product_id, 'buyer_email': buyer_email})
+    # Send email to buyer using utility function
+    send_faulty_buyer_warning(buyer_email, fault_count)
+    return redirect(url_for('views.admin_dashboard'))
+
+@views.route('/set_payment_success/<product_id>/<buyer_email>', methods=['POST'])
+def set_payment_success(product_id, buyer_email):
+    # Update payment status in purchases collection
+    db['purchases'].update_one(
+        {'product_id': product_id, 'buyer_email': buyer_email},
+        {'$set': {'payment_status': 'Success'}}
+    )
+    # Update payment status in products collection
+    db['products'].update_one(
+        {'_id': ObjectId(product_id)},
+        {'$set': {'payment': 'Success'}}
+    )
+    return redirect(url_for('views.admin_dashboard'))
+
+@views.route('/faulty_buyers', methods=['GET', 'POST'])
+def faulty_buyers():
+    from model import FaultyBuyer
+    if request.method == 'POST':
+        email = request.form.get('email')
+        count = int(request.form.get('count'))
+        FaultyBuyer.update_fault_count(email, count)
+        return redirect(url_for('views.faulty_buyers'))
+    buyers = FaultyBuyer.get_all_faulty_buyers()
+    return render_template('faultyBuyers.html', buyers=buyers)
+

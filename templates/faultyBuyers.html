@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faulty Buyers - Admin</title>
+    <link rel="icon" type="image/x-icon" href="../static/images/Logo.png">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e0e6ed;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            background: rgba(30, 41, 59, 0.4);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #f7d08a;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+        th, td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+            text-align: left;
+        }
+        th {
+            background: rgba(139, 92, 246, 0.1);
+            color: #8b5cf6;
+        }
+        tr:hover {
+            background: rgba(139, 92, 246, 0.05);
+        }
+        .update-form {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        .update-form input[type="number"] {
+            width: 60px;
+            padding: 0.3rem;
+            border-radius: 4px;
+            border: 1px solid #8b5cf6;
+            background: #22223b;
+            color: #fff;
+        }
+        .update-form button {
+            padding: 0.3rem 1rem;
+            border: none;
+            border-radius: 4px;
+            background: #8b5cf6;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .update-form button:hover {
+            background: #a78bfa;
+        }
+    </style>
+</head>
+<body>
+    <nav style="width:100%; background: linear-gradient(to right, #0f172a, #4d6a92); color:white; padding: 1rem 0; display:flex; align-items:center; justify-content:space-between; font-family:sans-serif; position:sticky; top:0; z-index:100;">
+        <div style="display: flex; align-items: center; margin-left: 90px;">
+            <img src="/static/images/image.png" alt="UniCache Logo" style="width: 42px; height: 42px; border-radius: 50%; margin-right: 0.8rem;">
+            <div style="font-weight:bold; font-size:1.5rem;">Admin Dashboard</div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: center; flex: 1;">
+            <div style="display: flex; align-items: center; gap: 1.2rem;">
+                <a href="/adminDashboard" style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Orders</a>
+                <a href="/faulty_buyers" style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Faulty Buyers</a>
+            </div>
+        </div>
+        <div style="margin-right: 90px;"></div>
+    </nav>
+    <div class="container">
+        <h1>Faulty Buyers</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Email</th>
+                    <th>Fault Count</th>
+                    <th>Update Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for buyer in buyers %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ buyer.email }}</td>
+                    <td>{{ buyer.fault_count }}</td>
+                    <td>
+                        <form class="update-form" method="post" action="/faulty_buyers">
+                            <input type="hidden" name="email" value="{{ buyer.email }}">
+                            <input type="number" name="count" value="{{ buyer.fault_count }}" min="0">
+                            <button type="submit">Update</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html> 

@@ -154,3 +154,73 @@ class Product:
             "seller": self.seller,
             "buyer": self.buyer
         }
+
+
+class Purchase:
+    def __init__(self, data):
+        self.product_id = data.get('product_id')
+        self.seller_name = data.get('seller_name')
+        self.buyer_name = data.get('buyer_name')
+        self.seller_contact = data.get('seller_contact')
+        self.buyer_contact = data.get('buyer_contact')
+        self.seller_email = data.get('seller_email')
+        self.buyer_email = data.get('buyer_email')
+        self.selling_price = data.get('selling_price')
+        self.buying_price = data.get('buying_price')
+        self.payment_status = data.get('payment_status', 'Pending')
+
+    def save_to_db(self):
+        purchase_data = {
+            'product_id': self.product_id,
+            'seller_name': self.seller_name,
+            'buyer_name': self.buyer_name,
+            'seller_contact': self.seller_contact,
+            'buyer_contact': self.buyer_contact,
+            'seller_email': self.seller_email,
+            'buyer_email': self.buyer_email,
+            'selling_price': self.selling_price,
+            'buying_price': self.buying_price,
+            'payment_status': self.payment_status
+        }
+        db['purchases'].insert_one(purchase_data)
+        return True, "Purchase recorded successfully!"
+
+    @staticmethod
+    def get_all_purchases():
+        return list(db['purchases'].find())
+
+class FaultyBuyer:
+    def __init__(self, email):
+        self.email = email
+
+    @staticmethod
+    def increment_fault(email):
+        db['faulty_buyers'].update_one(
+            {'email': email},
+            {'$inc': {'fault_count': 1}},
+            upsert=True
+        )
+        # Check if fault count exceeds 7
+        record = db['faulty_buyers'].find_one({'email': email})
+        if record and record.get('fault_count', 0) > 7:
+            # Terminate account
+            db['users'].delete_one({'email': email})
+            return True  # Account terminated
+        return False
+
+    @staticmethod
+    def get_fault_count(email):
+        record = db['faulty_buyers'].find_one({'email': email})
+        return record.get('fault_count', 0) if record else 0
+
+    @staticmethod
+    def get_all_faulty_buyers():
+        return list(db['faulty_buyers'].find())
+
+    @staticmethod
+    def update_fault_count(email, count):
+        db['faulty_buyers'].update_one(
+            {'email': email},
+            {'$set': {'fault_count': count}},
+            upsert=True
+        )

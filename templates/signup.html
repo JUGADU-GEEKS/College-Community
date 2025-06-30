@@ -14,6 +14,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/signup.css') }}">
+    <link rel="icon" type="image/x-icon" href="../static/images/Logo.png">
   </head>
 
   <body>
@@ -165,7 +166,7 @@
               
               <p id="error-message" class="error-message">{{error}}</p>
             </form>
-            Fill Carefully, Details cannot be changed later.
+            <div style="text-align: center;" class="animate-in">Fill Carefully, Details cannot be changed later.</div>
             <p class="signin-text animate-in">
               Already have an account? <a href="/login" class="signin-link">Sign in</a>
             </p>

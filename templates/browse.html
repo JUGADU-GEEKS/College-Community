@@ -4,10 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Browse Products - BPIT Cart</title>
+  <title>BPIT Cart - Browse Products</title>
   <link rel="icon" type="image/webp" href="{{ url_for('static', filename='images/app-icon.png') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/browse.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" type="image/x-icon" href="../static/images/Logo.png">
 </head>
 
 <body>
@@ -68,7 +69,7 @@
   </section>
 
   <section class="footer">
-    <h1 class="reupyog-glow" style="color: #f7d08a;">ReUpyog These Equipments</h1>
+    <h1 class="reupyog-glow" style="color: #f7d08a;">ReUse These Equipments</h1>
     <div class="featured-products-section">
       <h2 class="featured-title">Featured Products</h2>
       <div class="featured-products-grid">
@@ -78,7 +79,7 @@
           <img src="{{ item.product.image }}" alt="{{ item.product.title }}">
           <div class="featured-info">
             <div class="featured-name">{{ item.product.title }}</div>
-            <div class="featured-prices">₹{{ item.product.price }}</div>
+            <div class="featured-prices">₹{{ item.product.price | int + 30 }}</div>
             <div class="featured-seller">Seller: {{ item.seller.full_name }}</div>
             <div class="featured-age">Months Old: {{ item.product.monthsold }}</div>
             <button class="btn">

@@ -3,371 +3,566 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animated Leaderboard</title>
+    <title>Magic Awaits - Leaderboard</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/leaderboard.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #2d1b69 100%);
+            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(1px);
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+            opacity: 0;
+        }
+
+        .main-title {
+            font-size: 4rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #a855f7, #3b82f6, #06b6d4, #10b981);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #a1a1aa;
+            margin-bottom: 2rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .tab-btn {
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(168, 85, 247, 0.3);
+            border-radius: 25px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #a855f7, #3b82f6);
+            border-color: #a855f7;
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(168, 85, 247, 0.4);
+        }
+
+        .tab-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .tab-btn:hover::before {
+            left: 100%;
+        }
+
+        .leaderboard-section {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .leaderboard-grid {
+            display: grid;
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .rank-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 1.5rem;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+            transform: translateX(-100px);
+            opacity: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .rank-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 0 15px 35px rgba(168, 85, 247, 0.2);
+        }
+
+        .rank-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #a855f7, #3b82f6, #06b6d4);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .rank-card:hover::before {
+            opacity: 1;
+        }
+
+        .rank-card.top-3 {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        .rank-card.top-3::before {
+            background: linear-gradient(90deg, #ffd700, #ffed4e, #fbbf24);
+            opacity: 1;
+        }
+
+        .card-content {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .rank-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #a855f7;
+            min-width: 60px;
+            text-align: center;
+            position: relative;
+        }
+
+        .rank-card.top-3 .rank-number {
+            color: #ffd700;
+            font-size: 2.5rem;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid rgba(168, 85, 247, 0.3);
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .rank-card:hover .user-avatar {
+            border-color: #a855f7;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #f8fafc;
+        }
+
+        .user-stats {
+            color: #a1a1aa;
+            font-size: 0.9rem;
+        }
+
+        .linkedin-btn {
+            background: linear-gradient(135deg, #0077b5, #005885);
+            border: none;
+            border-radius: 10px;
+            padding: 0.75rem 1.5rem;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .linkedin-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 119, 181, 0.4);
+        }
+
+        .crown {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .magic-trail {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #a855f7;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .card-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="stars"></div>
-    <div class="particles"></div>
-
+    <div class="stars" id="stars"></div>
+    
     <div class="container">
-        <div class="header">
-            <h1>🏆 LEADERBOARD 🏆</h1>
-            <p class="subtitle">Top Performers of the Month</p>
-        </div>
-
-        <div class="toggle-buttons">
-            <div class="toggle-btn active" data-view="both">Both Categories</div>
-            <div class="toggle-btn" data-view="purchasers">Top Purchasers</div>
-            <div class="toggle-btn" data-view="sellers">Top Sellers</div>
-        </div>
-
-        <div class="leaderboards">
-            <div class="leaderboard purchasers">
-                <h2 class="leaderboard-title purchasers-title">💰 Top Purchasers</h2>
-                <div class="leaderboard-item" data-rank="1">
-                    <div class="crown">👑</div>
-                    <div class="rank gold">1</div>
-                    <div class="avatar">AJ</div>
-                    <div class="user-info">
-                        <div class="username">Alex Johnson</div>
-                        <div class="stats">152 purchases • Member since 2023</div>
-                    </div>
-                    <div class="amount">$24,890</div>
-                </div>
-                <div class="leaderboard-item" data-rank="2">
-                    <div class="rank silver">2</div>
-                    <div class="avatar">SM</div>
-                    <div class="user-info">
-                        <div class="username">Sarah Miller</div>
-                        <div class="stats">128 purchases • Member since 2022</div>
-                    </div>
-                    <div class="amount">$19,450</div>
-                </div>
-                <div class="leaderboard-item" data-rank="3">
-                    <div class="rank bronze">3</div>
-                    <div class="avatar">DW</div>
-                    <div class="user-info">
-                        <div class="username">David Wilson</div>
-                        <div class="stats">98 purchases • Member since 2023</div>
-                    </div>
-                    <div class="amount">$16,720</div>
-                </div>
-                <div class="leaderboard-item" data-rank="4">
-                    <div class="rank other">4</div>
-                    <div class="avatar">EB</div>
-                    <div class="user-info">
-                        <div class="username">Emma Brown</div>
-                        <div class="stats">87 purchases • Member since 2024</div>
-                    </div>
-                    <div class="amount">$14,320</div>
-                </div>
-                <div class="leaderboard-item" data-rank="5">
-                    <div class="rank other">5</div>
-                    <div class="avatar">MT</div>
-                    <div class="user-info">
-                        <div class="username">Mike Taylor</div>
-                        <div class="stats">76 purchases • Member since 2023</div>
-                    </div>
-                    <div class="amount">$12,890</div>
-                </div>
+        <header class="header">
+            <h1 class="main-title">Magic Leaderboard</h1>
+            <p class="subtitle">Witness the realm's most legendary traders</p>
+            
+            <div class="nav-tabs">
+                <button class="tab-btn active" data-tab="buyers">🏆 Top Buyers</button>
+                <button class="tab-btn" data-tab="sellers">💎 Top Sellers</button>
             </div>
+        </header>
 
-            <div class="leaderboard sellers">
-                <h2 class="leaderboard-title sellers-title">🚀 Top Sellers</h2>
-                <div class="leaderboard-item" data-rank="1">
-                    <div class="crown">👑</div>
-                    <div class="rank gold">1</div>
-                    <div class="avatar">JD</div>
-                    <div class="user-info">
-                        <div class="username">Jennifer Davis</div>
-                        <div class="stats">245 sales • 4.9★ rating</div>
-                    </div>
-                    <div class="amount">$32,450</div>
-                </div>
-                <div class="leaderboard-item" data-rank="2">
-                    <div class="rank silver">2</div>
-                    <div class="avatar">RL</div>
-                    <div class="user-info">
-                        <div class="username">Robert Lee</div>
-                        <div class="stats">198 sales • 4.8★ rating</div>
-                    </div>
-                    <div class="amount">$28,790</div>
-                </div>
-                <div class="leaderboard-item" data-rank="3">
-                    <div class="rank bronze">3</div>
-                    <div class="avatar">LG</div>
-                    <div class="user-info">
-                        <div class="username">Lisa Garcia</div>
-                        <div class="stats">167 sales • 4.9★ rating</div>
-                    </div>
-                    <div class="amount">$25,320</div>
-                </div>
-                <div class="leaderboard-item" data-rank="4">
-                    <div class="rank other">4</div>
-                    <div class="avatar">KM</div>
-                    <div class="user-info">
-                        <div class="username">Kevin Martinez</div>
-                        <div class="stats">142 sales • 4.7★ rating</div>
-                    </div>
-                    <div class="amount">$21,680</div>
-                </div>
-                <div class="leaderboard-item" data-rank="5">
-                    <div class="rank other">5</div>
-                    <div class="avatar">AS</div>
-                    <div class="user-info">
-                        <div class="username">Amy Smith</div>
-                        <div class="stats">128 sales • 4.8★ rating</div>
-                    </div>
-                    <div class="amount">$19,240</div>
-                </div>
+        <section class="leaderboard-section" id="buyers-section">
+            <h2 class="section-title">👑 Elite Buyers</h2>
+            <div class="leaderboard-grid" id="buyers-grid">
+                <!-- Buyers will be populated by JavaScript -->
             </div>
-        </div>
+        </section>
+
+        <section class="leaderboard-section" id="sellers-section" style="display: none;">
+            <h2 class="section-title">💰 Master Sellers</h2>
+            <div class="leaderboard-grid" id="sellers-grid">
+                <!-- Sellers will be populated by JavaScript -->
+            </div>
+        </section>
     </div>
 
     <script>
-        // Create floating elements
-        const floatingElements = ['💎', '⭐', '🚀', '💰', '🏆', '🎯', '⚡', '🔥'];
-        
-        function createFloatingElement() {
-            const element = document.createElement('div');
-            element.className = 'floating-element';
-            element.textContent = floatingElements[Math.floor(Math.random() * floatingElements.length)];
-            element.style.left = Math.random() * window.innerWidth + 'px';
-            element.style.top = window.innerHeight + 'px';
-            document.body.appendChild(element);
+        // Sample data - replace with your actual data
+        const leaderboardData = {
+            buyers: [
+                { name: "Alexander Magnus", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face", linkedin: "https://linkedin.com/in/alexmagnus", stats: "1,250 purchases • $2.5M total" },
+                { name: "Elena Starweaver", image: "https://images.unsplash.com/photo-1494790108755-2616b2e08b5d?w=150&h=150&fit=crop&crop=face", linkedin: "https://linkedin.com/in/elenastar", stats: "980 purchases • $1.8M total" },
+                { name: "Marcus Goldenheart", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face", linkedin: "https://linkedin.com/in/marcusgold", stats: "875 purchases • $1.6M total" },
+                { name: "Luna Mystique", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face", linkedin: "https://linkedin.com/in/lunamyst", stats: "720 purchases • $1.2M total" },
+                { name: "Viktor Shadowbane", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face", linkedin: "https://linkedin.com/in/viktorshadow", stats: "680 purchases • $1.1M total" },
+                { name: "Aria Moonlight", image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face", linkedin: "https://linkedin.com/in/ariamoon", stats: "650 purchases • $950K total" },
+                { name: "Dante Firestorm", image: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=150&h=150&fit=crop&crop=face", linkedin: "https://linkedin.com/in/dantefire", stats: "620 purchases • $890K total" },
+                { name: "Seraphina Grace", image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face", linkedin: "https://linkedin.com/in/seraphgrace", stats: "580 purchases • $820K total" },
+                { name: "Phoenix Rising", image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face", linkedin: "https://linkedin.com/in/phoenixrising", stats: "550 purchases • $780K total" },
+                { name: "Aurora Dreamweaver", image: "https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=150&h=150&fit=crop&crop=face", linkedin: "https://linkedin.com/in/auroradream", stats: "520 purchases • $720K total" }
+            ],
+            sellers: [
+                { name: "Morgan Treasurehunter", image: "https://images.unsplash.com/photo-1531427026150-4f4e4b3c7604?w=150&h=150&fit=crop&crop=face", linkedin: "https://linkedin.com/in/morgantreasure", stats: "2,100 sales • $3.2M earned" },
+                { name: "Raven Nightshade", image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&h=150&fit=crop&crop=face", linkedin: "https://linkedin.com/in/ravennight", stats: "1,850 sales • $2.8M earned" },
+                { name: "Atlas Goldforge", image: "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?w=150&h=150&fit=crop&crop=face", linkedin: "https://linkedin.com/in/atlasforge", stats: "1,650 sales • $2.4M earned" },
+                { name: "Iris Spellbinder", image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=150&h=150&fit=crop&crop=face", linkedin: "https://linkedin.com/in/irisspell", stats: "1,420 sales • $2.1M earned" },
+                { name: "Orion Stormcaller", image: "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=150&h=150&fit=crop&crop=face", linkedin: "https://linkedin.com/in/orionstorm", stats: "1,320 sales • $1.9M earned" },
+                { name: "Celeste Moonbeam", image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=150&h=150&fit=crop&crop=face", linkedin: "https://linkedin.com/in/celestemoon", stats: "1,180 sales • $1.7M earned" },
+                { name: "Zephyr Windwalker", image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=150&h=150&fit=crop&crop=face", linkedin: "https://linkedin.com/in/zephyrwind", stats: "1,080 sales • $1.5M earned" },
+                { name: "Nova Starlight", image: "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?w=150&h=150&fit=crop&crop=face", linkedin: "https://linkedin.com/in/novastar", stats: "980 sales • $1.3M earned" },
+                { name: "Sage Earthkeeper", image: "https://images.unsplash.com/photo-1532074205216-d0e1f4b87368?w=150&h=150&fit=crop&crop=face", linkedin: "https://linkedin.com/in/sageearth", stats: "920 sales • $1.2M earned" },
+                { name: "Echo Voidwhisper", image: "https://images.unsplash.com/photo-1463453091185-61582044d556?w=150&h=150&fit=crop&crop=face", linkedin: "https://linkedin.com/in/echovoid", stats: "850 sales • $1.1M earned" }
+            ]
+        };
 
-            gsap.to(element, {
-                y: -window.innerHeight - 100,
-                x: Math.random() * 200 - 100,
-                rotation: Math.random() * 360,
-                duration: Math.random() * 3 + 4,
-                ease: "none",
-                onComplete: () => element.remove()
-            });
-        }
+        // Initialize GSAP
+        gsap.registerPlugin(ScrollTrigger);
 
-        // Create stars background
+        // Create animated stars
         function createStars() {
-            const starsContainer = document.querySelector('.stars');
-            for (let i = 0; i < 100; i++) {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 200; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
                 starsContainer.appendChild(star);
 
                 gsap.to(star, {
-                    opacity: Math.random() * 0.8 + 0.3,
+                    opacity: Math.random() * 0.8 + 0.2,
                     duration: Math.random() * 2 + 1,
                     repeat: -1,
                     yoyo: true,
-                    ease: "power2.inOut"
+                    delay: Math.random() * 2
                 });
             }
         }
 
-        // Create particles
-        function createParticles() {
-            const particlesContainer = document.querySelector('.particles');
-            for (let i = 0; i < 30; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particlesContainer.appendChild(particle);
-
-                gsap.to(particle, {
-                    x: Math.random() * 400 - 200,
-                    y: Math.random() * 400 - 200,
-                    duration: Math.random() * 10 + 5,
-                    repeat: -1,
-                    yoyo: true,
-                    ease: "none"
-                });
+        // Create floating orbs
+        function createFloatingOrbs() {
+            for (let i = 0; i < 10; i++) {
+                const orb = document.createElement('div');
+                orb.className = 'floating-orb';
+                const size = Math.random() * 80 + 20;
+                orb.style.width = size + 'px';
+                orb.style.height = size + 'px';
+                orb.style.left = Math.random() * 100 + '%';
+                orb.style.top = Math.random() * 100 + '%';
+                orb.style.background = `radial-gradient(circle, rgba(168,85,247,0.3), rgba(59,130,246,0.2))`;
+                orb.style.animationDelay = Math.random() * 6 + 's';
+                document.body.appendChild(orb);
             }
         }
 
-        // Initialize animations
-        function initAnimations() {
-            // Header animation
-            gsap.to('.header', {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                ease: "back.out(1.7)"
-            });
+        // Create leaderboard cards
+        function createLeaderboardCard(user, rank, type) {
+            const card = document.createElement('div');
+            card.className = `rank-card ${rank <= 3 ? 'top-3' : ''}`;
+            
+            card.innerHTML = `
+                ${rank === 1 ? '<div class="crown">👑</div>' : ''}
+                <div class="card-content">
+                    <div class="rank-number">#${rank}</div>
+                    <img src="${user.image}" alt="${user.name}" class="user-avatar">
+                    <div class="user-info">
+                        <div class="user-name">${user.name}</div>
+                        <div class="user-stats">${user.stats}</div>
+                    </div>
+                    <a href="${user.linkedin}" target="_blank" class="linkedin-btn">
+                        <span>👔</span>
+                        LinkedIn
+                    </a>
+                </div>
+            `;
 
-            // Toggle buttons animation
-            gsap.to('.toggle-buttons', {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                delay: 0.3,
-                ease: "back.out(1.7)"
-            });
-
-            // Leaderboard containers animation
-            gsap.to('.leaderboard', {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                delay: 0.5,
-                stagger: 0.2,
-                ease: "back.out(1.7)"
-            });
-
-            // Individual items animation
-            gsap.to('.leaderboard-item', {
-                opacity: 1,
-                x: 0,
-                duration: 0.8,
-                delay: 0.8,
-                stagger: 0.1,
-                ease: "back.out(1.7)"
-            });
+            return card;
         }
 
-        // Hover animations for leaderboard items
-        document.querySelectorAll('.leaderboard-item').forEach(item => {
-            item.addEventListener('mouseenter', () => {
-                gsap.to(item, {
-                    scale: 1.02,
-                    y: -5,
-                    duration: 0.3,
-                    ease: "power2.out"
-                });
-                
-                // Create burst effect
-                createBurstEffect(item);
+        // Populate leaderboards
+        function populateLeaderboard(type) {
+            const grid = document.getElementById(`${type}-grid`);
+            grid.innerHTML = '';
+            
+            leaderboardData[type].forEach((user, index) => {
+                const card = createLeaderboardCard(user, index + 1, type);
+                grid.appendChild(card);
             });
 
-            item.addEventListener('mouseleave', () => {
-                gsap.to(item, {
-                    scale: 1,
-                    y: 0,
-                    duration: 0.3,
-                    ease: "power2.out"
-                });
-            });
-        });
-
-        // Burst effect on hover
-        function createBurstEffect(element) {
-            const rect = element.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-
-            for (let i = 0; i < 8; i++) {
-                const particle = document.createElement('div');
-                particle.style.position = 'fixed';
-                particle.style.left = centerX + 'px';
-                particle.style.top = centerY + 'px';
-                particle.style.width = '4px';
-                particle.style.height = '4px';
-                particle.style.background = '#4ecdc4';
-                particle.style.borderRadius = '50%';
-                particle.style.pointerEvents = 'none';
-                particle.style.zIndex = '1000';
-                document.body.appendChild(particle);
-
-                const angle = (i / 8) * Math.PI * 2;
-                const distance = 50;
-
-                gsap.to(particle, {
-                    x: Math.cos(angle) * distance,
-                    y: Math.sin(angle) * distance,
+            // Animate cards
+            gsap.fromTo(`#${type}-grid .rank-card`, 
+                {
+                    x: -100,
                     opacity: 0,
-                    duration: 0.6,
-                    ease: "power2.out",
-                    onComplete: () => particle.remove()
-                });
-            }
+                    scale: 0.8
+                },
+                {
+                    x: 0,
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.8,
+                    stagger: 0.1,
+                    ease: "back.out(1.7)"
+                }
+            );
         }
 
-        // Toggle functionality
-        document.querySelectorAll('.toggle-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                const view = btn.getAttribute('data-view');
-                const leaderboards = document.querySelectorAll('.leaderboard');
-                
-                if (view === 'both') {
-                    leaderboards.forEach(board => {
-                        gsap.to(board, {
-                            opacity: 1,
-                            scale: 1,
-                            duration: 0.5,
-                            ease: "power2.out"
-                        });
-                    });
-                } else {
-                    leaderboards.forEach(board => {
-                        if (board.classList.contains(view)) {
-                            gsap.to(board, {
-                                opacity: 1,
-                                scale: 1,
-                                duration: 0.5,
-                                ease: "power2.out"
-                            });
-                        } else {
-                            gsap.to(board, {
-                                opacity: 0.3,
-                                scale: 0.95,
-                                duration: 0.5,
-                                ease: "power2.out"
-                            });
-                        }
-                    });
-                }
+        // Tab switching
+        function switchTab(activeTab) {
+            // Update tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
             });
-        });
+            document.querySelector(`[data-tab="${activeTab}"]`).classList.add('active');
+
+            // Hide all sections
+            document.querySelectorAll('.leaderboard-section').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Show active section
+            const activeSection = document.getElementById(`${activeTab}-section`);
+            activeSection.style.display = 'block';
+
+            // Animate section
+            gsap.fromTo(activeSection,
+                { opacity: 0, y: 50 },
+                { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }
+            );
+
+            // Populate leaderboard
+            populateLeaderboard(activeTab);
+        }
+
+        // Magic trail effect
+        let trails = [];
+        function createMagicTrail(x, y) {
+            const trail = document.createElement('div');
+            trail.className = 'magic-trail';
+            trail.style.left = x + 'px';
+            trail.style.top = y + 'px';
+            document.body.appendChild(trail);
+
+            gsap.to(trail, {
+                scale: 3,
+                opacity: 0,
+                duration: 1,
+                ease: "power2.out",
+                onComplete: () => trail.remove()
+            });
+        }
 
         // Initialize everything
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', function() {
             createStars();
-            createParticles();
-            initAnimations();
+            createFloatingOrbs();
             
-            // Start floating elements
-            setInterval(createFloatingElement, 2000);
+            // Initial animations
+            gsap.to('.header', { opacity: 1, y: 0, duration: 1, ease: "power2.out" });
             
-            // Initial floating elements
-            setTimeout(() => {
-                for (let i = 0; i < 5; i++) {
-                    setTimeout(createFloatingElement, i * 400);
-                }
-            }, 1000);
-        });
-
-        // Continuous crown animation
-        gsap.to('.crown', {
-            rotation: 360,
-            duration: 10,
-            repeat: -1,
-            ease: "none"
-        });
-
-        // Avatar hover effects
-        document.querySelectorAll('.avatar').forEach(avatar => {
-            avatar.addEventListener('mouseenter', () => {
-                gsap.to(avatar, {
-                    scale: 1.2,
-                    rotation: 360,
-                    duration: 0.5,
-                    ease: "back.out(1.7)"
+            // Populate initial leaderboard
+            populateLeaderboard('buyers');
+            
+            // Tab event listeners
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const tab = btn.getAttribute('data-tab');
+                    switchTab(tab);
                 });
             });
-            
-            avatar.addEventListener('mouseleave', () => {
-                gsap.to(avatar, {
-                    scale: 1,
-                    rotation: 0,
-                    duration: 0.3,
-                    ease: "power2.out"
+
+            // Mouse trail effect
+            let isMouseMoving = false;
+            document.addEventListener('mousemove', (e) => {
+                if (!isMouseMoving) {
+                    isMouseMoving = true;
+                    setTimeout(() => {
+                        createMagicTrail(e.clientX, e.clientY);
+                        isMouseMoving = false;
+                    }, 100);
+                }
+            });
+
+            // Scroll animations
+            gsap.utils.toArray('.rank-card').forEach(card => {
+                ScrollTrigger.create({
+                    trigger: card,
+                    start: 'top 90%',
+                    onEnter: () => {
+                        gsap.to(card, {
+                            scale: 1.02,
+                            duration: 0.3,
+                            yoyo: true,
+                            repeat: 1
+                        });
+                    }
                 });
             });
         });

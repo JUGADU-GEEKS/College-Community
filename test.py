@@ -1,9 +1,6 @@
-from model import Product
+import bcrypt
 
-apron_c = Product.get_product_number_by_name('Apron')
-drafter_c = Product.get_product_number_by_name('Drafter')
-labcoat_c = Product.get_product_number_by_name('Labcoat')
-calculator_c = Product.get_product_number_by_name('Calculator')
-books_c = Product.get_product_number_by_name('Books')
+password = "adminofthestuddybuddyy69283123"
+hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
-print(apron_c, drafter_c, labcoat_c, calculator_c, books_c)
+print(hashed.decode())  # This will give a string to store in .env

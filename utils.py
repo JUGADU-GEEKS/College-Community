@@ -38,19 +38,12 @@ def notify_buyer_and_seller(buyer_email, buyer_linkedin, seller_email, seller_li
         seller_msg['To'] = seller_email
         seller_msg.set_content(
             f"""
-Hello Seller,
+Hi Seller,
 
-Your product has been purchased on Student Buddy.
-
-Buyer Details:
-Email: {buyer_email}
-LinkedIn: {buyer_linkedin}
-
-Please note:
-If you do not update the payment status of this product within 7 days, your account will be banned from our platform.
+We have found a buyer for you. The admin will contact you soon on your registered mobile number.
 
 Thank you,
-Team Student Buddy
+Team BPIT Cart
             """.strip()
         )
 
@@ -63,16 +56,11 @@ Team Student Buddy
             f"""
 Hello Buyer,
 
-You have successfully initiated a purchase on Student Buddy.
-
-Seller Details:
-Email: {seller_email}
-LinkedIn: {seller_linkedin}
-
-You can reach out to the seller for further coordination.
+Congratulations on purchasing the product on Student Buddy! 🎉
+The admin will contact you soon with more details.
 
 Thank you,
-Team Student Buddy
+Team BPIT Cart
             """.strip()
         )
 
@@ -87,3 +75,28 @@ Team Student Buddy
     except Exception as e:
         print("Error:", e)
         return False
+
+def send_faulty_buyer_warning(email, fault_count):
+    subject = 'Warning: Faulty Purchase Behavior Detected'
+    body = f"""
+Dear User,
+
+You have been marked as a faulty buyer for a recent transaction. Your current fault count is {fault_count}.
+If your fault count exceeds 7, your account will be terminated as per our policy.
+
+If you believe this is a mistake, please contact support.
+
+Thank you,
+BPIT Cart Team
+"""
+    try:
+        msg = EmailMessage()
+        msg['Subject'] = subject
+        msg['From'] = EMAIL_USER
+        msg['To'] = email
+        msg.set_content(body)
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
+            server.login(EMAIL_USER, EMAIL_PASS)
+            server.send_message(msg)
+    except Exception as e:
+        print('Failed to send warning email:', e)

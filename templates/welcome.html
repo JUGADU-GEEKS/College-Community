@@ -6,6 +6,8 @@
     <title>Welcome to Campus Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/welcome.css') }}">
+    <link rel="icon" type="image/x-icon" href="../static/images/Logo.png">
+
 </head>
 <body>
     <div class="min-h-screen flex flex-col justify-center items-center relative overflow-hidden bg-gradient-to-br from-gray-950 to-gray-900 text-white p-4">
@@ -18,7 +20,7 @@
                 </div>
                 
                 <h1 class="title">
-                    Welcome to Campus Portal
+                    Welcome to BPIT Cart
                 </h1>
                 
                 <p class="subtitle">
@@ -28,6 +30,7 @@
                 <div class="buttons">
                     <a href="/signup" class="btn btn-primary">Create Account</a>
                     <a href="/login" class="btn btn-secondary">Sign In</a>
+                    <a href="/adminLogin" class="btn btn-secondary" style="margin-top: 0.5rem;">Admin Login</a>
                 </div>
             </div>
             
