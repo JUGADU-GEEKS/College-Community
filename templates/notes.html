@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BPIT Cart - Notes (Coming Soon)</title>
+  <link rel="icon" type="image/webp" href="{{ url_for('static', filename='images/app-icon.png') }}">
+  <link rel="stylesheet" href="/static/stylesheets/home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      background: #111111;
+      color: #f7d08a;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .coming-soon-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 80vh;
+    }
+    .coming-soon-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #f7d08a;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .coming-soon-text {
+      font-size: 1.25rem;
+      color: #b0b4ba;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar (copied from home.html, update Notes link to active) -->
+  <header class="header">
+    <nav class="navbar">
+      <a href="/home" class="logo" style="padding-left: 1.5rem;">
+        <img src="/static/images/image.png" alt="Logo" class="logo-img">
+        <span>BPIT Cart</span>
+      </a>
+      <div class="nav-menu">
+        <a href="/home" class="nav-link">Home</a>
+        <a href="/browse" class="nav-link">Browse</a>
+        <a href="/notes" class="nav-link active">Notes</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+      <div class="nav-right" style="padding-right: 1.5rem;">
+        <a href="/profile" class="user-icon">
+          <i class="fas fa-user"></i>
+        </a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <div class="coming-soon-container">
+      <div class="coming-soon-title">Notes Feature Coming Soon!</div>
+      <div class="coming-soon-text">We're working hard to bring you this feature. Stay tuned!</div>
+    </div>
+  </main>
+</body>
+</html> 

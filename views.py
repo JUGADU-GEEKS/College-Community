@@ -409,3 +409,7 @@ def faulty_buyers():
     buyers = FaultyBuyer.get_all_faulty_buyers()
     return render_template('faultyBuyers.html', buyers=buyers)
 
+@views.route('/notes')
+def notes():
+    return render_template('notes.html')
+

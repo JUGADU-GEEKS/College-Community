@@ -444,7 +444,9 @@ document.addEventListener('DOMContentLoaded', () => {
       testimonialEl.className = 'testimonial-card staggered-item';
       testimonialEl.innerHTML = `
           <div class="testimonial-header">
-            <div class="testimonial-avatar"></div>
+            <div class="testimonial-avatar" style="display: flex; align-items: center; justify-content: center; background: #23272f; border-radius: 50%; width: 48px; height: 48px;">
+              <i class='fas fa-user' style="color: #f7d08a; font-size: 1.7rem;"></i>
+            </div>
             <div class="testimonial-info">
               <h4>${testimonial.name}</h4>
               <p>${testimonial.role}</p>
