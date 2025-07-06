@@ -161,6 +161,38 @@ function resolveOptions(node, options) {
 // Global Raf Instance
 const raf = new Raf();
 
+// Auto-slide functionality
+let autoSlideTimer = null;
+let autoSlideInterval = 3000; // 3 seconds
+let isAutoSlidePaused = false;
+
+function startAutoSlide() {
+	if (autoSlideTimer) {
+		clearInterval(autoSlideTimer);
+	}
+	
+	autoSlideTimer = setInterval(() => {
+		if (!isAutoSlidePaused) {
+			change(1)();
+		}
+	}, autoSlideInterval);
+}
+
+function pauseAutoSlide() {
+	isAutoSlidePaused = true;
+}
+
+function resumeAutoSlide() {
+	isAutoSlidePaused = false;
+}
+
+function stopAutoSlide() {
+	if (autoSlideTimer) {
+		clearInterval(autoSlideTimer);
+		autoSlideTimer = null;
+	}
+}
+
 function init() {
 	const loader = document.querySelector(".loader");
 
@@ -182,8 +214,26 @@ function init() {
 		tilt(slide, { target: [slideInner, slideInfoInner] });
 	});
 
-	buttons.prev.addEventListener("click", change(-1));
-	buttons.next.addEventListener("click", change(1));
+	// Add click event listeners with auto-slide pause/resume
+	buttons.prev.addEventListener("click", () => {
+		change(-1)();
+		pauseAutoSlide();
+		setTimeout(resumeAutoSlide, 3000); // Resume after 3 seconds
+	});
+	
+	buttons.next.addEventListener("click", () => {
+		change(1)();
+		pauseAutoSlide();
+		setTimeout(resumeAutoSlide, 3000); // Resume after 3 seconds
+	});
+
+	// Add hover pause functionality
+	const slider = document.querySelector(".slider");
+	slider.addEventListener("mouseenter", pauseAutoSlide);
+	slider.addEventListener("mouseleave", resumeAutoSlide);
+
+	// Start auto-slide
+	startAutoSlide();
 }
 
 function setup() {

@@ -4,57 +4,57 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BPIT Cart - Sell Products</title>
+    <title>Campus Kart - Sell Products</title>
     <link rel="icon" type="image/webp" href="{{ url_for('static', filename='images/app-icon.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/sell.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="static/stylesheets/componentsSheets/scroll.css">
-    <link rel="icon" type="image/x-icon" href="../static/images/Logo.png">
+    <link rel="icon" type="image/x-icon" href="../static/images/icon3.png">
 </head>
 
 <body>
     <div class="container">
-        <nav class="navbar">
-            <div class="navbar-container">
-                <a href="/home" class="logo">
-                    <img src="/static/images/Logo.png" alt="UniCache Logo" class="logo-img">
-                    <span>BPIT Cart</span>
-                </a>
-
-                <!-- Desktop Navigation -->
-                <div class="desktop-nav">
-                    <a href="/home" class="nav-item">Home</a>
-                    <a href="/sell" class="nav-item active">Sell</a>
-                    <a href="/browse" class="nav-item">Browse</a>
-                    <a href="/notes" class="nav-item">Notes</a>
-                    <a href="/about" class="nav-item">About</a>
-                    <a href="/contact" class="nav-item">Contact</a>
-                </div>
-
-                <!-- User Profile and Mobile Menu Button -->
-                <div class="nav-right">
-                    <a href="/profile" class="user-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                    </a>
-                    <button class="menu-button" aria-label="Toggle menu">
-                        <span class="menu-icon">☰</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Mobile Navigation -->
-            <div class="mobile-nav">
-                <a href="/home" class="nav-item">Home</a>
-                <a href="/sell" class="nav-item active">Sell</a>
-                <a href="/browse" class="nav-item">Browse</a>
-                <a href="/notes" class="nav-item">Notes</a>
-                <a href="/about" class="nav-item">About</a>
-                <a href="/contact" class="nav-item">Contact</a>
-            </div>
+        <!-- Navigation -->
+  <header class="header">
+    <div class="container">
+      <div class="navbar">
+        <!-- Logo -->
+        <a href="/home" class="logo">
+          <img src="/static/images/icon3.png" alt="" class="logo-img">
+          <span>Campus Kart</span>
+        </a>
+        <!-- Desktop Navigation -->
+        <nav class="nav-menu">
+          <a href="/home" class="nav-link active">Home</a>
+          <a href="/sell" class="nav-link">Sell</a>
+          <a href="/browse" class="nav-link">Browse</a>
+          <a href="/notes" class="nav-link">Notes</a>
+          <a href="#about" class="nav-link">About</a>
+          <a href="#contact" class="nav-link">Contact</a>
         </nav>
+
+        <!-- User and Mobile Menu -->
+        <div class="nav-right">
+          <a href="/profile" class="user-icon">
+            <i class="fas fa-user"></i>
+          </a>
+          <button class="menu-toggle" aria-label="Toggle menu">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile menu -->
+      <div class="mobile-menu">
+        <a href="/home" class="mobile-nav-link active">Home</a>
+        <a href="/sell" class="mobile-nav-link">Sell</a>
+        <a href="/browse" class="mobile-nav-link">Browse</a>
+        <a href="/notes" class="mobile-nav-link">Notes</a>
+        <a href="#about" class="mobile-nav-link">About</a>
+        <a href="#contact" class="mobile-nav-link">Contact</a>
+      </div>
+    </div>
+  </header>
         <header>
             <h1 class="fluid">you can<br />sell.</h1>
         </header>
@@ -185,4 +185,5 @@
                 <script type="module" src="static/javascripts/components/scroll.js"></script>
 </body>
 
+</html>
 </html>

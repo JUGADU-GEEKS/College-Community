@@ -153,6 +153,7 @@ img {
     transition: var(--transition);
     border-bottom: 2.5px solid #23272f;
     overflow: visible;
+    transform: translateY(0);
 }
 
 .header::before {
@@ -226,7 +227,24 @@ img {
 }
 
 .nav-menu {
-    display: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-menu .nav-link {
+    color: #f7d08a;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: var(--transition);
+    font-weight: 500;
+}
+
+.nav-menu .nav-link:hover,
+.nav-menu .nav-link.active {
+    color: white;
+    background-color: rgba(247, 208, 138, 0.1);
 }
 
 .nav-link {
@@ -276,7 +294,7 @@ img {
 }
 
 .menu-toggle {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     width: 2.5rem;
@@ -287,17 +305,21 @@ img {
     cursor: pointer;
     transition: var(--transition);
     margin-left: 0.5rem;
+    color: #f7d08a;
+    font-size: 1.2rem;
 }
 
 .menu-toggle:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(247, 208, 138, 0.1);
+    color: white;
 }
 
 .mobile-menu {
     display: none;
     flex-direction: column;
-    padding: 0.5rem 0;
-    border-top: 1px solid var(--border-color);
+    padding: 1rem 0;
+    background-color: #111111;
+    border-top: 1px solid #23272f;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease, opacity 0.3s ease;
@@ -305,23 +327,29 @@ img {
 }
 
 .mobile-menu.active {
-    max-height: 300px;
+    max-height: 400px;
     opacity: 1;
 }
 
 .mobile-nav-link {
-    padding: 0.75rem 1rem;
+    padding: 1rem 1.5rem;
     display: block;
     transition: var(--transition);
+    color: #f7d08a;
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(247, 208, 138, 0.1);
 }
 
 .mobile-nav-link:hover {
-    background-color: var(--background-light);
+    background-color: rgba(247, 208, 138, 0.1);
+    color: white;
 }
 
 .mobile-nav-link.active {
-    color: var(--primary-color);
-    font-weight: 500;
+    color: white;
+    background-color: rgba(247, 208, 138, 0.2);
+    font-weight: 600;
 }
 
 /* Hero Section */
@@ -516,6 +544,8 @@ img {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+    align-items: center;
+    justify-content: center;
     background: none;
 }
 
@@ -1142,7 +1172,96 @@ img {
     }
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .mobile-menu {
+        display: flex;
+    }
+
+    .navbar {
+        padding: 0 1rem;
+    }
+
+    .logo {
+        font-size: 1.5rem;
+    }
+
+    .logo-img {
+        height: 28px;
+        width: 28px;
+    }
+
+    .nav-right {
+        gap: 0.5rem;
+    }
+
+    .user-icon {
+        width: 2.2rem;
+        height: 2.2rem;
+        font-size: 0.9rem;
+    }
+
+    /* Ensure mobile menu is properly positioned */
+    .mobile-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Improve touch targets */
+    .mobile-nav-link {
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Ensure proper spacing */
+    .container {
+        padding: 0 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 1.3rem;
+    }
+
+    .logo-img {
+        height: 24px;
+        width: 24px;
+    }
+
+    .navbar {
+        padding: 0 0.5rem;
+    }
+
+    .nav-right {
+        gap: 0.25rem;
+    }
+
+    .user-icon {
+        width: 2rem;
+        height: 2rem;
+        font-size: 0.8rem;
+    }
+
+    .menu-toggle {
+        width: 2.2rem;
+        height: 2.2rem;
+    }
+}
+
+@media (min-width: 769px) {
     .nav-menu {
         display: flex;
         align-items: center;
@@ -1151,6 +1270,10 @@ img {
     
     .menu-toggle {
         display: none;
+    }
+
+    .mobile-menu {
+        display: none !important;
     }
     
     .items-grid {

@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Mobile Menu Toggle
   const menuToggle = document.querySelector('.menu-toggle');
   const mobileMenu = document.querySelector('.mobile-menu');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+  const navLinks = document.querySelectorAll('.nav-link');
 
   if (menuToggle && mobileMenu) {
     menuToggle.addEventListener('click', () => {
@@ -12,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Toggle the icon between bars and X
       const icon = menuToggle.querySelector('i');
-      if (icon.classList.contains('fa-bars')) {
+      if (mobileMenu.classList.contains('active')) {
         icon.classList.remove('fa-bars');
         icon.classList.add('fa-times');
       } else {
@@ -22,147 +24,54 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Contact Form Handling
-  const contactForm = document.getElementById('contactForm');
-  if (contactForm) {
-    contactForm.addEventListener('submit', async function (e) {
-      e.preventDefault(); // Prevent form reload
-
-      // Validate form fields
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const subject = document.getElementById('subject').value.trim();
-      const message = document.getElementById('message').value.trim();
-
-      // Check if any field is empty
-      if (!name || !email || !subject || !message) {
-        const errorMessage = document.createElement('div');
-        errorMessage.className = 'error-message';
-        errorMessage.textContent = 'Please fill in all fields';
-        errorMessage.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #f44336;
-            color: white;
-            padding: 15px 25px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            z-index: 1000;
-            animation: slideIn 0.5s ease-out;
-          `;
-
-        document.body.appendChild(errorMessage);
-
-        // Remove error message after 3 seconds
-        setTimeout(() => {
-          errorMessage.style.animation = 'slideOut 0.5s ease-out';
-          setTimeout(() => errorMessage.remove(), 500);
-        }, 3000);
-
-        return; // Stop form submission if validation fails
+  // Close mobile menu when clicking on a link
+  mobileNavLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (mobileMenu.classList.contains('active')) {
+        mobileMenu.classList.remove('active');
+        const icon = menuToggle.querySelector('i');
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
       }
+    });
+  });
 
-      // Show loading state
-      const submitBtn = contactForm.querySelector('.submit-btn');
-      const originalBtnText = submitBtn.textContent;
-      submitBtn.textContent = 'Sending...';
-      submitBtn.disabled = true;
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', (event) => {
+    if (mobileMenu && mobileMenu.classList.contains('active')) {
+      if (!mobileMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+        mobileMenu.classList.remove('active');
+        const icon = menuToggle.querySelector('i');
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    }
+  });
 
-      try {
-        // Get form data
-        const formData = {
-          name: name,
-          email: email,
-          subject: subject,
-          message: message
-        };
-
-        // Send data to Google Sheets
-        const response = await fetch('https://script.google.com/macros/s/AKfycbz3_7wxaEHu2v8RgPzMZiMwko-gbJE3V6nWAL2Iln-LC_ZgRTdMzK5h_Ln9_uDTF1wt/exec', {
-          method: 'POST',
-          body: JSON.stringify(formData),
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          mode: 'no-cors'
-        });
-
-        // Show success message
-        const successMessage = document.createElement('div');
-        successMessage.className = 'success-message';
-        successMessage.textContent = 'Message sent successfully! We will get back to you soon.';
-        successMessage.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px 25px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            z-index: 1000;
-            animation: slideIn 0.5s ease-out;
-          `;
-
-        document.body.appendChild(successMessage);
-
-        // Remove success message after 3 seconds
-        setTimeout(() => {
-          successMessage.style.animation = 'slideOut 0.5s ease-out';
-          setTimeout(() => successMessage.remove(), 500);
-        }, 3000);
-
-        // Reset form
-        contactForm.reset();
-
-      } catch (error) {
-        console.error('Error:', error);
-        // Show error message
-        const errorMessage = document.createElement('div');
-        errorMessage.className = 'error-message';
-        errorMessage.textContent = 'There was a problem sending your message. Please try again.';
-        errorMessage.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #f44336;
-            color: white;
-            padding: 15px 25px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            z-index: 1000;
-            animation: slideIn 0.5s ease-out;
-          `;
-
-        document.body.appendChild(errorMessage);
-
-        // Remove error message after 3 seconds
-        setTimeout(() => {
-          errorMessage.style.animation = 'slideOut 0.5s ease-out';
-          setTimeout(() => errorMessage.remove(), 500);
-        }, 3000);
-      } finally {
-        // Reset button state
-        submitBtn.textContent = originalBtnText;
-        submitBtn.disabled = false;
+  // Handle active states for navigation links
+  function setActiveLink() {
+    const currentPath = window.location.pathname;
+    
+    // Remove active class from all links
+    navLinks.forEach(link => link.classList.remove('active'));
+    mobileNavLinks.forEach(link => link.classList.remove('active'));
+    
+    // Add active class to current page link
+    navLinks.forEach(link => {
+      if (link.getAttribute('href') === currentPath) {
+        link.classList.add('active');
+      }
+    });
+    
+    mobileNavLinks.forEach(link => {
+      if (link.getAttribute('href') === currentPath) {
+        link.classList.add('active');
       }
     });
   }
 
-  // Add animation keyframes
-  const style = document.createElement('style');
-  style.textContent = `
-      @keyframes slideIn {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-      }
-      @keyframes slideOut {
-        from { transform: translateX(0); opacity: 1; }
-        to { transform: translateX(100%); opacity: 0; }
-      }
-    `;
-  document.head.appendChild(style);
+  // Set active link on page load
+  setActiveLink();
 
   // Smooth scrolling for About and Contact links
   const smoothScrollLinks = document.querySelectorAll('a[href^="#"]');
@@ -175,18 +84,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const targetElement = document.querySelector(targetId);
       if (targetElement) {
-        window.scrollTo({
-          top: targetElement.offsetTop - 80, // Account for header height
-          behavior: 'smooth'
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
         });
-
-        // Close mobile menu if open
-        if (mobileMenu && mobileMenu.classList.contains('active')) {
-          mobileMenu.classList.remove('active');
-          const icon = menuToggle.querySelector('i');
-          icon.classList.remove('fa-times');
-          icon.classList.add('fa-bars');
-        }
       }
     });
   });
@@ -196,9 +97,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const targetElement = document.querySelector(window.location.hash);
     if (targetElement) {
       setTimeout(() => {
-        window.scrollTo({
-          top: targetElement.offsetTop - 80,
-          behavior: 'smooth'
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
         });
       }, 100);
     }
@@ -210,9 +111,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const targetElement = document.getElementById(scrollTo);
     if (targetElement) {
       setTimeout(() => {
-        window.scrollTo({
-          top: targetElement.offsetTop - 80,
-          behavior: 'smooth'
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
         });
       }, 100);
     }
@@ -359,8 +260,6 @@ document.addEventListener('DOMContentLoaded', () => {
     { name: "Calculators", icon: "🧮", count: counts.calculator, link:"calculator" }
   ];
 
-
-
   // Testimonials data
   const testimonials = [
     {
@@ -493,14 +392,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Make the header sticky and add shadow on scroll
   const header = document.querySelector('.header');
+  let lastScrollTop = 0;
 
-  if (header) {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 10) {
-        header.style.boxShadow = 'var(--shadow)';
-      } else {
-        header.style.boxShadow = 'var(--shadow-sm)';
-      }
-    });
-  }
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    if (scrollTop > lastScrollTop && scrollTop > 100) {
+      // Scrolling down
+      header.style.transform = 'translateY(-100%)';
+    } else {
+      // Scrolling up
+      header.style.transform = 'translateY(0)';
+    }
+    
+    lastScrollTop = scrollTop;
+  });
 });
