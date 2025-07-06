@@ -4,185 +4,188 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BPIT Cart - Sell Products</title>
+    <title>Campus Kart - Sell Products</title>
     <link rel="icon" type="image/webp" href="{{ url_for('static', filename='images/app-icon.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/sell.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="static/stylesheets/componentsSheets/scroll.css">
-    <link rel="icon" type="image/x-icon" href="../static/images/Logo.png">
+    <link rel="icon" type="image/x-icon" href="../static/images/icon3.png">
 </head>
 
 <body>
+  <!-- Navigation -->
+  <header class="header">
     <div class="container">
-        <nav class="navbar">
-            <div class="navbar-container">
-                <a href="/home" class="logo">
-                    <img src="/static/images/Logo.png" alt="UniCache Logo" class="logo-img">
-                    <span>BPIT Cart</span>
-                </a>
-
-                <!-- Desktop Navigation -->
-                <div class="desktop-nav">
-                    <a href="/home" class="nav-item">Home</a>
-                    <a href="/sell" class="nav-item active">Sell</a>
-                    <a href="/browse" class="nav-item">Browse</a>
-                    <a href="/notes" class="nav-item">Notes</a>
-                    <a href="/about" class="nav-item">About</a>
-                    <a href="/contact" class="nav-item">Contact</a>
-                </div>
-
-                <!-- User Profile and Mobile Menu Button -->
-                <div class="nav-right">
-                    <a href="/profile" class="user-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                    </a>
-                    <button class="menu-button" aria-label="Toggle menu">
-                        <span class="menu-icon">☰</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Mobile Navigation -->
-            <div class="mobile-nav">
-                <a href="/home" class="nav-item">Home</a>
-                <a href="/sell" class="nav-item active">Sell</a>
-                <a href="/browse" class="nav-item">Browse</a>
-                <a href="/notes" class="nav-item">Notes</a>
-                <a href="/about" class="nav-item">About</a>
-                <a href="/contact" class="nav-item">Contact</a>
-            </div>
+      <div class="navbar">
+        <!-- Logo -->
+        <a href="/home" class="logo">
+          <img src="/static/images/icon3.png" alt="" class="logo-img">
+          <span>Campus Kart</span>
+        </a>
+        <!-- Desktop Navigation -->
+        <nav class="nav-menu">
+          <a href="/home" class="nav-link">Home</a>
+          <a href="/sell" class="nav-link active">Sell</a>
+          <a href="/browse" class="nav-link">Browse</a>
+          <a href="/notes" class="nav-link">Notes</a>
+          <a href="#about" class="nav-link">About</a>
+          <a href="#contact" class="nav-link">Contact</a>
         </nav>
-        <header>
-            <h1 class="fluid">you can<br />sell.</h1>
-        </header>
-        <main>
-            <section class="content fluid">
-                <h2><span aria-hidden="true">Can&nbsp;sell</span>
-                    <span class="sr-only">you can sell things.</span>
-                </h2>
-                <ul aria-hidden="true" style="--count: 6">
-                    <li style="--i: 0">drafter.</li>
-                    <li style="--i: 1">labcoat.</li>
-                    <li style="--i: 2">apron.</li>
-                    <li style="--i: 3">sheet holder.</li>
-                    <li style="--i: 4">calculator.</li>
-                    <li style="--i: 5">books.</li>
-                    <li style="--i: 6">lab&nbsp;equipment.</li>
-                </ul>
-            </section>
-            <section>
-                <h2 class="fluid">Buddy.</h2>
-            </section>
-        </main>
 
-        <div class="container">
-            <h1 class="title">SELL YOUR GOODS</h1>
-            <p class="subtitle">Get the best price for your academic items</p>
+        <!-- User and Mobile Menu -->
+        <div class="nav-right">
+          <a href="/profile" class="user-icon">
+            <i class="fas fa-user"></i>
+          </a>
+          <button class="menu-toggle" aria-label="Toggle menu">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Student Marketplace</h2>
-                    <p class="card-description">Sell your academic items at the best price</p>
-                </div>
+      <!-- Mobile menu -->
+      <div class="mobile-menu">
+        <a href="/home" class="mobile-nav-link">Home</a>
+        <a href="/sell" class="mobile-nav-link active">Sell</a>
+        <a href="/browse" class="mobile-nav-link">Browse</a>
+        <a href="/notes" class="mobile-nav-link">Notes</a>
+        <a href="#about" class="mobile-nav-link">About</a>
+        <a href="#contact" class="mobile-nav-link">Contact</a>
+      </div>
+    </div>
+  </header>
 
-                <div class="card-content">
-                    <form id="sellForm" method="POST" action="/price">
-                        <!-- Item Type Selection -->
+  <div class="container">
+    <header>
+        <h1 class="fluid">you can<br />sell.</h1>
+    </header>
+    <main>
+        <section class="content fluid">
+            <h2><span aria-hidden="true">Can&nbsp;sell</span>
+                <span class="sr-only">you can sell things.</span>
+            </h2>
+            <ul aria-hidden="true" style="--count: 6">
+                <li style="--i: 0">drafter.</li>
+                <li style="--i: 1">labcoat.</li>
+                <li style="--i: 2">apron.</li>
+                <li style="--i: 3">sheet holder.</li>
+                <li style="--i: 4">calculator.</li>
+                <li style="--i: 5">books.</li>
+                <li style="--i: 6">lab&nbsp;equipment.</li>
+            </ul>
+        </section>
+        <section>
+            <h2 class="fluid">Buddy.</h2>
+        </section>
+    </main>
+
+    <div class="container">
+        <h1 class="title">SELL YOUR GOODS</h1>
+        <p class="subtitle">Get the best price for your academic items</p>
+
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Student Marketplace</h2>
+                <p class="card-description">Sell your academic items at the best price</p>
+            </div>
+
+            <div class="card-content">
+                <form id="sellForm" method="POST" action="/price">
+                    <!-- Item Type Selection -->
+                    <div class="form-group">
+                        <label for="itemType">What are you selling?</label>
+                        <select id="itemType" name="itemType" required>
+                            <option value="" disabled selected>Select an item type</option>
+                            <option value="equipment">Equipment</option>
+                            <option value="calculator">Calculator</option>
+                            <option value="books">Books</option>
+                        </select>
+                    </div>
+
+                    <!-- Equipment Section -->
+                    <div id="equipmentSection" class="form-section hidden">
                         <div class="form-group">
-                            <label for="itemType">What are you selling?</label>
-                            <select id="itemType" name="itemType" required>
-                                <option value="" disabled selected>Select an item type</option>
-                                <option value="equipment">Equipment</option>
-                                <option value="calculator">Calculator</option>
-                                <option value="books">Books</option>
+                            <label for="equipmentItem">Select Equipment</label>
+                            <select id="equipmentItem" name="equipmentItem">
+                                <option value="apron">Apron</option>
+                                <option value="drafter">Drafter</option>
+                                <option value="labcoat">Lab Coat</option>
+                                <option value="sheetholder">Sheet Holder</option>
                             </select>
                         </div>
 
-                        <!-- Equipment Section -->
-                        <div id="equipmentSection" class="form-section hidden">
-                            <div class="form-group">
-                                <label for="equipmentItem">Select Equipment</label>
-                                <select id="equipmentItem" name="equipmentItem">
-                                    <option value="apron">Apron</option>
-                                    <option value="drafter">Drafter</option>
-                                    <option value="labcoat">Lab Coat</option>
-                                    <option value="sheetholder">Sheet Holder</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="monthsOld">Months Old</label>
-                                <input type="number" id="monthsOld" name="monthsOld" min="1" max="24" value="1">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="condition">Condition</label>
-                                <select id="condition" name="condition">
-                                    <option value="new">New</option>
-                                    <option value="good">Good</option>
-                                    <option value="fair">Fair</option>
-                                    <option value="wornout">Worn Out</option>
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            <label for="monthsOld">Months Old</label>
+                            <input type="number" id="monthsOld" name="monthsOld" min="1" max="24" value="1">
                         </div>
 
-                        <!-- Calculator Section -->
-                        <div id="calculatorSection" class="form-section hidden">
-                            <div class="form-group">
-                                <label for="calculatorType">Calculator Model</label>
-                                <select id="calculatorType" name="calculatorType">
-                                    <option value="Model_fx-82MS">82MS</option>
-                                    <option value="Model_fx-991MS">991MS</option>
-                                    <option value="Model_fx-570ES">570ES</option>
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            <label for="condition">Condition</label>
+                            <select id="condition" name="condition">
+                                <option value="new">New</option>
+                                <option value="good">Good</option>
+                                <option value="fair">Fair</option>
+                                <option value="wornout">Worn Out</option>
+                            </select>
+                        </div>
+                    </div>
 
-                            <div class="form-group">
-                                <label for="calculatorCondition">Calculator Condition</label>
-                                <select id="calculatorCondition" name="calculatorCondition">
-                                    <option value="Condition_Heavily Used">Heavily Used</option>
-                                    <option value="Condition_Used">Used</option>
-                                    <option value="Condition_Like New">Like New</option>
-                                    <option value="Condition_New">New</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="calculatorMonthsOld">Months Old</label>
-                                <input type="number" id="calculatorMonthsOld" name="calculatorMonthsOld" min="1"
-                                    max="36" value="1">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="calculatorDemand">Demand (1-10)</label>
-                                <input type="number" id="calculatorDemand" name="calculatorDemand" min="1" max="10"
-                                    value="5">
-                            </div>
+                    <!-- Calculator Section -->
+                    <div id="calculatorSection" class="form-section hidden">
+                        <div class="form-group">
+                            <label for="calculatorType">Calculator Model</label>
+                            <select id="calculatorType" name="calculatorType">
+                                <option value="Model_fx-82MS">82MS</option>
+                                <option value="Model_fx-991MS">991MS</option>
+                                <option value="Model_fx-570ES">570ES</option>
+                            </select>
                         </div>
 
-                        <!-- Books Section -->
-                        <div id="booksSection" class="form-section hidden">
-                            <p class="coming-soon">Book pricing coming soon!</p>
+                        <div class="form-group">
+                            <label for="calculatorCondition">Calculator Condition</label>
+                            <select id="calculatorCondition" name="calculatorCondition">
+                                <option value="Condition_Heavily Used">Heavily Used</option>
+                                <option value="Condition_Used">Used</option>
+                                <option value="Condition_Like New">Like New</option>
+                                <option value="Condition_New">New</option>
+                            </select>
                         </div>
 
-                        <!-- Price Display -->
-                        <div id="priceSection" class="hidden">
-                            <div class="price-display">
-                                <h3>Estimated Price</h3>
-                                <div id="predictedPrice" class="price">{{predicted_price}}</div>
-                            </div>
+                        <div class="form-group">
+                            <label for="calculatorMonthsOld">Months Old</label>
+                            <input type="number" id="calculatorMonthsOld" name="calculatorMonthsOld" min="1"
+                                max="36" value="1">
                         </div>
 
-                        <!-- Submit Button -->
-                        <button type="submit" id="submitButton">Predict Price</button>
-                    </form>
-                </div>
+                        <div class="form-group">
+                            <label for="calculatorDemand">Demand (1-10)</label>
+                            <input type="number" id="calculatorDemand" name="calculatorDemand" min="1" max="10"
+                                value="5">
+                        </div>
+                    </div>
+
+                    <!-- Books Section -->
+                    <div id="booksSection" class="form-section hidden">
+                        <p class="coming-soon">Book pricing coming soon!</p>
+                    </div>
+
+                    <!-- Price Display -->
+                    <div id="priceSection" class="hidden">
+                        <div class="price-display">
+                            <h3>Estimated Price</h3>
+                            <div id="predictedPrice" class="price">{{predicted_price}}</div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="submitButton">Predict Price</button>
+                </form>
             </div>
-                <script src="static/javascripts/sell.js"></script>
-                <script type="module" src="static/javascripts/components/scroll.js"></script>
+        </div>
+    </div>
+  </div>
+    <script src="static/javascripts/sell.js"></script>
+    <script type="module" src="static/javascripts/components/scroll.js"></script>
 </body>
 
 </html>

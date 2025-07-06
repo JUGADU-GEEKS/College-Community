@@ -16,30 +16,86 @@ const toast = document.getElementById('toast');
 const toastDescription = document.getElementById('toast-description');
 const toastTitle = document.querySelector('.toast-title');
 
-// Add animations on load
+// Initialize form state
+let itemType = '';
+let selectedEquipment = '';
+
 document.addEventListener('DOMContentLoaded', function() {
+  // Add animations on load
   const formSections = document.querySelectorAll('.form-section');
   formSections.forEach(section => {
     setTimeout(() => {
       section.style.animationPlayState = 'running';
     }, 100);
   });
-});
 
-// Initialize form state
-let itemType = '';
-let selectedEquipment = '';
+  // Mobile Menu Toggle
+  const menuToggle = document.querySelector('.menu-toggle');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
-// Event Listeners
-itemTypeSelect.addEventListener('change', updateFormBasedOnSelection);
-monthsOldInput.addEventListener('input', updateMonthsUI);
-calculatorMonthsOldInput.addEventListener('input', updateCalculatorMonthsUI);
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
 
-// Equipment selection
-const equipmentRadios = document.querySelectorAll('input[name="equipmentItem"]');
-equipmentRadios.forEach(radio => {
-  radio.addEventListener('change', function() {
-    selectedEquipment = this.value;
+      // Toggle the icon between bars and X
+      const icon = menuToggle.querySelector('i');
+      if (mobileMenu.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
+  }
+
+  // Close mobile menu when clicking on a link
+  mobileNavLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (mobileMenu.classList.contains('active')) {
+        mobileMenu.classList.remove('active');
+        const icon = menuToggle.querySelector('i');
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
+  });
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', (event) => {
+    if (mobileMenu && mobileMenu.classList.contains('active')) {
+      if (!mobileMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+        mobileMenu.classList.remove('active');
+        const icon = menuToggle.querySelector('i');
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    }
+  });
+
+  // Event Listeners
+  itemTypeSelect.addEventListener('change', updateFormBasedOnSelection);
+  monthsOldInput.addEventListener('input', updateMonthsUI);
+  calculatorMonthsOldInput.addEventListener('input', updateCalculatorMonthsUI);
+
+  // Equipment selection
+  const equipmentRadios = document.querySelectorAll('input[name="equipmentItem"]');
+  equipmentRadios.forEach(radio => {
+    radio.addEventListener('change', function() {
+      selectedEquipment = this.value;
+    });
+  });
+
+  // Add event listener to the form for submission
+  form.addEventListener('submit', function(e) {
+    // Show a toast notification before form submission
+    showToast(
+      'Form Submitted',
+      `Your ${itemType} data has been submitted successfully`
+    );
+    
+    // Let the form submit naturally - no preventDefault()
   });
 });
 
@@ -76,20 +132,6 @@ function updateCalculatorMonthsUI() {
   calculatorMonthsValue.textContent = calculatorMonthsOldInput.value;
 }
 
-// Add event listener to the form for submission
-form.addEventListener('submit', function(e) {
-  // The form will naturally submit to your backend
-  // You can add any pre-submission logic here if needed
-  
-  // Show a toast notification before form submission
-  showToast(
-    'Form Submitted',
-    `Your ${itemType} data has been submitted successfully`
-  );
-  
-  // Let the form submit naturally - no preventDefault()
-});
-
 // Function to show toast notification
 function showToast(title, description) {
   toastTitle.textContent = title;
@@ -101,60 +143,3 @@ function showToast(title, description) {
     toast.classList.remove('show');
   }, 5000);
 }
-
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  // DOM Elements
-  const form = document.getElementById('sellForm');
-  const itemTypeSelect = document.getElementById('itemType');
-  const equipmentSection = document.getElementById('equipmentSection');
-  const calculatorSection = document.getElementById('calculatorSection');
-  const booksSection = document.getElementById('booksSection');
-  const priceSection = document.getElementById('priceSection');
-  const predictedPriceElement = document.getElementById('predictedPrice');
-  const submitButton = document.getElementById('submitButton');
-  const menuButton = document.querySelector('.menu-button');
-  const mobileNav = document.querySelector('.mobile-nav');
-  const toast = document.getElementById('toast');
-
-  // Toggle Mobile Menu
-  menuButton.addEventListener('click', function() {
-      mobileNav.classList.toggle('show');
-  });
-
-  // Handle item type change
-  itemTypeSelect.addEventListener('change', function() {
-      const selectedValue = this.value;
-      
-      // Hide all sections
-      equipmentSection.classList.add('hidden');
-      calculatorSection.classList.add('hidden');
-      booksSection.classList.add('hidden');
-      priceSection.classList.add('hidden');
-      
-      // Enable submit button if an item type is selected
-      submitButton.disabled = !selectedValue;
-      
-      // Show the relevant section
-      if (selectedValue === 'equipment') {
-          equipmentSection.classList.remove('hidden');
-      } else if (selectedValue === 'calculator') {
-          calculatorSection.classList.remove('hidden');
-      } else if (selectedValue === 'books') {
-          booksSection.classList.remove('hidden');
-      }
-  });
-
-  // Function to update the predicted price
-  function showToast(message) {
-    const toastMessage = document.querySelector('.toast-message');
-    toastMessage.textContent = message;
-    
-    toast.classList.remove('hidden');
-    
-    setTimeout(function() {
-        toast.classList.add('hidden');
-    }, 3000);
-}
-});
