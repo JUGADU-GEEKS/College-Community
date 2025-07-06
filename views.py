@@ -129,7 +129,8 @@ def home():
     labcoat_c = Product.get_product_number_by_name('Labcoat')
     calculator_c = Product.get_product_number_by_name('Calculator')
     books_c = Product.get_product_number_by_name('Akash Books')
-    return render_template('home.html', apron_c=apron_c, drafter_c=drafter_c, labcoat_c=labcoat_c, calculator_c=calculator_c, books_c=books_c)
+    sheet_c = Product.get_product_number_by_name('Sheetholder')
+    return render_template('home.html', apron_c=apron_c, drafter_c=drafter_c, labcoat_c=labcoat_c, calculator_c=calculator_c, books_c=books_c, sheet_c=sheet_c)
 
 @views.route('/profile')
 def profile():

@@ -257,7 +257,8 @@ document.addEventListener('DOMContentLoaded', () => {
     { name: "Safety Aprons", icon: "🎽", count: counts.apron, link:"apron" },
     { name: "Textbooks", icon: "📚", count: counts.books, link:"akash books" },
     { name: "Lab Coats", icon: "🥼", count: counts.labcoat, link:"labcoats" },
-    { name: "Calculators", icon: "🧮", count: counts.calculator, link:"calculator" }
+    { name: "Calculators", icon: "🧮", count: counts.calculator, link:"calculator" },
+    { name: "Sheet Holders", icon: "🧮", count: counts.sheet, link:"sheet" }
   ];
 
   // Testimonials data

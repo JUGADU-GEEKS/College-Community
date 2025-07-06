@@ -106,7 +106,7 @@ body {
   background: linear-gradient(to right, #f7d08a, #ffd700, #ffed4e);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  color: #f7d08a;
   animation: fadeIn 0.5s ease-out forwards;
 }
 
@@ -512,7 +512,7 @@ button {
 }
 
 button:hover:not([disabled]) {
-  background: linear-gradient(to right, #ffd700, #f7d08a);
+  background: linear-gradient(to right, #f7d08a, #f7d08a);
   box-shadow: 0 0 15px rgba(247, 208, 138, 0.5);
   transform: translateY(-2px);
 }
@@ -545,7 +545,7 @@ button[disabled] {
 .price {
   font-size: 2rem;
   font-weight: 700;
-  background: linear-gradient(to right, #f7d08a, #ffd700, #ffed4e);
+  background: linear-gradient(to right, #f7d08a, #ffd700, #f7d08a);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -581,10 +581,14 @@ button[disabled] {
 }
 
 /* Footer */
+footer{
+  margin-top: 100px;
+  width: 100%;
+}
 .footer {
   background-color: #111111;
   color: #f7d08a;
-  padding: 3rem 0 1.5rem;
+  padding-top: 3rem 0 1.5rem;
   border-top: 1px solid rgba(247, 208, 138, 0.2);
 }
 

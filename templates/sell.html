@@ -13,177 +13,234 @@
 </head>
 
 <body>
-  <!-- Navigation -->
-  <header class="header">
-    <div class="container">
-      <div class="navbar">
-        <!-- Logo -->
-        <a href="/home" class="logo">
-          <img src="/static/images/icon3.png" alt="" class="logo-img">
-          <span>Campus Kart</span>
-        </a>
-        <!-- Desktop Navigation -->
-        <nav class="nav-menu">
-          <a href="/home" class="nav-link">Home</a>
-          <a href="/sell" class="nav-link active">Sell</a>
-          <a href="/browse" class="nav-link">Browse</a>
-          <a href="/notes" class="nav-link">Notes</a>
-          <a href="#about" class="nav-link">About</a>
-          <a href="#contact" class="nav-link">Contact</a>
-        </nav>
+    <!-- Navigation -->
+    <header class="header">
+        <div class="container">
+            <div class="navbar">
+                <!-- Logo -->
+                <a href="/home" class="logo">
+                    <img src="/static/images/icon3.png" alt="" class="logo-img">
+                    <span>Campus Kart</span>
+                </a>
+                <!-- Desktop Navigation -->
+                <nav class="nav-menu">
+                    <a href="/home" class="nav-link">Home</a>
+                    <a href="/sell" class="nav-link active">Sell</a>
+                    <a href="/browse" class="nav-link">Browse</a>
+                    <a href="/notes" class="nav-link">Notes</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </nav>
 
-        <!-- User and Mobile Menu -->
-        <div class="nav-right">
-          <a href="/profile" class="user-icon">
-            <i class="fas fa-user"></i>
-          </a>
-          <button class="menu-toggle" aria-label="Toggle menu">
-            <i class="fas fa-bars"></i>
-          </button>
+                <!-- User and Mobile Menu -->
+                <div class="nav-right">
+                    <a href="/profile" class="user-icon">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <button class="menu-toggle" aria-label="Toggle menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile menu -->
+            <div class="mobile-menu">
+                <a href="/home" class="mobile-nav-link">Home</a>
+                <a href="/sell" class="mobile-nav-link active">Sell</a>
+                <a href="/browse" class="mobile-nav-link">Browse</a>
+                <a href="/notes" class="mobile-nav-link">Notes</a>
+                <a href="#about" class="mobile-nav-link">About</a>
+                <a href="#contact" class="mobile-nav-link">Contact</a>
+            </div>
         </div>
-      </div>
-
-      <!-- Mobile menu -->
-      <div class="mobile-menu">
-        <a href="/home" class="mobile-nav-link">Home</a>
-        <a href="/sell" class="mobile-nav-link active">Sell</a>
-        <a href="/browse" class="mobile-nav-link">Browse</a>
-        <a href="/notes" class="mobile-nav-link">Notes</a>
-        <a href="#about" class="mobile-nav-link">About</a>
-        <a href="#contact" class="mobile-nav-link">Contact</a>
-      </div>
-    </div>
-  </header>
-
-  <div class="container">
-    <header>
-        <h1 class="fluid">you can<br />sell.</h1>
     </header>
-    <main>
-        <section class="content fluid">
-            <h2><span aria-hidden="true">Can&nbsp;sell</span>
-                <span class="sr-only">you can sell things.</span>
-            </h2>
-            <ul aria-hidden="true" style="--count: 6">
-                <li style="--i: 0">drafter.</li>
-                <li style="--i: 1">labcoat.</li>
-                <li style="--i: 2">apron.</li>
-                <li style="--i: 3">sheet holder.</li>
-                <li style="--i: 4">calculator.</li>
-                <li style="--i: 5">books.</li>
-                <li style="--i: 6">lab&nbsp;equipment.</li>
-            </ul>
-        </section>
-        <section>
-            <h2 class="fluid">Buddy.</h2>
-        </section>
-    </main>
 
     <div class="container">
-        <h1 class="title">SELL YOUR GOODS</h1>
-        <p class="subtitle">Get the best price for your academic items</p>
+        <header>
+            <h1 class="fluid">you can<br />sell.</h1>
+        </header>
+        <main>
+            <section class="content fluid">
+                <h2><span aria-hidden="true">Can&nbsp;sell</span>
+                    <span class="sr-only">you can sell things.</span>
+                </h2>
+                <ul aria-hidden="true" style="--count: 6">
+                    <li style="--i: 0">drafter.</li>
+                    <li style="--i: 1">labcoat.</li>
+                    <li style="--i: 2">apron.</li>
+                    <li style="--i: 3">sheet holder.</li>
+                    <li style="--i: 4">calculator.</li>
+                    <li style="--i: 5">books.</li>
+                    <li style="--i: 6">lab&nbsp;equipment.</li>
+                </ul>
+            </section>
+            <section>
+                <h2 class="fluid">Buddy.</h2>
+            </section>
+        </main>
 
-        <div class="card">
-            <div class="card-header">
-                <h2 class="card-title">Student Marketplace</h2>
-                <p class="card-description">Sell your academic items at the best price</p>
-            </div>
+        <div class="container">
+            <h1 class="title">SELL YOUR GOODS</h1>
+            <p class="subtitle">Get the best price for your academic items</p>
 
-            <div class="card-content">
-                <form id="sellForm" method="POST" action="/price">
-                    <!-- Item Type Selection -->
-                    <div class="form-group">
-                        <label for="itemType">What are you selling?</label>
-                        <select id="itemType" name="itemType" required>
-                            <option value="" disabled selected>Select an item type</option>
-                            <option value="equipment">Equipment</option>
-                            <option value="calculator">Calculator</option>
-                            <option value="books">Books</option>
-                        </select>
-                    </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Student Marketplace</h2>
+                    <p class="card-description">Sell your academic items at the best price</p>
+                </div>
 
-                    <!-- Equipment Section -->
-                    <div id="equipmentSection" class="form-section hidden">
+                <div class="card-content">
+                    <form id="sellForm" method="POST" action="/price">
+                        <!-- Item Type Selection -->
                         <div class="form-group">
-                            <label for="equipmentItem">Select Equipment</label>
-                            <select id="equipmentItem" name="equipmentItem">
-                                <option value="apron">Apron</option>
-                                <option value="drafter">Drafter</option>
-                                <option value="labcoat">Lab Coat</option>
-                                <option value="sheetholder">Sheet Holder</option>
+                            <label for="itemType">What are you selling?</label>
+                            <select id="itemType" name="itemType" required>
+                                <option value="" disabled selected>Select an item type</option>
+                                <option value="equipment">Equipment</option>
+                                <option value="calculator">Calculator</option>
+                                <option value="books">Books</option>
                             </select>
                         </div>
 
-                        <div class="form-group">
-                            <label for="monthsOld">Months Old</label>
-                            <input type="number" id="monthsOld" name="monthsOld" min="1" max="24" value="1">
+                        <!-- Equipment Section -->
+                        <div id="equipmentSection" class="form-section hidden">
+                            <div class="form-group">
+                                <label for="equipmentItem">Select Equipment</label>
+                                <select id="equipmentItem" name="equipmentItem">
+                                    <option value="apron">Apron</option>
+                                    <option value="drafter">Drafter</option>
+                                    <option value="labcoat">Lab Coat</option>
+                                    <option value="sheetholder">Sheet Holder</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="monthsOld">Months Old</label>
+                                <input type="number" id="monthsOld" name="monthsOld" min="1" max="24" value="1">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="condition">Condition</label>
+                                <select id="condition" name="condition">
+                                    <option value="new">New</option>
+                                    <option value="good">Good</option>
+                                    <option value="fair">Fair</option>
+                                    <option value="wornout">Worn Out</option>
+                                </select>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="condition">Condition</label>
-                            <select id="condition" name="condition">
-                                <option value="new">New</option>
-                                <option value="good">Good</option>
-                                <option value="fair">Fair</option>
-                                <option value="wornout">Worn Out</option>
-                            </select>
-                        </div>
-                    </div>
+                        <!-- Calculator Section -->
+                        <div id="calculatorSection" class="form-section hidden">
+                            <div class="form-group">
+                                <label for="calculatorType">Calculator Model</label>
+                                <select id="calculatorType" name="calculatorType">
+                                    <option value="Model_fx-82MS">82MS</option>
+                                    <option value="Model_fx-991MS">991MS</option>
+                                    <option value="Model_fx-570ES">570ES</option>
+                                </select>
+                            </div>
 
-                    <!-- Calculator Section -->
-                    <div id="calculatorSection" class="form-section hidden">
-                        <div class="form-group">
-                            <label for="calculatorType">Calculator Model</label>
-                            <select id="calculatorType" name="calculatorType">
-                                <option value="Model_fx-82MS">82MS</option>
-                                <option value="Model_fx-991MS">991MS</option>
-                                <option value="Model_fx-570ES">570ES</option>
-                            </select>
-                        </div>
+                            <div class="form-group">
+                                <label for="calculatorCondition">Calculator Condition</label>
+                                <select id="calculatorCondition" name="calculatorCondition">
+                                    <option value="Condition_Heavily Used">Heavily Used</option>
+                                    <option value="Condition_Used">Used</option>
+                                    <option value="Condition_Like New">Like New</option>
+                                    <option value="Condition_New">New</option>
+                                </select>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="calculatorCondition">Calculator Condition</label>
-                            <select id="calculatorCondition" name="calculatorCondition">
-                                <option value="Condition_Heavily Used">Heavily Used</option>
-                                <option value="Condition_Used">Used</option>
-                                <option value="Condition_Like New">Like New</option>
-                                <option value="Condition_New">New</option>
-                            </select>
-                        </div>
+                            <div class="form-group">
+                                <label for="calculatorMonthsOld">Months Old</label>
+                                <input type="number" id="calculatorMonthsOld" name="calculatorMonthsOld" min="1"
+                                    max="36" value="1">
+                            </div>
 
-                        <div class="form-group">
-                            <label for="calculatorMonthsOld">Months Old</label>
-                            <input type="number" id="calculatorMonthsOld" name="calculatorMonthsOld" min="1"
-                                max="36" value="1">
+                            <div class="form-group">
+                                <label for="calculatorDemand">Demand (1-10)</label>
+                                <input type="number" id="calculatorDemand" name="calculatorDemand" min="1" max="10"
+                                    value="5">
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="calculatorDemand">Demand (1-10)</label>
-                            <input type="number" id="calculatorDemand" name="calculatorDemand" min="1" max="10"
-                                value="5">
+                        <!-- Books Section -->
+                        <div id="booksSection" class="form-section hidden">
+                            <p class="coming-soon">Book pricing coming soon!</p>
                         </div>
-                    </div>
 
-                    <!-- Books Section -->
-                    <div id="booksSection" class="form-section hidden">
-                        <p class="coming-soon">Book pricing coming soon!</p>
-                    </div>
-
-                    <!-- Price Display -->
-                    <div id="priceSection" class="hidden">
-                        <div class="price-display">
-                            <h3>Estimated Price</h3>
-                            <div id="predictedPrice" class="price">{{predicted_price}}</div>
+                        <!-- Price Display -->
+                        <div id="priceSection" class="hidden">
+                            <div class="price-display">
+                                <h3>Estimated Price</h3>
+                                <div id="predictedPrice" class="price">{{predicted_price}}</div>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Submit Button -->
-                    <button type="submit" id="submitButton">Predict Price</button>
-                </form>
+                        <!-- Submit Button -->
+                        <button type="submit" id="submitButton">Predict Price</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-  </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span>Campus Kart</span>
+                    </div>
+                    <p>The marketplace for college students to buy and sell course-related supplies.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/home">Home</a></li>
+                        <li><a href="/browse">Browse Items</a></li>
+                        <li><a href="/sell">Sell an Item</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="/profile">My Profile</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Information</h3>
+                    <ul>
+                        <li><a href="/about">About Us</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for exclusive deals and tips.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email">
+                        <button type="submit">
+                            <i class="fas fa-envelope"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year"></span> UniCache. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
     <script src="static/javascripts/sell.js"></script>
     <script type="module" src="static/javascripts/components/scroll.js"></script>
 </body>

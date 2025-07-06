@@ -334,21 +334,22 @@
     padding: 0.85rem 1rem;
     margin-top: 1rem;
     border-radius: 12px;
-    background: linear-gradient(135deg, #76b4bd 0%, #4d6a92 100%);
-    color: white;
+    background: linear-gradient(135deg, var(--ghibli-gold) 0%, #e6b800 100%);
+    color: #222;
     font-weight: 600;
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(77, 106, 146, 0.4);
+    box-shadow: 0 4px 15px rgba(247, 208, 138, 0.4);
   }
   
   .btn-submit:hover {
-    background: linear-gradient(135deg, #85c3cc 0%, #5d7aa2 100%);
+    background: linear-gradient(135deg, #ffe066 0%, #ffd700 100%);
+    color: #111;
+    box-shadow: 0 8px 20px rgba(247, 208, 138, 0.5);
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(77, 106, 146, 0.5);
   }
   
   .btn-submit:active {
@@ -409,7 +410,7 @@
   }
   
   .signin-link {
-    color: var(--ghibli-teal);
+    color: var(--ghibli-gold);
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s ease;
@@ -423,14 +424,14 @@
     height: 2px;
     bottom: -2px;
     left: 0;
-    background: linear-gradient(90deg, var(--ghibli-teal), transparent);
+    background: linear-gradient(90deg, var(--ghibli-gold), transparent);
     transform: scaleX(0);
     transform-origin: bottom right;
     transition: transform 0.3s ease;
   }
   
   .signin-link:hover {
-    color: var(--ghibli-silver);
+    color: #ffe066;
   }
   
   .signin-link:hover::after {
