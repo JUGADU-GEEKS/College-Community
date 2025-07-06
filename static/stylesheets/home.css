@@ -197,9 +197,10 @@ img {
     align-items: center;
     text-decoration: none;
     color: white;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 600;
     letter-spacing: 0.5px;
+    white-space: nowrap;
 }
 
 .logo-img {
@@ -1190,7 +1191,7 @@ img {
     }
 
     .logo {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
 
     .logo-img {

@@ -180,13 +180,13 @@
 }
 
 @layer demo {
-  header {
-    min-height: 100vh;
-    display: flex;
-    place-items: center;
-    width: 100%;
-    padding-inline: 5rem;
-  }
+  main header {
+  min-height: 100vh;
+  display: flex;
+  place-items: center;
+  width: 100%;
+  padding-inline: 5rem;
+}
 
   footer {
     padding-block: 2rem;
