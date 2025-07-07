@@ -8,6 +8,7 @@
     <link rel="icon" type="image/webp" href="{{ url_for('static', filename='images/app-icon.png') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="../static/images/Logo.png">
+    <link rel="stylesheet" href="/static/stylesheets/home.css">
     <style>
         /* General Styles */
         body {
@@ -26,10 +27,40 @@
 
         /* Navbar Styles */
         .navbar {
-            background: linear-gradient(to right, #0f172a, #4d6a92);
+            background: #000000;
             color: white;
             padding: 1rem 0;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-bottom: 2px solid #f7d08a; /* Thin golden border */
+            position: relative;
+            overflow: visible;
+        }
+
+        .navbar::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background: repeating-linear-gradient(
+                120deg,
+                rgba(255,255,255,0) 0%,
+                rgba(255,255,255,0) 85%,
+                #f7d08a 90%,
+                rgba(255,255,255,0) 95%,
+                rgba(255,255,255,0) 100%
+            );
+            background-size: 200% 100%;
+            animation: thunderstorm-slide 2.5s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes thunderstorm-slide {
+            0% { background-position: -100% 0; }
+            100% { background-position: 100% 0; }
         }
 
         .navbar-container {
@@ -41,7 +72,7 @@
         .navbar-logo {
             font-size: 1.5rem;
             font-weight: bold;
-            color: white;
+            color: #f7d08a;
             text-decoration: none;
         }
 
@@ -116,8 +147,8 @@
         }
 
         .sidebar-header {
-            background: linear-gradient(to right, #0f172a, #4d6a92);
-            color: white;
+            background: #000000;
+            color: #f7d08a;
             padding: 1rem;
             font-weight: 600;
         }
@@ -343,50 +374,126 @@
 
         /* Footer */
         .footer {
-            background: linear-gradient(to right, #0f172a, #4d6a92);
-            color: white;
-            padding: 3rem 0 1rem;
-            margin-top: 3rem;
+            position: relative;
+            overflow: visible;
+            background: #111111;
+            background-image: url('/static/images/bg_img.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #f7d08a;
+            padding: 3rem 0 1.5rem;
+            border-top: 2.5px solid #23272f;
         }
-
+        .footer::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background: rgba(17, 17, 17, 0.8);
+        }
+        .footer > .container, .footer-grid, .footer-col, .footer-bottom {
+            position: relative;
+            z-index: 2;
+        }
         .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
+            display: flex !important;
+            flex-direction: row !important;
+            gap: 2.5rem;
+            justify-content: space-between;
         }
-
-        .footer-col h3 {
-            color: #f7d08a;
+        .footer-col {
+            flex: 1 1 0;
+            min-width: 200px;
+        }
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        .footer-logo i {
+            color: #f7d08a !important;
+            margin-right: 0.5rem;
+        }
+        .footer-col p {
+            color: rgba(255, 255, 255, 0.7);
             margin-bottom: 1.5rem;
-            font-size: 1.2rem;
         }
-
-        .footer-col ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+        .social-links {
+            display: flex;
+            gap: 1rem;
         }
-
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: 0.2s;
+        }
+        .social-links a:hover {
+            background-color: #f7d08a;
+            transform: translateY(-3px);
+        }
+        .footer-col h3 {
+            font-size: 1.125rem;
+            margin-bottom: 1.25rem;
+        }
         .footer-col ul li {
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.75rem;
         }
-
         .footer-col ul li a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: color 0.2s;
+            color: rgba(255, 255, 255, 0.7);
+            transition: 0.2s;
         }
-
         .footer-col ul li a:hover {
-            color: #f7d08a;
+            color: white;
+            padding-left: 5px;
         }
-
+        .newsletter-form {
+            display: flex;
+        }
+        .newsletter-form input {
+            background: #181818 !important;
+            color: #b0b4ba !important;
+            border: 1.5px solid #23272f !important;
+            border-radius: 0.5rem 0 0 0.5rem !important;
+            padding: 0.8rem 1rem !important;
+            font-size: 1rem !important;
+        }
+        .newsletter-form button {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 3rem !important;
+            height: 3rem !important;
+            font-size: 1.35rem !important;
+            padding: 0 !important;
+            background: #f7d08a !important;
+            color: #181818 !important;
+            border: none !important;
+            border-radius: 0 0.5rem 0.5rem 0 !important;
+            transition: background 0.2s, color 0.2s;
+        }
+        .newsletter-form button:hover {
+            background: #bfa76a !important;
+            color: #181818 !important;
+        }
         .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
             text-align: center;
-            padding-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.875rem;
         }
 
         /* Responsive */
@@ -413,10 +520,10 @@
         <div class="container navbar-container">
             <!-- Logo and Title -->
             <div style="display: flex; align-items: center; margin-left: 70px;">
-                <img src="/static/images/image.png" alt="UniCache Logo"
+                <img src="/static/images/icon3.png" alt="UniCache Logo"
                     style="width: 42px; height: 42px; border-radius: 50%; margin-right: 0.8rem;">
                 <a href="/home" class="navbar-logo"
-                    style="color: white; text-decoration: none; font-size: 1.5rem; font-weight: bold;">UniCache</a>
+                    style="color: white; text-decoration: none; font-size: 1.5rem; font-weight: bold;">Campus Kart</a>
             </div>
 
             <!-- Centered Navigation Links -->
@@ -659,26 +766,46 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <h3>UniCache</h3>
+                    <div class="footer-logo">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span>Campus Kart</span>
+                    </div>
                     <p>The marketplace for college students to buy and sell course-related supplies.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
                 </div>
                 <div class="footer-col">
                     <h3>Quick Links</h3>
                     <ul>
                         <li><a href="/home">Home</a></li>
-                        <li><a href="/browse">Browse</a></li>
-                        <li><a href="/sell">Sell</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="/browse">Browse Items</a></li>
+                        <li><a href="/sell">Sell an Item</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="/profile">My Profile</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h3>Contact Us</h3>
+                    <h3>Information</h3>
                     <ul>
-                        <li>Email: support@unicache.com</li>
-                        <li>Phone: +91 1234567890</li>
-                        <li>Address: College Campus, New Delhi</li>
+                        <li><a href="/about">About Us</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">FAQ</a></li>
                     </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for exclusive deals and tips.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email">
+                        <button type="submit">
+                            <i class="fas fa-envelope"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
             <div class="footer-bottom">

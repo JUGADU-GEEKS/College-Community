@@ -268,7 +268,7 @@ body {
     height: 2.5rem;
     border-radius: 50%;
     transition: var(--transition);
-    border: 3px solid var(--ghibli-gold);
+    border: 3px solid #f7d08a;
     background: #181818;
 }
 
