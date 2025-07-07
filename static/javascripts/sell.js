@@ -20,24 +20,20 @@ const toastTitle = document.querySelector('.toast-title');
 let itemType = '';
 let selectedEquipment = '';
 
-document.addEventListener('DOMContentLoaded', function() {
-  // Add animations on load
-  const formSections = document.querySelectorAll('.form-section');
-  formSections.forEach(section => {
-    setTimeout(() => {
-      section.style.animationPlayState = 'running';
-    }, 100);
-  });
+document.addEventListener('DOMContentLoaded', () => {
+  // Set current year in footer if present
+  const yearEl = document.getElementById('current-year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   // Mobile Menu Toggle
   const menuToggle = document.querySelector('.menu-toggle');
   const mobileMenu = document.querySelector('.mobile-menu');
   const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+  const navLinks = document.querySelectorAll('.nav-link');
 
   if (menuToggle && mobileMenu) {
     menuToggle.addEventListener('click', () => {
       mobileMenu.classList.toggle('active');
-
       // Toggle the icon between bars and X
       const icon = menuToggle.querySelector('i');
       if (mobileMenu.classList.contains('active')) {
@@ -73,6 +69,24 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
   });
+
+  // Handle active states for navigation links
+  function setActiveLink() {
+    const currentPath = window.location.pathname;
+    navLinks.forEach(link => link.classList.remove('active'));
+    mobileNavLinks.forEach(link => link.classList.remove('active'));
+    navLinks.forEach(link => {
+      if (link.getAttribute('href') === currentPath) {
+        link.classList.add('active');
+      }
+    });
+    mobileNavLinks.forEach(link => {
+      if (link.getAttribute('href') === currentPath) {
+        link.classList.add('active');
+      }
+    });
+  }
+  setActiveLink();
 
   // Event Listeners
   itemTypeSelect.addEventListener('change', updateFormBasedOnSelection);

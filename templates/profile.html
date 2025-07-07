@@ -7,7 +7,7 @@
     <title>Hi! {{ user.full_name }}</title>
     <link rel="icon" type="image/webp" href="{{ url_for('static', filename='images/app-icon.png') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" type="image/x-icon" href="../static/images/Logo.png">
+    <link rel="icon" type="image/x-icon" href="../static/images/icon3.png">
     <link rel="stylesheet" href="/static/stylesheets/home.css">
     <style>
         /* General Styles */
@@ -15,8 +15,8 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
-            color: #333;
+            background-color: #111111;
+            color: #f7d08a;
         }
 
         .container {
@@ -31,7 +31,8 @@
             color: white;
             padding: 1rem 0;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border-bottom: 2px solid #f7d08a; /* Thin golden border */
+            border-bottom: 2px solid #f7d08a;
+            /* Thin golden border */
             position: relative;
             overflow: visible;
         }
@@ -45,22 +46,25 @@
             height: 100%;
             pointer-events: none;
             z-index: 1;
-            background: repeating-linear-gradient(
-                120deg,
-                rgba(255,255,255,0) 0%,
-                rgba(255,255,255,0) 85%,
-                #f7d08a 90%,
-                rgba(255,255,255,0) 95%,
-                rgba(255,255,255,0) 100%
-            );
+            background: repeating-linear-gradient(120deg,
+                    rgba(255, 255, 255, 0) 0%,
+                    rgba(255, 255, 255, 0) 85%,
+                    #f7d08a 90%,
+                    rgba(255, 255, 255, 0) 95%,
+                    rgba(255, 255, 255, 0) 100%);
             background-size: 200% 100%;
             animation: thunderstorm-slide 2.5s linear infinite;
             opacity: 0.7;
         }
 
         @keyframes thunderstorm-slide {
-            0% { background-position: -100% 0; }
-            100% { background-position: 100% 0; }
+            0% {
+                background-position: -100% 0;
+            }
+
+            100% {
+                background-position: 100% 0;
+            }
         }
 
         .navbar-container {
@@ -385,6 +389,7 @@
             padding: 3rem 0 1.5rem;
             border-top: 2.5px solid #23272f;
         }
+
         .footer::before {
             content: '';
             position: absolute;
@@ -396,20 +401,27 @@
             z-index: 1;
             background: rgba(17, 17, 17, 0.8);
         }
-        .footer > .container, .footer-grid, .footer-col, .footer-bottom {
+
+        .footer>.container,
+        .footer-grid,
+        .footer-col,
+        .footer-bottom {
             position: relative;
             z-index: 2;
         }
+
         .footer-grid {
             display: flex !important;
             flex-direction: row !important;
             gap: 2.5rem;
             justify-content: space-between;
         }
+
         .footer-col {
             flex: 1 1 0;
             min-width: 200px;
         }
+
         .footer-logo {
             display: flex;
             align-items: center;
@@ -417,18 +429,22 @@
             font-size: 1.25rem;
             margin-bottom: 1rem;
         }
+
         .footer-logo i {
             color: #f7d08a !important;
             margin-right: 0.5rem;
         }
+
         .footer-col p {
             color: rgba(255, 255, 255, 0.7);
             margin-bottom: 1.5rem;
         }
+
         .social-links {
             display: flex;
             gap: 1rem;
         }
+
         .social-links a {
             display: flex;
             align-items: center;
@@ -439,28 +455,35 @@
             background-color: rgba(255, 255, 255, 0.1);
             transition: 0.2s;
         }
+
         .social-links a:hover {
             background-color: #f7d08a;
             transform: translateY(-3px);
         }
+
         .footer-col h3 {
             font-size: 1.125rem;
             margin-bottom: 1.25rem;
         }
+
         .footer-col ul li {
             margin-bottom: 0.75rem;
         }
+
         .footer-col ul li a {
             color: rgba(255, 255, 255, 0.7);
             transition: 0.2s;
         }
+
         .footer-col ul li a:hover {
             color: white;
             padding-left: 5px;
         }
+
         .newsletter-form {
             display: flex;
         }
+
         .newsletter-form input {
             background: #181818 !important;
             color: #b0b4ba !important;
@@ -469,6 +492,7 @@
             padding: 0.8rem 1rem !important;
             font-size: 1rem !important;
         }
+
         .newsletter-form button {
             display: flex !important;
             align-items: center !important;
@@ -483,10 +507,12 @@
             border-radius: 0 0.5rem 0.5rem 0 !important;
             transition: background 0.2s, color 0.2s;
         }
+
         .newsletter-form button:hover {
             background: #bfa76a !important;
             color: #181818 !important;
         }
+
         .footer-bottom {
             margin-top: 3rem;
             padding-top: 1.5rem;
@@ -576,26 +602,38 @@
                     <div style="margin-bottom:1rem; font-weight:600; color:#f7d08a;">Choose an Avatar:</div>
                     <div style="display:flex; gap:1rem; align-items:center; margin-bottom:1rem;">
                         {% set preset_avatars = [
-                        'https://randomuser.me/api/portraits/men/32.jpg',
-                        'https://randomuser.me/api/portraits/women/44.jpg',
-                        'https://randomuser.me/api/portraits/men/85.jpg',
-                        'https://randomuser.me/api/portraits/women/65.jpg',
-                        'https://randomuser.me/api/portraits/men/12.jpg',
-                        'https://randomuser.me/api/portraits/women/22.jpg'
+                        url_for('static', filename='avatars/image.png'),
+                        url_for('static', filename='avatars/image1.png'),
+                        url_for('static', filename='avatars/image2.png'),
+                        url_for('static', filename='avatars/image3.png'),
+                        url_for('static', filename='avatars/image4.png'),
+                        url_for('static', filename='avatars/image5.png')
                         ] %}
                         {% for avatar in preset_avatars %}
                         <label style="cursor:pointer;">
                             <input type="radio" name="avatar_url" value="{{ avatar }}" style="display:none;">
-                            <img src="{{ avatar }}" alt="Avatar"
-                                style="width:48px; height:48px; border-radius:50%; border:2px solid #f7d08a; object-fit:cover;">
+                            <img src="{{ avatar }}" alt="Avatar" class="avatar-option"
+                                style="width:48px; height:48px; border-radius:50%; border:2px solid #f7d08a; object-fit:cover; transition: box-shadow 0.2s, border 0.2s;">
                         </label>
                         {% endfor %}
                     </div>
-                    <div style="margin-bottom:0.5rem; color:#64748b;">Or upload your own:</div>
-                    <input type="file" name="avatar_file" accept="image/*" style="margin-bottom:1rem;">
                     <button type="submit" class="add-item-btn" style="width:auto; margin-top:0;">Update Avatar</button>
-                    <button type="button" id="cancel-edit-btn" class="add-item-btn"
-                        style="width:auto; margin-top:0.5rem; background-color:#64748b;">Cancel</button>
+                    <button type="button" id="cancel-edit-btn" class="add-item-btn" style="width:auto; margin-top:0.5rem; background-color:#64748b;">Cancel</button>
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const avatarOptions = document.querySelectorAll('.avatar-option');
+                        avatarOptions.forEach(img => {
+                            img.addEventListener('click', function() {
+                                avatarOptions.forEach(i => {
+                                    i.style.boxShadow = 'none';
+                                    i.style.border = '2px solid #f7d08a';
+                                });
+                                this.style.boxShadow = '0 0 0 4px #f7d08a, 0 4px 16px 0 #f7d08a55';
+                                this.style.border = '2.5px solid #fffbe6';
+                            });
+                        });
+                    });
+                    </script>
                 </form>
             </div>
         </div>
@@ -709,7 +747,8 @@
                                     <h3 class="product-name">{{ product.title }}</h3>
                                     <div class="product-price">₹{{ product.price }}</div>
                                     <div class="product-status sold">Sold</div>
-                                    <div class="product-status {{ 'pending' if product.payment == 'Pending' else 'paid' }}">
+                                    <div
+                                        class="product-status {{ 'pending' if product.payment == 'Pending' else 'paid' }}">
                                         {{ product.payment }}
                                     </div>
                                 </div>

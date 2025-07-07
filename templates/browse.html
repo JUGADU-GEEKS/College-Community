@@ -13,23 +13,42 @@
 
 <body>
   <header class="header">
-    <nav class="navbar">
-      <a href="/home" class="logo" style="padding-left: 1.5rem;">
-        <img src="/static/images/icon3.png" alt="Logo" class="logo-img">
-        <span>Campus Kart</span>
-      </a>
-      <div class="nav-menu">
-        <a href="/home" class="nav-link">Home</a>
-        <a href="/sell" class="nav-link">Sell</a>
-        <a href="/browse" class="nav-link active">Browse</a>
-        <a href="/notes" class="nav-link">Notes</a>
-        <a href="/home#about" class="nav-link">About</a>
-        <a href="/home#contact" class="nav-link">Contact</a>
+    <div class="container">
+      <div class="navbar">
+        <!-- Logo -->
+        <a href="/home" class="logo">
+          <img src="/static/images/icon3.png" alt="Logo" class="logo-img">
+          <span>Campus Kart</span>
+        </a>
+        <!-- Desktop Navigation -->
+        <div class="nav-menu">
+          <a href="/home" class="nav-link">Home</a>
+          <a href="/sell" class="nav-link">Sell</a>
+          <a href="/browse" class="nav-link active">Browse</a>
+          <a href="/notes" class="nav-link">Notes</a>
+          <a href="#about" class="nav-link">About</a>
+          <a href="#contact" class="nav-link">Contact</a>
+        </div>
+        <!-- User and Mobile Menu -->
+        <div class="nav-right">
+          <a href="/profile" class="user-icon">
+            <i class="fas fa-user"></i>
+          </a>
+          <button class="menu-toggle" aria-label="Toggle menu">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
       </div>
-      <div class="nav-right" style="padding-right: 1.5rem;">
-        <a href="/profile" class="user-icon"><img src="/static/images/image.png" alt="Profile" style="width: 2.5rem; height: 2.5rem; border-radius: 50%; object-fit: cover;"></a>
+      <!-- Mobile menu -->
+      <div class="mobile-menu">
+        <a href="/home" class="mobile-nav-link">Home</a>
+        <a href="/sell" class="mobile-nav-link">Sell</a>
+        <a href="/browse" class="mobile-nav-link active">Browse</a>
+        <a href="/notes" class="mobile-nav-link">Notes</a>
+        <a href="#about" class="mobile-nav-link">About</a>
+        <a href="#contact" class="mobile-nav-link">Contact</a>
       </div>
-    </nav>
+    </div>
   </header>
 
   <header class="browse-header">
