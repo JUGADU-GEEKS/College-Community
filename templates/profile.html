@@ -17,6 +17,7 @@
             padding: 0;
             background-color: #111111;
             color: #f7d08a;
+            padding-top: 80px !important;
         }
 
         .container {
@@ -101,6 +102,7 @@
             color: white;
             padding: 3rem 0;
             margin-bottom: 2rem;
+            /* margin-top: 2rem; */
         }
 
         .profile-header-container {
@@ -214,7 +216,7 @@
 
         /* Product Tabs */
         .product-tabs {
-            background: white;
+            background: #232323;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
@@ -237,8 +239,10 @@
             position: relative;
         }
 
-        .tab-btn.active {
-            color: #0f172a;
+        .tab-btn.active, .tab-btn:focus {
+            color: #f7d08a !important;
+            background: transparent !important;
+            border-bottom: 2.5px solid #f7d08a !important;
         }
 
         .tab-btn.active::after {
@@ -522,19 +526,98 @@
             font-size: 0.875rem;
         }
 
-        /* Responsive */
+        /* Responsive Enhancements */
+        @media (max-width: 1024px) {
+            .container {
+                max-width: 98vw;
+                padding: 0 0.5rem;
+            }
+            .profile-header {
+                padding: 2rem 0;
+            }
+        }
+        @media (max-width: 900px) {
+            .navbar-container {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+            .navbar-logo {
+                margin-bottom: 0.5rem;
+            }
+            .navbar-links {
+                justify-content: center;
+                width: 100%;
+            }
+        }
         @media (max-width: 768px) {
             .profile-content {
                 grid-template-columns: 1fr;
             }
-
             .profile-header-container {
                 flex-direction: column;
                 text-align: center;
+                gap: 1rem;
             }
-
             .products-grid {
                 grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+            .navbar-links {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: center;
+            }
+            .navbar-link {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 0.5em 0;
+            }
+            .navbar-container > div[style*='margin-left: 70px;'] {
+                margin-left: 0 !important;
+                justify-content: center !important;
+            }
+            .navbar-container > div[style*='margin-right: 70px;'] {
+                margin-right: 0 !important;
+                justify-content: center !important;
+            }
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 0 0.2rem;
+            }
+            .profile-header {
+                padding: 1rem 0;
+            }
+            .profile-avatar {
+                width: 80px;
+                height: 80px;
+            }
+            .profile-name {
+                font-size: 1.2rem;
+            }
+            .tab-btn {
+                font-size: 0.9rem;
+                padding: 0.7rem;
+            }
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
+                flex-direction: column !important;
+                gap: 1.5rem;
+            }
+            .footer-col {
+                min-width: unset;
+            }
+        }
+        @media (max-width: 400px) {
+            .profile-header {
+                padding: 0.5rem 0;
+            }
+            .profile-avatar {
+                width: 60px;
+                height: 60px;
             }
         }
     </style>
@@ -542,47 +625,53 @@
 
 <body>
     <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container navbar-container">
-            <!-- Logo and Title -->
-            <div style="display: flex; align-items: center; margin-left: 70px;">
-                <img src="/static/images/icon3.png" alt="UniCache Logo"
-                    style="width: 42px; height: 42px; border-radius: 50%; margin-right: 0.8rem;">
-                <a href="/home" class="navbar-logo"
-                    style="color: white; text-decoration: none; font-size: 1.5rem; font-weight: bold;">Campus Kart</a>
-            </div>
-
-            <!-- Centered Navigation Links -->
-            <div style="display: flex; align-items: center; justify-content: center; flex: 1;">
-                <div style="display: flex; align-items: center; gap: 1.2rem;">
-                    <a href="/home"
-                        style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Home</a>
-                    <a href="/sell"
-                        style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Sell</a>
-                    <a href="/browse"
-                        style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Browse</a>
-                    <a href=""
-                        style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Notes</a>
-                    <a href="/home#about"
-                        style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">About</a>
-                    <a href="/home#contact"
-                        style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Contact</a>
+    <header class="header" style="width:100vw; left:0; right:0; position:fixed; top:0; z-index:1000;">
+        <div class="navbar" style="width:100vw;">
+            <div class="container" style="max-width:1200px; margin:0 auto; padding:0 1.5rem; display:flex; align-items:center; justify-content:space-between;">
+                <!-- Logo -->
+                <a href="/home" class="logo">
+                    <img src="/static/images/icon3.png" alt="" class="logo-img">
+                    <span>Campus Kart</span>
+                </a>
+                <!-- Desktop Navigation -->
+                <nav class="nav-menu">
+                    <a href="/home" class="nav-link">Home</a>
+                    <a href="/sell" class="nav-link">Sell</a>
+                    <a href="/browse" class="nav-link">Browse</a>
+                    <a href="/notes" class="nav-link">Notes</a>
+                    <a href="/home#about" class="nav-link">About</a>
+                    <a href="/home#contact" class="nav-link">Contact</a>
+                </nav>
+                <!-- User and Mobile Menu -->
+                <div class="nav-right" style="position:relative; display:flex; align-items:center; gap:0.5em;">
+                    <a href="#" class="user-icon" id="profileDropdownToggle">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <a href="/logout" style="display:block; padding:0.5em 0.7em; color:#181818; background:#f7d08a; border:1.5px solid #f7d08a; border-radius:5px; text-align:center; font-weight:600; text-decoration:none; font-size:0.97em; margin-left:0.3em;">Logout</a>
+                </div>
+                    <button class="menu-toggle" aria-label="Toggle menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
                 </div>
             </div>
-
-            <!-- User Profile -->
-            <div style="margin-right: 70px;">
-                <a href="/profile"
-                    style="display: flex; align-items: center; justify-content: center; width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 2.5px solid #f7d08a; color: #f7d08a; background: rgba(255,255,255,0.04); transition: all 0.3s;">
-                    <i class="fas fa-user" style="font-size: 1.3rem;"></i>
-                </a>
+            <!-- Mobile menu -->
+            <div class="mobile-menu">
+                <a href="/home" class="mobile-nav-link">Home</a>
+                <a href="/sell" class="mobile-nav-link">Sell</a>
+                <a href="/browse" class="mobile-nav-link">Browse</a>
+                <a href="/notes" class="mobile-nav-link">Notes</a>
+                <a href="/home#about" class="mobile-nav-link">About</a>
+                <a href="/home#contact" class="mobile-nav-link">Contact</a>
             </div>
         </div>
-    </nav>
+    </header>
 
     <!-- Profile Header -->
-    <header class="profile-header">
-        <div class="container profile-header-container">
+    <header class="profile-header" {% if user.cover_image %}style="background: url('{{ user.cover_image }}') center/cover no-repeat; position: relative; min-height: 220px; border-radius: 0 0 16px 16px;"{% endif %}>
+        {% if user.cover_image %}
+        <div style="position:absolute; inset:0; background:rgba(0,0,0,0.45); border-radius:0 0 16px 16px; z-index:1;"></div>
+        {% endif %}
+        <div class="container profile-header-container" style="position:relative; z-index:2;">
             <div class="profile-avatar">
                 <img src="{{ user.profile_photo or 'https://via.placeholder.com/150' }}" alt="Profile Picture"
                     id="current-avatar">
@@ -596,6 +685,56 @@
                 <button id="edit-profile-btn" class="add-item-btn" style="width:auto; margin-top:1.5rem;">
                     <i class="fas fa-edit"></i> Edit Profile Photo
                 </button>
+                <!-- Add Cover Image Button -->
+                <button id="edit-cover-btn" class="add-item-btn" style="width:auto; margin-top:1.5rem;">
+                    <i class="fas fa-image"></i> Add Cover Image
+                </button>
+                <!-- Cover Image Selection & Upload (Hidden by Default) -->
+                <form id="cover-form" action="/upload_cover" method="POST" enctype="multipart/form-data" style="margin-top:1.5rem; display:none;">
+                    <div style="margin-bottom:1rem; font-weight:600; color:#bfa76a;">Choose a Cover Image:</div>
+                    <div style="display:flex; gap:1rem; align-items:center; margin-bottom:1rem; flex-wrap:wrap;">
+                        {% set cover_images = [
+                        url_for('static', filename='images/h1.jpg'),
+                        url_for('static', filename='images/h2.jpg'),
+                        url_for('static', filename='images/h3.jpg'),
+                        url_for('static', filename='images/h4.jpg'),
+                        url_for('static', filename='images/h5.webp'),
+                        url_for('static', filename='images/h6.jpg'),
+                        url_for('static', filename='images/h7.jpg'),
+                        url_for('static', filename='images/h8.jpg')
+                        ] %}
+                        {% for cover in cover_images %}
+                        <label style="cursor:pointer;">
+                            <input type="radio" name="cover_url" value="{{ cover }}" style="display:none;">
+                            <img src="{{ cover }}" alt="Cover" class="cover-option" style="width:90px; height:48px; border-radius:8px; border:2px solid #bfa76a; object-fit:cover; transition: box-shadow 0.2s, border 0.2s;">
+                        </label>
+                        {% endfor %}
+                    </div>
+                    <button type="submit" class="add-item-btn" style="width:auto; margin-top:0; background-color:#f7d08a; color:#181818;">Update Cover</button>
+                    <button type="button" id="cancel-cover-btn" class="add-item-btn" style="width:auto; margin-top:0.5rem; background-color:#64748b; color:#fff;">Cancel</button>
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const coverOptions = document.querySelectorAll('.cover-option');
+                        coverOptions.forEach(img => {
+                            img.addEventListener('click', function() {
+                                coverOptions.forEach(i => {
+                                    i.style.boxShadow = 'none';
+                                    i.style.border = '2px solid #bfa76a';
+                                });
+                                this.style.boxShadow = '0 0 0 4px #bfa76a, 0 4px 16px 0 #bfa76a55';
+                                this.style.border = '2.5px solid #fffbe6';
+                            });
+                        });
+                        // Toggle cover form
+                        document.getElementById('edit-cover-btn').onclick = function() {
+                            document.getElementById('cover-form').style.display = 'block';
+                        };
+                        document.getElementById('cancel-cover-btn').onclick = function() {
+                            document.getElementById('cover-form').style.display = 'none';
+                        };
+                    });
+                    </script>
+                </form>
                 <!-- Avatar Selection & Upload (Hidden by Default) -->
                 <form id="avatar-form" action="/upload_avatar" method="POST" enctype="multipart/form-data"
                     style="margin-top:1.5rem; display:none;">
@@ -617,7 +756,7 @@
                         </label>
                         {% endfor %}
                     </div>
-                    <button type="submit" class="add-item-btn" style="width:auto; margin-top:0;">Update Avatar</button>
+                    <button type="submit" class="add-item-btn" style="width:auto; margin-top:0; background-color:#f7d08a; color:#181818;">Update Avatar</button>
                     <button type="button" id="cancel-edit-btn" class="add-item-btn" style="width:auto; margin-top:0.5rem; background-color:#64748b;">Cancel</button>
                     <script>
                     document.addEventListener('DOMContentLoaded', function() {
@@ -887,6 +1026,7 @@
             document.getElementById('edit-profile-btn').style.display = 'block';
         });
     </script>
+    <script src="/static/javascripts/profile.js"></script>
 </body>
 
 </html>

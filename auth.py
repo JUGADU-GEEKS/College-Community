@@ -269,3 +269,8 @@ def admin_login():
         return redirect(url_for('views.admin_dashboard'))
 
     return render_template('adminLogin.html')
+
+@auth.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('auth.login'))

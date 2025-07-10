@@ -299,6 +299,38 @@ def upload_avatar():
 
     return redirect(url_for('views.profile'))
 
+@views.route('/upload_cover', methods=['POST'])
+def upload_cover():
+    if 'user' not in session:
+        flash('You must be logged in to update your cover image.', 'danger')
+        return redirect(url_for('views.profile'))
+
+    user_data = session.get('user')
+    email = user_data.get('email')
+    user = User.get_data(email)
+
+    cover_url = request.form.get('cover_url')
+    new_cover_url = None
+
+    # Only preset cover images for now
+    if cover_url:
+        new_cover_url = cover_url
+
+    if new_cover_url:
+        from pymongo import MongoClient
+        MONGO_URI = os.getenv("MONGO_URI")
+        client = MongoClient(MONGO_URI)
+        db = client['Student-Community']
+        users_collection = db['users']
+        users_collection.update_one({"email": email}, {"$set": {"cover_image": new_cover_url}})
+        # Also update session
+        session['user']['cover_image'] = new_cover_url
+        flash('Cover image updated successfully!', 'success')
+    else:
+        flash('Please select a cover image.', 'warning')
+
+    return redirect(url_for('views.profile'))
+
 @views.route('/buy/<id>')
 def buy(id):
     buyer = session.get('user')

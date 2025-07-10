@@ -4,20 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BPIT Cart - Listing</title>
+    <title>Campus Kart - Listing</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <link rel="stylesheet" href="{{url_for('static', filename='/stylesheets/home.css')}}">
-    <link rel="icon" type="image/x-icon" href="../static/images/Logo.png">
+    <link rel="icon" type="image/x-icon" href="../static/images/icon3.png">
     <style>
         :root {
             --primary-dark: #000000;
             --secondary-dark: #121212;
             --accent-dark: #1e1e1e;
-            --text-primary: #ffffff;
-            --text-secondary: #b3b3b3;
-            --accent-color: #1D4ED8;
-            --success-color: #2ecc71;
+            --text-primary: #f7d08a;
+            --text-secondary: #f7d08a;
+            --accent-color: #f7d08a;
+            --success-color: #f7d08a;
         }
 
         * {
@@ -34,6 +34,55 @@
             overflow-x: hidden;
         }
 
+        h1, h2, h3, h4, h5, h6, label, .form-label, .form-title, .title, .product-title, .category-badge, .submit-btn, .nav-link, .nav-menu .nav-link, .mobile-nav-link, .user-icon, .product-price, .product-age, .product-description, .alert, .upload-btn, .nav-links a, .nav-links a:hover, .nav-links a:active {
+            color: #f7d08a !important;
+            background: none !important;
+            -webkit-background-clip: initial !important;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #f7d08a, #e6b800) !important;
+            color: #222 !important;
+        }
+        .submit-btn:hover {
+            background: linear-gradient(45deg, #e6b800, #f7d08a) !important;
+            color: #222 !important;
+            box-shadow: 0 5px 15px rgba(247, 208, 138, 0.4) !important;
+        }
+        .form-control, textarea.form-control {
+            color: #f7d08a !important;
+            border-color: #f7d08a !important;
+            background-color: var(--accent-dark) !important;
+        }
+        .form-control:focus, textarea.form-control:focus {
+            border-color: #f7d08a !important;
+            box-shadow: 0 0 0 2px rgba(247, 208, 138, 0.3) !important;
+        }
+        .category-badge {
+            background: linear-gradient(45deg, #f7d08a, #e6b800) !important;
+            color: #222 !important;
+        }
+        .product-price, .product-age {
+            color: #f7d08a !important;
+        }
+        .alert {
+            background-color: #f7d08a !important;
+            color: #222 !important;
+        }
+        .upload-btn {
+            color: #f7d08a !important;
+            border-color: #f7d08a !important;
+        }
+        .upload-btn:hover {
+            color: #222 !important;
+            background: #f7d08a !important;
+        }
+        .nav-link.active, .nav-link:hover, .nav-menu .nav-link.active, .nav-menu .nav-link:hover, .mobile-nav-link.active, .mobile-nav-link:hover {
+            color: #fff !important;
+            background-color: rgba(247, 208, 138, 0.1) !important;
+        }
+        .nav-link.active::after {
+            background-color: #f7d08a !important;
+        }
         .navbar {
             background-color: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(10px);
@@ -314,12 +363,12 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: var(--accent-color);
+            background: #f7d08a !important;
             border-radius: 10px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #7b1fa2;
+            background: #e6b800 !important;
         }
 
         /* Success alert */
@@ -390,23 +439,23 @@
                 <div class="navbar">
                     <!-- Logo -->
                     <a href="/home" class="logo">
-                        <img src="/static/images/Logo.png" alt="" class="logo-img">
-                        <span>BPIT Cart</span>
+                        <img src="/static/images/icon3.png" alt="" class="logo-img">
+                        <span>Campus Kart</span>
                     </a>
                     <!-- Desktop Navigation -->
                     <nav class="nav-menu">
-                        <a href="/home" class="nav-link active">Home</a>
-                        <a href="/sell" class="nav-link">Sell</a>
+                        <a href="/home" class="nav-link">Home</a>
+                        <a href="/sell" class="nav-link active">Sell</a>
                         <a href="/browse" class="nav-link">Browse</a>
-                        <a href="" class="nav-link">Notes</a>
-                        <a href="/about" class="nav-link">About</a>
-                        <a href="/contact" class="nav-link">Contact</a>
+                        <a href="/notes" class="nav-link">Notes</a>
+                        <a href="#about" class="nav-link">About</a>
+                        <a href="#contact" class="nav-link">Contact</a>
                     </nav>
 
                     <!-- User and Mobile Menu -->
                     <div class="nav-right">
                         <a href="/profile" class="user-icon">
-                            <i class="fas fa-user"></i>
+                            <img src="/static/images/user_icon2.webp" alt="Profile" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" />
                         </a>
                         <button class="menu-toggle" aria-label="Toggle menu">
                             <i class="fas fa-bars"></i>
@@ -416,12 +465,12 @@
 
                 <!-- Mobile menu -->
                 <div class="mobile-menu">
-                    <a href="/home" class="mobile-nav-link active">Home</a>
-                    <a href="/sell" class="mobile-nav-link">Sell</a>
+                    <a href="/home" class="mobile-nav-link">Home</a>
+                    <a href="/sell" class="mobile-nav-link active">Sell</a>
                     <a href="/browse" class="mobile-nav-link">Browse</a>
-                    <a href="" class="mobile-nav-link">Notes</a>
-                    <a href="/about" class="mobile-nav-link">About</a>
-                    <a href="/contact" class="mobile-nav-link">Contact</a>
+                    <a href="/notes" class="mobile-nav-link">Notes</a>
+                    <a href="#about" class="mobile-nav-link">About</a>
+                    <a href="#contact" class="mobile-nav-link">Contact</a>
                 </div>
             
         </header>
