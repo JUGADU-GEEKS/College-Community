@@ -360,7 +360,47 @@ def purchase(id):
 
 @views.route('/leaderboard')
 def leaderboard():
-    return render_template('leaderboard.html')
+    from model import Purchase, User
+    from collections import Counter
+    # Get all purchases with payment_status == 'Success'
+    purchases = Purchase.get_all_purchases()
+    success_purchases = [p for p in purchases if p.get('payment_status') == 'Success']
+
+    # Count successful purchases per buyer and seller
+    buyer_counter = Counter()
+    seller_counter = Counter()
+    for p in success_purchases:
+        buyer_counter[p.get('buyer_email')] += 1
+        seller_counter[p.get('seller_email')] += 1
+
+    # Get top 10 buyers and sellers
+    top_buyers = buyer_counter.most_common(10)
+    top_sellers = seller_counter.most_common(10)
+
+    # Fetch user info for leaderboard display
+    def get_user_info(email, count):
+        user = User.get_data(email)
+        if user:
+            return {
+                'full_name': user.get('full_name', 'Unknown'),
+                'email': email,
+                'profile_photo': user.get('profile_photo', '/static/avatars/image.png'),
+                'linkedin': user.get('linkedin', None),
+                'count': count
+            }
+        else:
+            return {
+                'full_name': 'Unknown',
+                'email': email,
+                'profile_photo': '/static/avatars/image.png',
+                'linkedin': None,
+                'count': count
+            }
+
+    leaderboard_buyers = [get_user_info(email, count) for email, count in top_buyers]
+    leaderboard_sellers = [get_user_info(email, count) for email, count in top_sellers]
+
+    return render_template('leaderboard.html', buyers=leaderboard_buyers, sellers=leaderboard_sellers)
 
 @views.route('/adminDashboard')
 def admin_dashboard():
