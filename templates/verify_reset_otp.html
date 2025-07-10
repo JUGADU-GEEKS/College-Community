@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verify OTP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         /* Base Reset */
         * {
@@ -14,32 +17,43 @@
         }
 
         body {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background-color: black;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            color: white;
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
             padding: 30px;
             border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
             width: 360px;
             text-align: center;
             position: relative;
             animation: fadeInUp 0.8s ease-in-out;
-            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         h2 {
-            color: #fff;
+            background: linear-gradient(to right, #FFD700, #e6b800);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-family: 'Indie Flower', cursive;
             font-size: 24px;
             margin-bottom: 20px;
             letter-spacing: 1px;
+        }
+
+        p {
+            color: #8E9196;
+            margin-bottom: 1.5rem;
+            text-align: center;
         }
 
         form {
@@ -49,36 +63,43 @@
             gap: 8px;
         }
 
+        .inputs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
         input {
-            width: 15%;
+            width: 50px;
+            height: 50px;
             padding: 12px;
             font-size: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 215, 0, 0.3);
             border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
             text-align: center;
             outline: none;
             transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
         }
 
         input:focus {
-            border-color: #6b5b95;
-            background: rgba(255, 255, 255, 0.2);
+            border-color: #f7d08a;
+            box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.4);
             transform: scale(1.1);
         }
 
         button {
-            margin-top: 20px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: #fff;
+            background: linear-gradient(to right, #f7d08a, #f7d08a);
+            color: #222;
             padding: 12px;
             border: none;
             width: 100%;
             border-radius: 8px;
             cursor: pointer;
             font-size: 16px;
+            font-weight: 500;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
             position: relative;
@@ -86,8 +107,8 @@
         }
 
         button:hover {
-            background: linear-gradient(135deg, #5a67d8, #6b46c1);
-            transform: scale(1.05);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 215, 0, 0.4);
         }
 
         .error {
@@ -116,12 +137,12 @@
             100% { transform: translateX(0); }
         }
 
-        /* Floating particles */
+        /* Floating particles with golden color */
         .particle {
             position: absolute;
             width: 8px;
             height: 8px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 215, 0, 0.3);
             border-radius: 50%;
             animation: float 6s infinite ease-in-out;
         }
@@ -138,11 +159,29 @@
         .particle:nth-child(4) { top: 70%; left: 60%; animation-delay: 1s; }
         .particle:nth-child(5) { top: 30%; left: 80%; animation-delay: 3s; }
 
+        /* Responsive design */
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+            
+            .inputs {
+                gap: 6px;
+            }
+            
+            input {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Verify OTP</h2>
+        <p>Enter the 6-digit code sent to your email</p>
 
         {% if error %}
             <p class="error">{{ error }}</p>
@@ -162,8 +201,6 @@
             </div>
         </form>
 
-        
-
         <!-- Floating Particles -->
         <div class="particle"></div>
         <div class="particle"></div>
@@ -171,5 +208,23 @@
         <div class="particle"></div>
         <div class="particle"></div>
     </div>
+
+    <script>
+        // Auto-focus next input field
+        const inputs = document.querySelectorAll('input[type="text"]');
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', function() {
+                if (this.value.length === 1 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+            
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Backspace' && this.value.length === 0 && index > 0) {
+                    inputs[index - 1].focus();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
