@@ -24,6 +24,24 @@ def is_valid_linkedin_url(url):
     pattern = r'^https?://(www\.)?linkedin\.com/(in|pub|company)/[a-zA-Z0-9_-]+/?$'
     return re.match(pattern, url) is not None
 
+@auth.before_app_request
+
+def require_login():
+    from flask import request
+    allowed_routes = [
+        '/', '/login', '/signup', '/static/', '/forget_Password', '/reset_password', '/verifyotp', '/resendotp', '/adminlogin', '/adminLogin'
+    ]
+    # Allow static files and favicon
+    if request.path.startswith('/static') or request.path == '/favicon.ico':
+        return
+    # Allow allowed routes
+    for route in allowed_routes:
+        if request.path == route or request.path.startswith(route + '/'):  # allow subpaths
+            return
+    # If not logged in, redirect to login
+    if 'user' not in session:
+        return redirect(url_for('auth.login'))
+
 @auth.route('/')
 def index():
     return render_template('welcome.html')

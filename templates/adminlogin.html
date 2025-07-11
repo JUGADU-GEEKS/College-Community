@@ -6,6 +6,10 @@
     <title>Campus Kart Admin Portal</title>
     <link rel="icon" type="image/x-icon" href="../static/images/icon3.png">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/login.css') }}">
     <style>
         * {
             margin: 0;
@@ -322,245 +326,85 @@
     </style>
 </head>
 <body>
-    <div class="stars" id="stars"></div>
-    <div class="particles" id="particles"></div>
-    
+    <div class="admin-bg-anim">
+        <svg id="admin-bg-svg" width="100%" height="100%" style="position:fixed;top:0;left:0;z-index:0;pointer-events:none;" viewBox="0 0 1920 1080" preserveAspectRatio="none">
+            <circle class="bubble" cx="300" cy="900" r="60" fill="#f7d08a" fill-opacity="0.18"/>
+            <circle class="bubble" cx="1600" cy="200" r="80" fill="#f7d08a" fill-opacity="0.13"/>
+            <circle class="bubble" cx="900" cy="600" r="100" fill="#f7d08a" fill-opacity="0.10"/>
+            <circle class="bubble" cx="1200" cy="900" r="40" fill="#f7d08a" fill-opacity="0.15"/>
+            <circle class="bubble" cx="400" cy="300" r="70" fill="#f7d08a" fill-opacity="0.12"/>
+        </svg>
+    </div>
     <div class="container">
-        <div class="left-section">
-            <h1 class="magic-title">Admin Portal</h1>
-            <p class="subtitle">Enter the realm of dreams and wonder</p>
-            
-            <div class="floating-elements">
-                <div class="mystical-shape"></div>
-                <div class="floating-orb orb-1"></div>
-                <div class="floating-orb orb-2"></div>
-                <div class="floating-orb orb-3"></div>
-                <div class="floating-orb orb-4"></div>
-                <div class="floating-orb orb-5"></div>
+        <div class="left-side">
+            <div class="animate-fade-in">
+                <h1 class="font-ghibli text-4xl md:text-5xl mb-6 text-center text-gradient">Admin Portal</h1>
+                <p class="font-ghibli text-xl mb-8 text-center opacity-90">Campus Kart Admin Login</p>
             </div>
         </div>
-        
-        <div class="login-section">
-            <h2 class="login-title">Admin Account</h2>
-            <p class="login-subtitle">Fill in your details to login</p>
-            
-            <form id="loginForm" action="/adminLogin" method="POST">
-                <div class="form-group">
-                    <span class="input-icon">📧</span>
-                    <input name="email" type="email" placeholder="Email" required>
-                </div>
-                
-                <div class="form-group">
-                    <span class="input-icon">🔐</span>
-                    <input name="password" type="password" id="password" placeholder="Password" required>
-                    <span class="password-toggle" onclick="togglePassword()">👁️</span>
-                </div>
-                
-                <button type="submit" class="login-btn">Login</button>
-                
-            </form>
-            
-            <div class="wizard-icon">🧙‍♂️</div>
+        <div class="right-side">
+            <div class="form-container glass-morphism">
+                <h2 class="text-gradient">Admin Login</h2>
+                <p>Enter your admin credentials</p>
+                <form id="admin-login-form" method="POST" action="/adminlogin">
+                    <div class="form-group animate-slide-up">
+                        <span class="icon">📧</span>
+                        <input type="text" placeholder="Admin Username" name="username" required />
+                    </div>
+                    <div class="form-group animate-slide-up">
+                        <span class="icon">🔒</span>
+                        <input type="password" id="admin-password" placeholder="Password" name="password" required />
+                        <span class="toggle-password" id="toggle-admin-password">👁️</span>
+                    </div>
+                    <button type="submit" class="pulse-animation animate-slide-up">Login</button>
+                </form>
+            </div>
         </div>
     </div>
-    
-    <div class="activate-windows">
-        Activate Windows<br>
-        Go to Settings to activate Windows
-    </div>
-
+    <script src="{{ url_for('static', filename='javascripts/login.js') }}"></script>
     <script>
-        // Create stars
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            for (let i = 0; i < 200; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.width = Math.random() * 3 + 'px';
-                star.style.height = star.style.width;
-                star.style.animationDelay = Math.random() * 2 + 's';
-                starsContainer.appendChild(star);
-            }
-        }
-
-        // Create floating particles
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            for (let i = 0; i < 20; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.width = Math.random() * 4 + 2 + 'px';
-                particle.style.height = particle.style.width;
-                particlesContainer.appendChild(particle);
-                
-                // Animate particles
-                gsap.to(particle, {
-                    y: -window.innerHeight - 100,
-                    duration: Math.random() * 10 + 5,
+        // GSAP bubble animation
+        document.addEventListener('DOMContentLoaded', function() {
+            gsap.utils.toArray('.bubble').forEach((bubble, i) => {
+                gsap.to(bubble, {
+                    duration: 8 + Math.random() * 6,
+                    y: `-=${80 + Math.random() * 120}`,
+                    x: `+=${Math.random() > 0.5 ? 40 : -40}`,
                     repeat: -1,
-                    delay: Math.random() * 5
+                    yoyo: true,
+                    ease: 'sine.inOut',
+                    delay: Math.random() * 2
+                });
+                gsap.to(bubble, {
+                    duration: 6 + Math.random() * 4,
+                    attr: { r: `+=${Math.random() > 0.5 ? 20 : -20}` },
+                    repeat: -1,
+                    yoyo: true,
+                    ease: 'sine.inOut',
+                    delay: Math.random() * 2
+                });
+            });
+            // Password toggle for admin
+            const toggle = document.getElementById('toggle-admin-password');
+            const pwd = document.getElementById('admin-password');
+            if (toggle && pwd) {
+                toggle.addEventListener('click', function() {
+                    pwd.type = pwd.type === 'password' ? 'text' : 'password';
                 });
             }
-        }
-
-        // GSAP Animations
-        function initAnimations() {
-            // Initial page load animation
-            gsap.from('.magic-title', {
-                duration: 1.5,
-                y: -50,
-                opacity: 0,
-                ease: 'bounce.out'
-            });
-
-            gsap.from('.subtitle', {
-                duration: 1,
-                y: 30,
-                opacity: 0,
-                delay: 0.5
-            });
-
-            gsap.from('.login-section', {
-                duration: 1.2,
-                x: 100,
-                opacity: 0,
-                delay: 0.3,
-                ease: 'power2.out'
-            });
-
-            // Floating orbs animation
-            gsap.to('.orb-1', {
-                duration: 4,
-                y: -20,
-                x: 10,
-                rotation: 360,
-                repeat: -1,
-                yoyo: true,
-                ease: 'sine.inOut'
-            });
-
-            gsap.to('.orb-2', {
-                duration: 6,
-                y: 15,
-                x: -15,
-                rotation: -360,
-                repeat: -1,
-                yoyo: true,
-                ease: 'sine.inOut'
-            });
-
-            gsap.to('.orb-3', {
-                duration: 5,
-                y: -25,
-                x: 20,
-                rotation: 180,
-                repeat: -1,
-                yoyo: true,
-                ease: 'sine.inOut'
-            });
-
-            gsap.to('.orb-4', {
-                duration: 7,
-                y: 20,
-                x: -10,
-                rotation: -180,
-                repeat: -1,
-                yoyo: true,
-                ease: 'sine.inOut'
-            });
-
-            gsap.to('.orb-5', {
-                duration: 3.5,
-                y: -15,
-                x: 25,
-                rotation: 360,
-                repeat: -1,
-                yoyo: true,
-                ease: 'sine.inOut'
-            });
-
-            // Mystical shape animation
-            gsap.to('.mystical-shape', {
-                duration: 8,
-                rotation: 360,
-                scale: 1.1,
-                repeat: -1,
-                yoyo: true,
-                ease: 'sine.inOut'
-            });
-
-            // Wizard icon animation
-            gsap.to('.wizard-icon', {
-                duration: 2,
-                rotation: 10,
-                repeat: -1,
-                yoyo: true,
-                ease: 'sine.inOut'
-            });
-
-            // Input focus animations
-            document.querySelectorAll('input').forEach(input => {
-                input.addEventListener('focus', () => {
-                    gsap.to(input, {
-                        duration: 0.3,
-                        scale: 1.02,
-                        ease: 'power2.out'
-                    });
-                });
-
-                input.addEventListener('blur', () => {
-                    gsap.to(input, {
-                        duration: 0.3,
-                        scale: 1,
-                        ease: 'power2.out'
-                    });
-                });
-            });
-        }
-
-        // Toggle password visibility
-        function togglePassword() {
-            const passwordInput = document.getElementById('password');
-            const toggleIcon = document.querySelector('.password-toggle');
-            
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                toggleIcon.textContent = '🙈';
-            } else {
-                passwordInput.type = 'password';
-                toggleIcon.textContent = '👁️';
-            }
-        }
-        // Initialize everything
-        window.addEventListener('load', () => {
-            createStars();
-            createParticles();
-            initAnimations();
-        });
-
-        // Mouse movement parallax effect
-        document.addEventListener('mousemove', (e) => {
-            const mouseX = e.clientX / window.innerWidth;
-            const mouseY = e.clientY / window.innerHeight;
-            
-            gsap.to('.floating-orb', {
-                duration: 2,
-                x: (mouseX - 0.5) * 50,
-                y: (mouseY - 0.5) * 50,
-                ease: 'power2.out'
-            });
-            
-            gsap.to('.mystical-shape', {
-                duration: 3,
-                x: (mouseX - 0.5) * 30,
-                y: (mouseY - 0.5) * 30,
-                ease: 'power2.out'
-            });
         });
     </script>
 </body>
+<style>
+.admin-bg-anim {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: 0;
+    overflow: hidden;
+}
+.container, .left-side, .right-side, .form-container {
+    position: relative;
+    z-index: 1;
+}
+</style>
 </html>

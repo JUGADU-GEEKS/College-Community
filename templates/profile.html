@@ -150,6 +150,9 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            align-self: flex-start;
+            height: auto;
+            max-height: 100vh;
         }
 
         .sidebar-header {
@@ -276,7 +279,7 @@
         }
 
         .product-card {
-            background: white;
+            background: #111111;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -348,13 +351,12 @@
         }
 
         .product-status.pending {
-            background-color: #e74c3c;
-            /* red */
+            background-color: rgb(92, 16, 16) !important;
         }
 
         .product-status.paid {
-            background-color: #2ecc71;
-            /* green */
+            background-color: #528d53 !important;
+            color: #fff !important;
         }
 
 
@@ -364,8 +366,9 @@
         }
 
         .product-status.purchased {
-            background: #fef3c7;
-            color: #92400e;
+            background: linear-gradient(90deg, #f7d08a 0%, #111111 100%) !important;
+            color: #fff !important;
+            border: 1.5px solid #f7d08a;
         }
 
         .empty-state {
@@ -619,6 +622,11 @@
                 width: 60px;
                 height: 60px;
             }
+        }
+        .product-card .product-name,
+        .product-card .product-category,
+        .product-card .product-price {
+            color: #f7d08a !important;
         }
     </style>
 </head>
