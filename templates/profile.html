@@ -655,7 +655,7 @@
                     <a href="#" class="user-icon" id="profileDropdownToggle">
                         <i class="fas fa-user"></i>
                     </a>
-                    <a href="/logout" style="display:block; padding:0.5em 0.7em; color:#181818; background:#f7d08a; border:1.5px solid #f7d08a; border-radius:5px; text-align:center; font-weight:600; text-decoration:none; font-size:0.97em; margin-left:0.3em;">Logout</a>
+                    <a href="/logout" style="display:block; padding:0.5em 0.7em; color:#181818; background: linear-gradient(90deg, #F9F295 0%, #E0AA3E 33%, #E0AA3E 66%, #BBAA44 100%); border:1.5px solid #E0AA3E; border-radius:5px; text-align:center; font-weight:600; text-decoration:none; font-size:0.97em; margin-left:0.3em;">Logout</a>
                 </div>
                     <button class="menu-toggle" aria-label="Toggle menu">
                         <i class="fas fa-bars"></i>
@@ -690,13 +690,9 @@
                     {{ user.college }} | {{ user.course }} - {{ user.branch }}
                 </div>
                 <!-- Edit Profile Button -->
-                <button id="edit-profile-btn" class="add-item-btn" style="width:auto; margin-top:1.5rem;">
-                    <i class="fas fa-edit"></i> Edit Profile Photo
-                </button>
+                <button id="edit-profile-btn" class="add-item-btn" style="width:auto; margin-top:1.5rem; background: linear-gradient(90deg, #F9F295 0%, #E0AA3E 33%, #E0AA3E 66%, #BBAA44 100%); color:#181818; border:none; font-weight:600;"> <i class="fas fa-edit"></i> Edit Profile Photo </button>
                 <!-- Add Cover Image Button -->
-                <button id="edit-cover-btn" class="add-item-btn" style="width:auto; margin-top:1.5rem;">
-                    <i class="fas fa-image"></i> Add Cover Image
-                </button>
+                <button id="edit-cover-btn" class="add-item-btn" style="width:auto; margin-top:1.5rem; background: linear-gradient(90deg, #F9F295 0%, #E0AA3E 33%, #E0AA3E 66%, #BBAA44 100%); color:#181818; border:none; font-weight:600;"> <i class="fas fa-image"></i> Add Cover Image </button>
                 <!-- Cover Image Selection & Upload (Hidden by Default) -->
                 <form id="cover-form" action="/upload_cover" method="POST" enctype="multipart/form-data" style="margin-top:1.5rem; display:none;">
                     <div style="margin-bottom:1rem; font-weight:600; color:#bfa76a;">Choose a Cover Image:</div>
@@ -718,7 +714,7 @@
                         </label>
                         {% endfor %}
                     </div>
-                    <button type="submit" class="add-item-btn" style="width:auto; margin-top:0; background-color:#f7d08a; color:#181818;">Update Cover</button>
+                    <button type="submit" class="add-item-btn" style="width:auto; margin-top:0; background: linear-gradient(90deg, #F9F295 0%, #E0AA3E 33%, #E0AA3E 66%, #BBAA44 100%); color:#181818; border:none; font-weight:600;">Update Cover</button>
                     <button type="button" id="cancel-cover-btn" class="add-item-btn" style="width:auto; margin-top:0.5rem; background-color:#64748b; color:#fff;">Cancel</button>
                     <script>
                     document.addEventListener('DOMContentLoaded', function() {
@@ -764,7 +760,7 @@
                         </label>
                         {% endfor %}
                     </div>
-                    <button type="submit" class="add-item-btn" style="width:auto; margin-top:0; background-color:#f7d08a; color:#181818;">Update Avatar</button>
+                    <button type="submit" class="add-item-btn" style="width:auto; margin-top:0; background: linear-gradient(90deg, #F9F295 0%, #E0AA3E 33%, #E0AA3E 66%, #BBAA44 100%); color:#181818; border:none; font-weight:600;">Update Avatar</button>
                     <button type="button" id="cancel-edit-btn" class="add-item-btn" style="width:auto; margin-top:0.5rem; background-color:#64748b;">Cancel</button>
                     <script>
                     document.addEventListener('DOMContentLoaded', function() {
@@ -837,9 +833,7 @@
                         </li>
                         {% endif %}
                     </ul>
-                    <a href="/sell" class="add-item-btn">
-                        <i class="fas fa-plus"></i> Add New Item
-                    </a>
+                    <a href="/sell" class="add-item-btn" style="background: linear-gradient(90deg, #F9F295 0%, #E0AA3E 33%, #E0AA3E 66%, #BBAA44 100%); color:#181818; border:none; font-weight:600;"> <i class="fas fa-plus"></i> Add New Item </a>
                 </div>
             </div>
 
