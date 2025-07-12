@@ -422,6 +422,9 @@
                                     <form action="/set_payment_success/{{ purchase.product_id }}/{{ purchase.buyer_email }}" method="post" style="display:inline;">
                                         <button class="btn btn-edit" type="submit" {% if purchase.payment_status == 'Success' %}disabled{% endif %}>Set Payment Success</button>
                                     </form>
+                                    <form action="/payment_received/{{ purchase.product_id }}/{{ purchase.buyer_email }}" method="post" style="display:inline;">
+                                        <button class="btn btn-edit payment-received-btn" type="submit" {% if purchase.payment_status == 'Success' %}disabled{% endif %}>Payment Received</button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>
@@ -487,6 +490,14 @@
                 links.classList.remove('active');
                 hamburger.setAttribute('aria-expanded', 'false');
             }
+        });
+
+        // Disable 'Payment Received' button after click
+        document.querySelectorAll('.payment-received-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                btn.disabled = true;
+                btn.form.submit();
+            });
         });
     </script>
 </body>
