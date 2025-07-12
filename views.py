@@ -358,6 +358,11 @@ def purchase(id):
     try:
         if(seller_email==buyer_email):
             return render_template('error.html', message="Buyer and Seller can't be same", backlink="/browse")
+        # Prevent duplicate purchase on reload
+        existing_purchase = db['purchases'].find_one({'product_id': str(product['_id']), 'buyer_email': buyer_email})
+        if existing_purchase:
+            purchase_id = str(existing_purchase['_id'])
+            return render_template('purchaseSuccess.html', purchase_id=purchase_id, product=product)
         Product.buy_product(id, buyer['email'], seller['email'])
         notify_buyer_and_seller(buyer['email'], buyer.get('linkedin'), seller['email'], seller.get('linkedin'))
 

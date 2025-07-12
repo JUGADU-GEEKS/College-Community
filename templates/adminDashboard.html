@@ -224,39 +224,124 @@
             background: rgba(239, 68, 68, 0.3);
         }
 
-        @media (max-width: 768px) {
-            .dashboard-container {
-                padding: 1rem;
+        /* Responsive Admin Navbar */
+        .admin-navbar {
+            width: 100%;
+            background: linear-gradient(to right, #0f172a, #4d6a92);
+            color: white;
+            padding: 1rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: sans-serif;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .admin-navbar-logo {
+            display: flex;
+            align-items: center;
+            margin-left: 90px;
+        }
+        .admin-navbar-logo img {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            margin-right: 0.8rem;
+        }
+        .admin-navbar-title {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        .admin-navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+        .admin-navbar-link {
+            color: #f7d08a;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        .admin-navbar-hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+        .admin-navbar-hamburger span {
+            display: block;
+            width: 28px;
+            height: 4px;
+            background: #f7d08a;
+            margin: 4px 0;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+        @media (max-width: 900px) {
+            .admin-navbar-logo {
+                margin-left: 20px;
             }
-
-            .header h1 {
-                font-size: 2rem;
+            .admin-navbar {
+                padding: 0.7rem 0;
             }
-
-            th, td {
-                padding: 0.75rem 0.5rem;
-                font-size: 0.875rem;
+            .admin-navbar-links {
+                gap: 0.7rem;
             }
-
-            .action-buttons {
+        }
+        @media (max-width: 600px) {
+            .admin-navbar {
+                flex-wrap: wrap;
+                padding: 0.5rem 0;
+            }
+            .admin-navbar-logo {
+                margin-left: 10px;
+            }
+            .admin-navbar-title {
+                font-size: 1.1rem;
+            }
+            .admin-navbar-links {
+                display: none;
                 flex-direction: column;
+                background: linear-gradient(to right, #0f172a, #4d6a92);
+                position: absolute;
+                top: 60px;
+                right: 10px;
+                min-width: 140px;
+                border-radius: 8px;
+                box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+                padding: 0.7rem 0.5rem;
+                z-index: 200;
+            }
+            .admin-navbar-links.active {
+                display: flex;
+            }
+            .admin-navbar-hamburger {
+                display: flex;
             }
         }
     </style>
 </head>
 <body>
-    <nav style="width:100%; background: linear-gradient(to right, #0f172a, #4d6a92); color:white; padding: 1rem 0; display:flex; align-items:center; justify-content:space-between; font-family:sans-serif; position:sticky; top:0; z-index:100;">
-        <div style="display: flex; align-items: center; margin-left: 90px;">
-            <img src="/static/images/image.png" alt="UniCache Logo" style="width: 42px; height: 42px; border-radius: 50%; margin-right: 0.8rem;">
-            <div style="font-weight:bold; font-size:1.5rem;">Admin Dashboard</div>
+    <nav class="admin-navbar">
+        <div class="admin-navbar-logo">
+            <img src="/static/images/image.png" alt="UniCache Logo">
+            <div class="admin-navbar-title">Admin Dashboard</div>
         </div>
-        <div style="display: flex; align-items: center; justify-content: center; flex: 1;">
-            <div style="display: flex; align-items: center; gap: 1.2rem;">
-                <a href="/adminDashboard" style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Orders</a>
-                <a href="/faulty_buyers" style="color:#f7d08a; text-decoration:none; font-size:1.2rem; transition:all 0.3s;">Faulty Buyers</a>
-            </div>
+        <div class="admin-navbar-links" id="adminNavbarLinks">
+            <a href="/adminDashboard" class="admin-navbar-link">Orders</a>
+            <a href="/faulty_buyers" class="admin-navbar-link">Faulty Buyers</a>
         </div>
-        <div style="margin-right: 90px;"></div>
+        <div class="admin-navbar-hamburger" id="adminNavbarHamburger" tabindex="0" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </nav>
     <div class="dashboard-container">
         <div class="header">
@@ -388,6 +473,21 @@
 
         // Initialize stats
         updateStats();
+
+        // Hamburger menu toggle for admin navbar
+        const hamburger = document.getElementById('adminNavbarHamburger');
+        const links = document.getElementById('adminNavbarLinks');
+        hamburger.addEventListener('click', () => {
+            links.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', links.classList.contains('active'));
+        });
+        // Optional: close menu when clicking outside (mobile UX)
+        document.addEventListener('click', function(event) {
+            if (!hamburger.contains(event.target) && !links.contains(event.target)) {
+                links.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            }
+        });
     </script>
 </body>
 </html>

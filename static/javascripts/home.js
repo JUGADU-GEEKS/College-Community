@@ -253,12 +253,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const counts = window.productCounts;
 
   const categories = [
-    { name: "Drafting Tools", icon: "📏", count: counts.drafter, link:"drafter" },
-    { name: "Safety Aprons", icon: "🎽", count: counts.apron, link:"apron" },
-    { name: "Textbooks", icon: "📚", count: counts.books, link:"akash books" },
-    { name: "Lab Coats", icon: "🥼", count: counts.labcoat, link:"labcoats" },
-    { name: "Calculators", icon: "🧮", count: counts.calculator, link:"calculator" },
-    { name: "Sheet Holders", icon: "🧮", count: counts.sheet, link:"sheet" }
+    { name: "Drafting Tools", img: "/static/images/drafter.webp", count: counts.drafter, link:"drafter" },
+    { name: "Safety Aprons", img: "/static/images/apron.jpeg", count: counts.apron, link:"apron" },
+    { name: "Textbooks", img: "/static/images/books.jpeg", count: counts.books, link:"akash books" },
+    { name: "Lab Coats", img: "/static/images/labcoat.jpg", count: counts.labcoat, link:"labcoats" },
+    { name: "Calculators", img: "/static/images/calculator.jpg", count: counts.calculator, link:"calculator" },
+    { name: "Sheet Holders", img: "/static/images/sheet_holder.avif", count: counts.sheet, link:"sheet" }
   ];
 
   // Testimonials data
@@ -289,7 +289,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const categoryEl = document.createElement('div');
       categoryEl.className = 'category-card staggered-item';
       categoryEl.innerHTML = `
-          <div class="category-icon">${category.icon}</div>
+          <div class="category-icon" style="width:80px;height:80px;border-radius:50%;overflow:hidden;border:3px solid #f7d08a;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem auto;background:#181818;">
+            <img src="${category.img}" alt="${category.name}" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          </div>
           <h3 class="category-name">${category.name}</h3>
           <p class="category-count">${category.count} items</p>
         `;

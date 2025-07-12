@@ -64,7 +64,7 @@
 
 body {
   font-family: 'Inter', -apple-system, sans-serif;
-  background-color: #111111;
+  /* background-color: #111111; */
   color: #f7d08a;
   line-height: 1.5;
   min-height: 100vh;

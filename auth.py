@@ -28,19 +28,10 @@ def is_valid_linkedin_url(url):
 
 def require_login():
     from flask import request
-    allowed_routes = [
-        '/', '/login', '/signup', '/static/', '/forget_Password', '/reset_password', '/verifyotp', '/resendotp', '/adminlogin', '/adminLogin'
-    ]
-    # Allow static files and favicon
-    if request.path.startswith('/static') or request.path == '/favicon.ico':
-        return
-    # Allow allowed routes
-    for route in allowed_routes:
-        if request.path == route or request.path.startswith(route + '/'):  # allow subpaths
-            return
-    # If not logged in, redirect to login
-    if 'user' not in session:
-        return redirect(url_for('auth.login'))
+    # Only require login for /home and its subroutes
+    if request.path.startswith('/home'):
+        if 'user' not in session:
+            return redirect(url_for('auth.login'))
 
 @auth.route('/')
 def index():
