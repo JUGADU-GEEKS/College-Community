@@ -3,6 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
 import os
 from bson.objectid import ObjectId  # Ensure this import is at the top
+import datetime
 
 
 load_dotenv()
@@ -168,6 +169,7 @@ class Purchase:
         self.selling_price = data.get('selling_price')
         self.buying_price = data.get('buying_price')
         self.payment_status = data.get('payment_status', 'Pending')
+        self.created_at = data.get('created_at', datetime.datetime.utcnow())
 
     def save_to_db(self):
         purchase_data = {
@@ -180,7 +182,8 @@ class Purchase:
             'buyer_email': self.buyer_email,
             'selling_price': self.selling_price,
             'buying_price': self.buying_price,
-            'payment_status': self.payment_status
+            'payment_status': self.payment_status,
+            'created_at': self.created_at
         }
         db['purchases'].insert_one(purchase_data)
         return True, "Purchase recorded successfully!"

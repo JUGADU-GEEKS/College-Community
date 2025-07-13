@@ -1,11 +1,26 @@
 from flask import Flask, Blueprint, render_template, request, session, jsonify, flash, redirect, url_for
 from model import User, Product, Purchase, FaultyBuyer  # Make sure Product and Purchase are also imported properly
 from price_predict import predict_price_equipment, predict_price_calculator
-from utils import notify_buyer_and_seller, send_otp, send_faulty_buyer_warning
+from utils import notify_buyer_and_seller, send_otp, send_faulty_buyer_warning, build_html_email, EMAIL_USER, EMAIL_PASS, WEBSITE_NAME
 import os
 from email.message import EmailMessage
 from werkzeug.utils import secure_filename
 from bson.objectid import ObjectId
+import smtplib
+import datetime
+from pymongo import MongoClient
+from dotenv import load_dotenv
+import os
+load_dotenv()
+import cloudinary
+import cloudinary.uploader
+
+cloudinary.config(
+    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.getenv("CLOUDINARY_API_KEY"),
+    api_secret=os.getenv("CLOUDINARY_API_SECRET")
+)
+
 
 views = Blueprint('views', __name__)
 
@@ -31,13 +46,7 @@ def test():
     print("📦 PRODUCTS FROM DB:", products)
     return render_template('test.html', products=products)
 
-from flask import Blueprint, render_template, request, session, redirect, url_for
-from model import Product
-from pymongo import MongoClient
-from dotenv import load_dotenv
-import os
 
-load_dotenv()
 
 MONGO_URI = os.getenv("MONGO_URI")
 client = MongoClient(MONGO_URI)
@@ -200,6 +209,7 @@ def price():
                                    equipment_item="Akash Books", months_old="NA", condition="NA")
 
     return render_template('addSell.html', predicted_price=0)
+
 @views.route('/addProduct', methods=['GET', 'POST'])
 def addProduct():
     if request.method == 'POST':
@@ -212,22 +222,22 @@ def addProduct():
             flash('No selected file')
             return render_template('error.html')
 
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            filepath = os.path.join(UPLOAD_FOLDER, filename)
-            file.save(filepath)
+        if file and allowed_file(file.filename):  # Assuming you already have this function
+            # Upload to Cloudinary instead of saving locally
+            upload_result = cloudinary.uploader.upload(file)
 
             print(session.get('user'))
 
             data = {
                 'title': request.form.get('title'),
-                'image': '/' + filepath,
+                'image': upload_result.get('secure_url'),  # Cloudinary image URL
                 'description': request.form.get('description'),
                 'price': request.form.get('price'),
                 'monthsold': request.form.get('monthsold'),
                 'condition': request.form.get('condition'),
                 'seller': session.get('user').get('email')
             }
+
             print(data)
             product = Product(data)
             success, message = product.save_to_db()
@@ -237,8 +247,8 @@ def addProduct():
         flash('Invalid file format')
         return redirect('/browse')
 
-    # For GET request
     return render_template("browse.html")
+
 @views.route('/about')
 def about():
     return render_template('home.html', scroll_to="about")
@@ -443,7 +453,26 @@ def leaderboard():
 def admin_dashboard():
     from model import Purchase
     purchases = Purchase.get_all_purchases()
-    return render_template('adminDashboard.html', purchases=purchases)
+    now = datetime.datetime.utcnow()
+    filtered_purchases = []
+    for p in purchases:
+        if p.get('payment_status') == 'Success':
+            created_at = p.get('created_at')
+            if created_at is None:
+                filtered_purchases.append(p)  # fallback: show if no timestamp
+            else:
+                # If created_at is a string, parse it
+                if isinstance(created_at, str):
+                    try:
+                        created_at = datetime.datetime.fromisoformat(created_at)
+                    except Exception:
+                        filtered_purchases.append(p)
+                        continue
+                if (now - created_at).days <= 30:
+                    filtered_purchases.append(p)
+        else:
+            filtered_purchases.append(p)
+    return render_template('adminDashboard.html', purchases=filtered_purchases)
 
 @views.route('/faulty_buyer/<product_id>/<buyer_email>', methods=['POST'])
 def mark_faulty_buyer(product_id, buyer_email):
@@ -490,4 +519,41 @@ def faulty_buyers():
 @views.route('/notes')
 def notes():
     return render_template('notes.html')
+
+@views.route('/payment_received/<product_id>/<buyer_email>', methods=['POST'])
+def payment_received(product_id, buyer_email):
+    from model import Purchase, User, Product
+    # Find the purchase record
+    purchase = next((p for p in Purchase.get_all_purchases() if str(p.get('product_id')) == str(product_id) and p.get('buyer_email') == buyer_email), None)
+    if not purchase:
+        return "Purchase not found", 404
+
+    # Get buyer info
+    buyer = User.get_data(buyer_email)
+    if not buyer:
+        return "Buyer not found", 404
+
+    # Compose and send the payment received email
+    subject = f"{WEBSITE_NAME} - Payment Received Confirmation"
+    heading = "Payment Received!"
+    message = f"Dear {buyer.get('full_name', 'Buyer')},<br><br>We have received your payment for your recent purchase. We will be giving you the product soon!<br><br>Thank you for shopping with us!"
+    action_url = "http://localhost:5000/profile"
+    action_text = "View Your Profile"
+
+    msg = EmailMessage()
+    msg['Subject'] = subject
+    msg['From'] = EMAIL_USER
+    msg['To'] = buyer_email
+    msg.set_content("We have received your payment. Thank you!")
+    msg.add_alternative(build_html_email(subject, heading, message, action_url=action_url, action_text=action_text), subtype='html')
+
+    try:
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
+            server.login(EMAIL_USER, EMAIL_PASS)
+            server.send_message(msg)
+    except Exception as e:
+        print('Failed to send payment received email:', e)
+        return "Failed to send email", 500
+
+    return redirect('/adminDashboard')
 
