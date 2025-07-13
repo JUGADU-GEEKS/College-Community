@@ -9,8 +9,9 @@ load_dotenv()
 EMAIL_USER = os.getenv("EMAIL_USER")
 EMAIL_PASS = os.getenv("EMAIL_PASS")
 
-# Use the correct static logo path
-WEBSITE_LOGO_URL = "/static/images/icon3.png"  # Update yourdomain.com as needed
+# Use the correct static logo path with deployed URL
+WEBSITE_LOGO_URL = "https://college-community-iqr1.onrender.com/static/images/icon3.png"
+WEBSITE_BANNER_URL = "https://college-community-iqr1.onrender.com/static/images/banner.png"
 WEBSITE_NAME = "Campus Kart"
 SUPPORT_EMAIL = EMAIL_USER
 
@@ -98,11 +99,11 @@ def build_html_email(subject, heading, message, otp=None, button_url=None, butto
     <body>
         <div class="container">
             <div class="email-header">
-                <img src="/static/images/banner.png" alt="Campus Kart Banner" />
+                <img src="{WEBSITE_BANNER_URL}" alt="Campus Kart Banner" />
             </div>
-            <div class="logo">
-                <img src="{WEBSITE_LOGO_URL}" alt="{WEBSITE_NAME} Logo" />
-            </div>
+            # <div class="logo">
+            #     <img src="{WEBSITE_LOGO_URL}" alt="{WEBSITE_NAME} Logo" />
+            # </div>
             <div class="content">
                 <h2>{heading}</h2>
                 <p>{message}</p>
@@ -150,9 +151,9 @@ def send_otp(email, otp):
     heading = "Your OTP Code"
     message = "Use the code below to verify your account. It is valid for 10 minutes."
 
-    # Add a dashboard/profile button for after verification
-    action_url = "http://localhost:5000/profile"  # Change to your deployed dashboard/profile URL
-    action_text = "Go to Your Dashboard"
+    # Add a login button for after verification
+    action_url = "https://college-community-iqr1.onrender.com/login"  # Deployed login URL
+    action_text = "Login to Your Account"
 
     msg.set_content(f"Your OTP is: {otp}")
     msg.add_alternative(build_html_email(msg['Subject'], heading, message, otp=otp, action_url=action_url, action_text=action_text), subtype='html')
@@ -167,7 +168,7 @@ def send_otp(email, otp):
         return False
 
 
-def notify_buyer_and_seller(buyer_email, buyer_linkedin, seller_email, seller_linkedin):
+def notify_buyer_and_seller(buyer_email, seller_email):
     try:
         # Seller email
         seller_subject = f'{WEBSITE_NAME} - New Purchase Notification'
@@ -175,10 +176,9 @@ def notify_buyer_and_seller(buyer_email, buyer_linkedin, seller_email, seller_li
         seller_message = f"""
 Hi Seller,<br><br>
 We have found a buyer for your product. Our admin will contact you soon on your registered mobile number.<br><br>
-<b>Buyer LinkedIn:</b> {buyer_linkedin}<br><br>
 """
-        seller_action_url = "http://localhost:5000/profile"  # Seller dashboard/profile
-        seller_action_text = "View Your Dashboard"
+        seller_action_url = "https://college-community-iqr1.onrender.com/login"  # Seller login
+        seller_action_text = "Login to Your Account"
 
         seller_msg = EmailMessage()
         seller_msg['Subject'] = seller_subject
@@ -194,10 +194,9 @@ We have found a buyer for your product. Our admin will contact you soon on your 
 Hello Buyer,<br><br>
 Thank you for your purchase on {WEBSITE_NAME}! 🎉<br>
 Our admin will contact you soon with more details.<br><br>
-<b>Seller LinkedIn:</b> {seller_linkedin}<br><br>
 """
-        buyer_action_url = "http://localhost:5000/profile"  # Buyer dashboard/profile
-        buyer_action_text = "View Your Profile"
+        buyer_action_url = "https://college-community-iqr1.onrender.com/login"  # Buyer login
+        buyer_action_text = "Login to Your Account"
 
         buyer_msg = EmailMessage()
         buyer_msg['Subject'] = buyer_subject
@@ -227,8 +226,8 @@ You have been marked as a faulty buyer for a recent transaction. Your current fa
 If your fault count exceeds 7, your account will be permanently deactivated as per our policy.<br><br>
 If you believe this is an error, please contact our support team.<br><br>
 """
-    action_url = "http://localhost:5000/profile"  # Or a support/contact page
-    action_text = "View Your Account"
+    action_url = "https://college-community-iqr1.onrender.com/login"  # Login page
+    action_text = "Login to Your Account"
 
     msg = EmailMessage()
     msg['Subject'] = subject
