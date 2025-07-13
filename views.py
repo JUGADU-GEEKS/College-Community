@@ -374,7 +374,7 @@ def purchase(id):
             purchase_id = str(existing_purchase['_id'])
             return render_template('purchaseSuccess.html', purchase_id=purchase_id, product=product)
         Product.buy_product(id, buyer['email'], seller['email'])
-        notify_buyer_and_seller(buyer['email'], buyer.get('linkedin'), seller['email'], seller.get('linkedin'))
+        notify_buyer_and_seller(buyer['email'], seller['email'])
 
         # Save purchase record
         purchase_data = {
