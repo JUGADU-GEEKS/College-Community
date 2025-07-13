@@ -277,7 +277,7 @@ def admin_login():
 
         return redirect(url_for('views.admin_dashboard'))
 
-    return render_template('adminLogin.html')
+    return render_template('adminlogin.html')
 
 @auth.route('/logout')
 def logout():
