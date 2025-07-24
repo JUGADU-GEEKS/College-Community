@@ -433,6 +433,54 @@
                 </table>
             </div>
         </div>
+
+        <!-- Pending Product Approvals Section -->
+        <div class="table-container" style="margin-bottom: 2rem;">
+            <div class="table-header">
+                <h2>Pending Product Approvals</h2>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Title</th>
+                            <th>Image</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Months Old</th>
+                            <th>Condition</th>
+                            <th>Seller</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in pending_products %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ product.title }}</td>
+                            <td><img src="{{ product.image }}" alt="{{ product.title }}" style="width:60px;height:60px;border-radius:8px;"></td>
+                            <td>{{ product.description }}</td>
+                            <td class="price">₹{{ product.price }}</td>
+                            <td>{{ product.monthsold }}</td>
+                            <td>{{ product.condition }}</td>
+                            <td class="email">{{ product.seller }}</td>
+                            <td class="action-buttons">
+                                <form action="/admin/approve_product/{{ product._id }}" method="post" style="display:inline;">
+                                    <button class="btn btn-edit" type="submit">Approve</button>
+                                </form>
+                                <form action="/admin/reject_product/{{ product._id }}" method="post" style="display:inline;">
+                                    <button class="btn btn-delete" type="submit">Reject</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr><td colspan="9" style="text-align:center;color:#fbbf24;">No pending products for approval.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <script>

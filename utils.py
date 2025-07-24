@@ -242,3 +242,71 @@ If you believe this is an error, please contact our support team.<br><br>
             server.send_message(msg)
     except Exception as e:
         print('Failed to send warning email:', e)
+
+
+def send_payment_success_emails(buyer_email, seller_email, product):
+    """
+    Sends payment success emails to both buyer and seller with distinct messages.
+    """
+    EMAIL_USER = os.getenv('EMAIL_USER')
+    EMAIL_PASS = os.getenv('EMAIL_PASS')
+    from model import User
+    buyer = User.get_data(buyer_email)
+    seller = User.get_data(seller_email)
+    # Buyer email
+    subject_buyer = f"{WEBSITE_NAME} - Thank You for Your Purchase!"
+    heading_buyer = "Thank You for Purchasing!"
+    message_buyer = f"Dear {buyer.get('full_name', 'Buyer')},<br><br>Thank you for purchasing <b>{product.get('title')}</b> from {WEBSITE_NAME}.<br>We have received your payment and the seller will contact you soon to complete the handover.<br><br>Happy shopping!"
+    action_url = "http://localhost:5000/profile"
+    action_text = "View Your Profile"
+    msg_buyer = EmailMessage()
+    msg_buyer['Subject'] = subject_buyer
+    msg_buyer['From'] = EMAIL_USER
+    msg_buyer['To'] = buyer_email
+    msg_buyer.set_content(f"Thank you for purchasing {product.get('title')}.")
+    msg_buyer.add_alternative(build_html_email(subject_buyer, heading_buyer, message_buyer, action_url=action_url, action_text=action_text), subtype='html')
+    # Seller email
+    subject_seller = f"{WEBSITE_NAME} - Your Product Has Been Sold!"
+    heading_seller = "Congratulations, Your Product Has Been Sold!"
+    message_seller = f"Dear {seller.get('full_name', 'Seller')},<br><br>Thank you! Your product <b>{product.get('title')}</b> has been sold on {WEBSITE_NAME}.<br>The payment has been received from the buyer. Please contact the buyer to complete the transaction.<br><br>Thank you for using our platform!"
+    msg_seller = EmailMessage()
+    msg_seller['Subject'] = subject_seller
+    msg_seller['From'] = EMAIL_USER
+    msg_seller['To'] = seller_email
+    msg_seller.set_content(f"Thank you! Your product {product.get('title')} has been sold.")
+    msg_seller.add_alternative(build_html_email(subject_seller, heading_seller, message_seller, action_url=action_url, action_text=action_text), subtype='html')
+    try:
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
+            server.login(EMAIL_USER, EMAIL_PASS)
+            server.send_message(msg_buyer)
+            server.send_message(msg_seller)
+        return True
+    except Exception as e:
+        print('Failed to send payment success emails:', e)
+        return False
+
+
+def send_product_submission_email(seller_email, product_title):
+    EMAIL_USER = os.getenv('EMAIL_USER')
+    EMAIL_PASS = os.getenv('EMAIL_PASS')
+    from model import User
+    seller = User.get_data(seller_email)
+    subject = f"{WEBSITE_NAME} - Product Submission Received"
+    heading = "Your Product Listing is Under Review"
+    message = f"Dear {seller.get('full_name', 'Seller')},<br><br>Your product <b>{product_title}</b> has been submitted for review. Our admin team will verify your listing within 2-3 hours. Once approved, it will be visible to all users.<br><br>Thank you for using {WEBSITE_NAME}!"
+    action_url = "http://localhost:5000/profile"
+    action_text = "View Your Listings"
+    msg = EmailMessage()
+    msg['Subject'] = subject
+    msg['From'] = EMAIL_USER
+    msg['To'] = seller_email
+    msg.set_content(f"Your product '{product_title}' is under review and will be listed soon.")
+    msg.add_alternative(build_html_email(subject, heading, message, action_url=action_url, action_text=action_text), subtype='html')
+    try:
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
+            server.login(EMAIL_USER, EMAIL_PASS)
+            server.send_message(msg)
+        return True
+    except Exception as e:
+        print('Failed to send product submission email:', e)
+        return False

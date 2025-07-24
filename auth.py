@@ -270,9 +270,9 @@ def admin_login():
         if email != os.getenv("ADMIN_EMAIL"):
             return render_template('error.html', message='Invalid Credentials')
 
-        stored_hash = os.getenv("ADMIN_PASSWORD")
+        stored_password = os.getenv("ADMIN_PASSWORD")
 
-        if not bcrypt.checkpw(password.encode(), stored_hash.encode()):
+        if password != stored_password:
             return render_template('error.html', message='Invalid Credentials')
 
         return redirect(url_for('views.admin_dashboard'))

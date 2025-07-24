@@ -80,6 +80,7 @@ class Product:
         self.seller = data.get('seller')
         self.buyer = None
         self.payment = 'Pending'
+        self.status = data.get('status', 'pending')  # New field for approval status
 
     def save_to_db(self):
         # Step 1: Insert the product and get the inserted ID
@@ -96,7 +97,8 @@ class Product:
 
     @staticmethod
     def get_all_products():
-        return list(products_collection.find({"isSold": False}))
+        # Only return products that are not sold and are approved
+        return list(products_collection.find({"isSold": False, "status": "approved"}))
 
     
 

@@ -235,19 +235,23 @@ def addProduct():
                 'price': request.form.get('price'),
                 'monthsold': request.form.get('monthsold'),
                 'condition': request.form.get('condition'),
-                'seller': session.get('user').get('email')
+                'seller': session.get('user').get('email'),
+                'status': 'pending'  # Set status to pending for admin approval
             }
 
             print(data)
             product = Product(data)
             success, message = product.save_to_db()
-            flash(message)
-            return redirect("/browse")
+            # Send product submission email
+            from utils import send_product_submission_email
+            send_product_submission_email(data['seller'], data['title'])
+            flash('Product submitted for admin approval!')
+            return redirect('/sell')
 
         flash('Invalid file format')
-        return redirect('/browse')
+        return redirect('/addSell')
 
-    return render_template("browse.html")
+    return render_template('addSell.html')
 
 @views.route('/about')
 def about():
@@ -472,7 +476,21 @@ def admin_dashboard():
                     filtered_purchases.append(p)
         else:
             filtered_purchases.append(p)
-    return render_template('adminDashboard.html', purchases=filtered_purchases)
+    # Get all pending products for approval
+    pending_products = list(db['products'].find({'status': 'pending'}))
+    return render_template('adminDashboard.html', purchases=filtered_purchases, pending_products=pending_products)
+
+@views.route('/admin/approve_product/<product_id>', methods=['POST'])
+def approve_product(product_id):
+    db['products'].update_one({'_id': ObjectId(product_id)}, {'$set': {'status': 'approved'}})
+    flash('Product approved and now visible in browse!')
+    return redirect(url_for('views.admin_dashboard'))
+
+@views.route('/admin/reject_product/<product_id>', methods=['POST'])
+def reject_product(product_id):
+    db['products'].update_one({'_id': ObjectId(product_id)}, {'$set': {'status': 'rejected'}})
+    flash('Product rejected!')
+    return redirect(url_for('views.admin_dashboard'))
 
 @views.route('/faulty_buyer/<product_id>/<buyer_email>', methods=['POST'])
 def mark_faulty_buyer(product_id, buyer_email):
@@ -503,6 +521,13 @@ def set_payment_success(product_id, buyer_email):
         {'_id': ObjectId(product_id)},
         {'$set': {'payment': 'Success'}}
     )
+    # Fetch product and seller info
+    product = db['products'].find_one({'_id': ObjectId(product_id)})
+    seller_email = product.get('seller') if product else None
+    # Send payment success emails to both buyer and seller
+    if product and seller_email:
+        from utils import send_payment_success_emails
+        send_payment_success_emails(buyer_email, seller_email, product)
     return redirect(url_for('views.admin_dashboard'))
 
 @views.route('/faulty_buyers', methods=['GET', 'POST'])
@@ -523,6 +548,7 @@ def notes():
 @views.route('/payment_received/<product_id>/<buyer_email>', methods=['POST'])
 def payment_received(product_id, buyer_email):
     from model import Purchase, User, Product
+    import traceback
     # Find the purchase record
     purchase = next((p for p in Purchase.get_all_purchases() if str(p.get('product_id')) == str(product_id) and p.get('buyer_email') == buyer_email), None)
     if not purchase:
@@ -540,6 +566,12 @@ def payment_received(product_id, buyer_email):
     action_url = "http://localhost:5000/profile"
     action_text = "View Your Profile"
 
+    # Load email credentials fresh from environment
+    EMAIL_USER = os.getenv('EMAIL_USER')
+    EMAIL_PASS = os.getenv('EMAIL_PASS')
+    print('EMAIL_USER used:', EMAIL_USER)
+    print('EMAIL_PASS used:', EMAIL_PASS)
+
     msg = EmailMessage()
     msg['Subject'] = subject
     msg['From'] = EMAIL_USER
@@ -553,7 +585,8 @@ def payment_received(product_id, buyer_email):
             server.send_message(msg)
     except Exception as e:
         print('Failed to send payment received email:', e)
-        return "Failed to send email", 500
+        print('Traceback:', traceback.format_exc())
+        return render_template('error.html', message=f'Failed to send email: {e}')
 
     return redirect('/adminDashboard')
 
