@@ -31,7 +31,10 @@ def require_login():
 
 @views.before_request
 def require_college():
-    allowed_routes = ['views.landing', 'views.browse', 'static']
+    allowed_routes = ['views.landing','static']
+    # If user is logged in and has a token, allow navigation
+    if session.get('user') and session.get('token'):
+        return None
     if request.endpoint not in allowed_routes and not session.get('college_name'):
         return redirect(url_for('views.welcome'))
 
@@ -61,26 +64,26 @@ users_collection = db['users']
 
 views = Blueprint('views', __name__)
 
-@views.route('/', methods=['GET', 'POST'])
-def landing():
-    if request.method == 'POST':
-        college_name = request.form.get('college_name')
-        if college_name:
-            session['college_name'] = college_name
-            return redirect(url_for('views.browse'))
-    return render_template('landing.html')
 
-@views.route('/welcome')
+
+@views.route('/')
 def welcome():
     return render_template('welcome.html')
 
 @views.route('/browse')
 def browse():
+    # Require login for /sell
+    if 'user' not in session:
+        return redirect(url_for('auth.login'))
+    from model import get_college_by_email
     filter_by = request.args.get('filter')
-    college_name = session.get('college_name')
+    user_data = session.get('user')
+    if not user_data:
+        return redirect(url_for('auth.login'))
+    current_user_email = user_data.get('email')
+    college_name = get_college_by_email(current_user_email)
     raw_products = Product.get_all_products()
     items = []
-    current_user_email = session.get('user', {}).get('email')
     for product in raw_products:
         title = product.get("title", "").lower()
         seller_email = product.get("seller")
@@ -88,9 +91,12 @@ def browse():
             continue
         if seller_email == current_user_email:
             continue
-        seller_data = users_collection.find_one({"email": seller_email})
-        if not seller_data or seller_data.get('college', '').lower() != college_name.lower():
+        seller_college = get_college_by_email(seller_email)
+        if not seller_college or not college_name:
             continue
+        if seller_college.strip().lower() != college_name.strip().lower():
+            continue
+        seller_data = users_collection.find_one({"email": seller_email})
         item = {
             "product": product,
             "seller": {
@@ -157,6 +163,9 @@ def profile():
 
 @views.route('/sell', methods=['POST', 'GET'])
 def sell():
+    # Require login for /sell
+    if 'user' not in session:
+        return redirect(url_for('auth.login'))
     return render_template('sell.html')
 
 @views.route('/price', methods=['POST', 'GET'])

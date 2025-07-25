@@ -1,3 +1,16 @@
+# Utility function to get college name by user email
+from pymongo import MongoClient
+import os
+MONGO_URI = os.getenv("MONGO_URI")
+client = MongoClient(MONGO_URI)
+db = client['Student-Community']
+users_collection = db['users']
+
+def get_college_by_email(email):
+    user = users_collection.find_one({"email": email})
+    if user:
+        return user.get('college', None)
+    return None
 from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv

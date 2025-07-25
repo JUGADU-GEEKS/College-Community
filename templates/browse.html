@@ -205,16 +205,5 @@
     });
   }
 </script>
-<script>
-  // Redirect all button clicks to welcome.html
-  document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('button, a.btn, input[type="submit"], .nav-link, .mobile-nav-link').forEach(function(el) {
-      el.addEventListener('click', function(e) {
-        e.preventDefault();
-        window.location.href = '/welcome';
-      });
-    });
-  });
-</script>
 
 </html>
