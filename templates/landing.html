@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select College - Campus Kart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/welcome.css') }}">
+    <link rel="icon" type="image/x-icon" href="../static/images/icon3.png">
+</head>
+<body>
+    <div class="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-gray-950 to-gray-900 text-white p-4">
+        <div class="card w-full max-w-md">
+            <h1 class="title">Select Your College</h1>
+            <form method="POST" action="/">
+                <label for="college_name" class="form-label">College Name:</label>
+                <select name="college_name" id="college_name" class="form-control" required>
+                    <option value="">-- Select College --</option>
+                    <option value="Bhagwan Parshuram Institute of Technology">Bhagwan Parshuram Institute of Technology</option>
+                    <option value="MAIT">MAIT</option>
+                    <option value="MSIT">MSIT</option>
+                    <option value="BVCOE">BVCOE</option>
+                    <option value="Other">Other</option>
+                </select>
+                <button type="submit" class="btn btn-primary mt-4">Continue</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

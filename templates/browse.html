@@ -57,6 +57,9 @@
 
   <section class="featured-products-footer-section">
     <h1 class="reupyog-glow" style="color: #f7d08a;">ReUse These Equipments</h1>
+    <div style="margin-bottom: 1em; color: #f7d08a;">
+      Showing products for college: <b>{{ college_name }}</b>
+    </div>
     <div class="featured-products-section">
       <h2 class="featured-title">Featured Products</h2>
       <div class="featured-products-grid">
@@ -201,6 +204,17 @@
       });
     });
   }
+</script>
+<script>
+  // Redirect all button clicks to welcome.html
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('button, a.btn, input[type="submit"], .nav-link, .mobile-nav-link').forEach(function(el) {
+      el.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.location.href = '/welcome';
+      });
+    });
+  });
 </script>
 
 </html>

@@ -29,6 +29,12 @@ def require_login():
     if 'user' not in session:
         return redirect(url_for('auth.login'))
 
+@views.before_request
+def require_college():
+    allowed_routes = ['views.landing', 'views.browse', 'static']
+    if request.endpoint not in allowed_routes and not session.get('college_name'):
+        return redirect(url_for('views.welcome'))
+
 
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
@@ -55,28 +61,36 @@ users_collection = db['users']
 
 views = Blueprint('views', __name__)
 
+@views.route('/', methods=['GET', 'POST'])
+def landing():
+    if request.method == 'POST':
+        college_name = request.form.get('college_name')
+        if college_name:
+            session['college_name'] = college_name
+            return redirect(url_for('views.browse'))
+    return render_template('landing.html')
+
+@views.route('/welcome')
+def welcome():
+    return render_template('welcome.html')
+
 @views.route('/browse')
 def browse():
-    filter_by = request.args.get('filter')  # e.g. ?filter=labcoat
-    print("🎯 /browse route hit with filter:", filter_by)
-
+    filter_by = request.args.get('filter')
+    college_name = session.get('college_name')
     raw_products = Product.get_all_products()
     items = []
     current_user_email = session.get('user', {}).get('email')
-
     for product in raw_products:
         title = product.get("title", "").lower()
-        # Only apply filter if it's provided
+        seller_email = product.get("seller")
         if filter_by and filter_by.lower() not in title:
             continue
-        seller_email = product.get("seller")
-        # Skip products listed by the current user
         if seller_email == current_user_email:
             continue
-        seller_data = users_collection.find_one(
-            {"email": seller_email}, 
-            {"full_name": 1}
-        )
+        seller_data = users_collection.find_one({"email": seller_email})
+        if not seller_data or seller_data.get('college', '').lower() != college_name.lower():
+            continue
         item = {
             "product": product,
             "seller": {
@@ -84,40 +98,7 @@ def browse():
             }
         }
         items.append(item)
-
-    return render_template('browse.html', items=items)
-
-
-
-    # combined_data = []
-
-    # for product in products:
-    #     product['_id'] = str(product['_id'])
-    #     product['image'] = product['image'].replace('\\', '/')
-
-    #     seller_email = product.get('seller')
-    #     print("📧 Seller Email:", seller_email)
-
-    #     seller = User.get_data(seller_email)
-    #     print("👤 Seller Data:", seller)
-
-    #     if seller:
-    #         combined_data.append({
-    #             'product': product,
-    #             'seller': {
-    #                 'full_name': seller.get('full_name'),
-    #                 'email': seller.get('email'),
-    #                 'contact': seller.get('contact'),
-    #                 'college': seller.get('college', ''),
-    #                 'branch': seller.get('branch', ''),
-    #                 'profile_photo': seller.get('profile_photo')
-    #             }
-    #         })
-
-    # print("✅ FINAL combined_data:", combined_data)
-    # print("🧮 Count:", len(combined_data))
-
-    # return render_template('browse.html', items=combined_data)
+    return render_template('browse.html', items=items, college_name=college_name)
 
 @views.route('/view')
 def view():
