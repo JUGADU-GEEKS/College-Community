@@ -66,9 +66,47 @@ views = Blueprint('views', __name__)
 
 
 
+
+# Default landing page route
 @views.route('/')
-def welcome():
-    return render_template('welcome.html')
+def landing():
+    return render_template('landing.html')
+
+# Route to handle college selection from landing page
+@views.route('/select_college', methods=['POST'])
+def select_college():
+    college_name = request.form.get('college_name')
+    if not college_name:
+        return redirect(url_for('views.landing'))
+    # Store selected college in session
+    session['selected_college'] = college_name
+    return redirect(url_for('views.browse_college', college_name=college_name))
+
+# Browse page filtered by selected college, all buttons redirect to welcome
+@views.route('/browse_college')
+def browse_college():
+    from model import get_college_by_email
+    college_name = request.args.get('college_name') or session.get('selected_college')
+    if not college_name:
+        return redirect(url_for('views.landing'))
+    raw_products = Product.get_all_products()
+    items = []
+    for product in raw_products:
+        seller_email = product.get("seller")
+        seller_college = get_college_by_email(seller_email)
+        if not seller_college:
+            continue
+        if seller_college.strip().lower() != college_name.strip().lower():
+            continue
+        seller_data = users_collection.find_one({"email": seller_email})
+        item = {
+            "product": product,
+            "seller": {
+                "full_name": seller_data.get("full_name") if seller_data else "Unknown"
+            }
+        }
+        items.append(item)
+    return render_template('browse_college.html', items=items, college_name=college_name)
 
 @views.route('/browse')
 def browse():

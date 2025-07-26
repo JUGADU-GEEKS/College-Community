@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Kart - Sell Products</title>
+  <link rel="icon" type="image/webp" href="{{ url_for('static', filename='images/app-icon.png') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/browse.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" type="image/x-icon" href="../static/images/icon3.png">
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="navbar">
+        <!-- Logo -->
+        <a href="/home" class="logo">
+          <img src="/static/images/icon3.png" alt="" class="logo-img">
+          <span style="background: linear-gradient(90deg, #F9F295 0%, #E0AA3E 33%, #E0AA3E 66%, #BBAA44 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-fill-color: transparent;">Campus Kart</span>
+        </a>
+        <!-- Desktop Navigation -->
+        <div class="nav-menu">
+          <a href="/home" class="nav-link">Home</a>
+          <a href="/sell" class="nav-link">Sell</a>
+          <a href="/browse_college" class="nav-link active">Browse</a>
+          <a href="/notes" class="nav-link">Notes</a>
+          <a href="#about" class="nav-link">About</a>
+          <a href="#contact" class="nav-link">Contact</a>
+        </div>
+        <!-- User and Mobile Menu -->
+        <div class="nav-right">
+          <a href="/profile" class="user-icon">
+            <i class="fas fa-user"></i>
+          </a>
+          <button class="menu-toggle" aria-label="Toggle menu">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+      <!-- Mobile menu -->
+      <div class="mobile-menu">
+        <a href="/home" class="mobile-nav-link">Home</a>
+        <a href="/sell" class="mobile-nav-link">Sell</a>
+        <a href="/browse_college" class="mobile-nav-link active">Browse</a>
+        <a href="/notes" class="mobile-nav-link">Notes</a>
+        <a href="#about" class="mobile-nav-link">About</a>
+        <a href="#contact" class="mobile-nav-link">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <header class="browse-header">
+    <img src="/static/images/bg2.png" alt="Header Image">
+  </header>
+
+  <section class="featured-products-footer-section">
+    <h1 class="reupyog-glow" style="color: #f7d08a;">ReUse These Equipments</h1>
+    <div style="margin-bottom: 1em; color: #f7d08a;">
+      Showing products for college: <b>{{ college_name }}</b>
+    </div>
+    <div class="featured-products-section">
+      <h2 class="featured-title">Featured Products</h2>
+      <div class="featured-products-grid">
+        {% if items %}
+        {% for item in items %}
+        <div class="featured-card">
+          <img src="{{ item.product.image }}" alt="{{ item.product.title }}">
+          <div class="featured-info">
+            <div class="featured-name">{{ item.product.title }}</div>
+            <div class="featured-prices">₹{{ item.product.price | int + 30 }}</div>
+            <div class="featured-seller">Seller: {{ item.seller.full_name }}</div>
+            <div class="featured-age">Months Old: {{ item.product.monthsold }}</div>
+            <button class="btn">
+              <a href="/welcome" style="color: aliceblue;">Buy Item</a>
+            </button>
+          </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p style="color: white;">No featured products available at the moment.</p>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-logo">
+            <i class="fas fa-shopping-bag"></i>
+            <span>Campus Kart</span>
+          </div>
+          <p>The marketplace for college students to buy and sell course-related supplies.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/browse_college">Browse Items</a></li>
+            <li><a href="/sell">Sell an Item</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="/profile">My Profile</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Information</h3>
+          <ul>
+            <li><a href="/home/#about">About Us</a></li>
+            <li><a href="/home/#contact">Contact Us</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Newsletter</h3>
+          <p>Subscribe to our newsletter for exclusive deals and tips.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your email">
+            <button type="submit">
+              <i class="fas fa-envelope"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span id="current-year"></span> UniCache. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/ScrollTrigger.min.js"></script>
+
+  <script type="text/javascript">
+
+    gsap.to(".filled-text, .outline-text", {
+      scrollTrigger: {
+        trigger: ".filled-text, .outline-text",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1
+      },
+      x: 200
+    })
+
+    gsap.to(".image", {
+      scrollTrigger: {
+        trigger: ".image",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1
+      },
+      x: -250,
+    })
+  </script>
+</body>
+<script type="module">
+  import { gsap } from "https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js";
+  import { ScrollTrigger } from "https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js";
+  import { ScrollSmoother } from "https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollSmoother.js";
+  import { SplitText } from "https://cdn.jsdelivr.net/npm/gsap@3.12.5/SplitText.js";
+
+  // Make plugins available globally if needed
+  gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText);
+</script>
+
+<script type="module" src="{{ url_for('static', filename='javascripts/browse.js') }}"></script>
+<script>
+  document.querySelector('.scroll-icon').addEventListener('click', function () {
+    document.querySelector('.main').scrollIntoView({
+      behavior: 'smooth'
+    });
+  });
+</script>
+<script>
+  document.querySelector('.scroll-indicator').addEventListener('click', function () {
+    document.querySelector('.main').scrollIntoView({
+      behavior: 'smooth'
+    });
+  });
+</script>
+<script>
+  // GSAP fade-in animation for product cards
+  if (window.gsap) {
+    gsap.utils.toArray('.featured-card').forEach((card, i) => {
+      gsap.from(card, {
+        opacity: 0,
+        y: 40,
+        duration: 0.8,
+        delay: 0.2 + i * 0.15,
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 90%',
+          toggleActions: 'play none none reverse'
+        }
+      });
+    });
+  }
+</script>
+
+</html>
