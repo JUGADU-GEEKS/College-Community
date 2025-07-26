@@ -1,0 +1,21 @@
+{% extends "navbar.html" %}
+{% block content %}
+<div class="container" style="max-width:500px;margin-top:60px;">
+    <h2>Select Your College</h2>
+    <form action="/select_college" method="POST">
+        <div class="form-group">
+            <label for="college_name">College Name:</label>
+            <select class="form-control" id="college_name" name="college_name" required>
+                <option value="">-- Select College --</option>
+                <option value="BPIT">BPIT</option>
+                <option value="DTU">DTU</option>
+                <option value="NSUT">NSUT</option>
+                <option value="IGDTUW">IGDTUW</option>
+                <option value="MAIT">MAIT</option>
+                <!-- Add more colleges as needed -->
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-top:20px;">Continue</button>
+    </form>
+</div>
+{% endblock %}

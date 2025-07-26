@@ -1,0 +1,22 @@
+{% extends "navbar.html" %}
+{% block content %}
+<div class="container">
+    <h2>Browse Products (College Filtered)</h2>
+    <p>Showing products for college: {{ college_name }}</p>
+    <ul>
+        {% for item in items %}
+        <li>
+            <strong>{{ item.product.title }}</strong> by {{ item.seller.full_name }}<br>
+            <img src="{{ item.product.image }}" alt="Product Image" style="max-width:150px;">
+            <br>
+            <span>{{ item.product.description }}</span><br>
+            <span>Price: {{ item.product.price }}</span><br>
+            <span>Condition: {{ item.product.condition }}</span><br>
+            <!-- All buttons redirect to welcome.html -->
+            <a href="/" class="btn btn-primary">View</a>
+            <a href="/" class="btn btn-success">Buy</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
