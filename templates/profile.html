@@ -112,18 +112,23 @@
         }
 
         .profile-avatar {
-            width: 120px;
-            height: 120px;
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
             border: 3px solid #f7d08a;
             overflow: hidden;
-            background-color: #e9ecef;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .profile-avatar img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            border-radius: 50%;
+            background: #000;
         }
 
         .profile-name {
@@ -675,7 +680,7 @@
     </header>
 
     <!-- Profile Header -->
-    <header class="profile-header" {% if user.cover_image %}style="background: url('{{ user.cover_image }}') center/cover no-repeat; position: relative; min-height: 220px; border-radius: 0 0 16px 16px;"{% endif %}>
+    <header class="profile-header" {% if user.cover_image %}style="background: url('{{ user.cover_image }}') center/cover no-repeat; position: relative; min-height: 220px; border-radius: 0 0 20px 20px;"{% endif %}>
         {% if user.cover_image %}
         <div style="position:absolute; inset:0; background:rgba(0,0,0,0.45); border-radius:0 0 16px 16px; z-index:1;"></div>
         {% endif %}
@@ -745,12 +750,12 @@
                     <div style="margin-bottom:1rem; font-weight:600; color:#f7d08a;">Choose an Avatar:</div>
                     <div style="display:flex; gap:1rem; align-items:center; margin-bottom:1rem;">
                         {% set preset_avatars = [
-                        url_for('static', filename='avatars/image.png'),
-                        url_for('static', filename='avatars/image1.png'),
-                        url_for('static', filename='avatars/image2.png'),
-                        url_for('static', filename='avatars/image3.png'),
-                        url_for('static', filename='avatars/image4.png'),
-                        url_for('static', filename='avatars/image5.png')
+                        url_for('static', filename='avatars/img1.png'),
+                        url_for('static', filename='avatars/img2.png'),
+                        url_for('static', filename='avatars/img3.png'),
+                        url_for('static', filename='avatars/img4.png'),
+                        url_for('static', filename='avatars/img5.png'),
+                        url_for('static', filename='avatars/img6.png')
                         ] %}
                         {% for avatar in preset_avatars %}
                         <label style="cursor:pointer;">
@@ -828,7 +833,7 @@
                         <li class="user-details-item">
                             <div class="user-details-label">LinkedIn:</div>
                             <div class="user-details-value">
-                                <a href="{{ user.linkedin }}" target="_blank">{{ user.linkedin }}</a>
+                                <a href="{{ user.linkedin }}" target="_blank" style="display:inline-block; padding:0.5em 1em; background: linear-gradient(90deg, #F9F295 0%, #E0AA3E 33%, #E0AA3E 66%, #BBAA44 100%); color:#181818; border:none; border-radius:20px; font-weight:600; text-decoration:none; font-size:1em; transition:background 0.2s; cursor:pointer;">LinkedIn Profile</a>
                             </div>
                         </li>
                         {% endif %}
