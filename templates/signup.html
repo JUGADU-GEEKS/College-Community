@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Campus Kart Signup Portal</title>
+    <title>Campus Kartt Signup Portal</title>
     <meta name="description" content="Ghibli-themed Signup Portal" />
     
     <!-- Add Font Awesome for eye icons -->
@@ -14,7 +14,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/signup.css') }}">
-    <link rel="icon" type="image/x-icon" href="../static/images/icon3.png">
+    <link rel="icon" type="image/x-icon" href="../static/images/favicon.png">
   </head>
 
   <body>
@@ -93,6 +93,7 @@
                 <select required class="form-select" name="college">
                   <option value="">Select College</option>
                   <option value="Bhagwan Parshuram Institute of Technology">Bhagwan Parshuram Institute of Technology</option>
+                  <option value="Delhi Technological University">Delhi Technological University</option>
                 </select>
               </div>
 
@@ -187,7 +188,7 @@
               <div class="cloud cloud-2"></div>
               <div class="cloud cloud-3"></div>
             </div>
-            <div class="campus-kart-text">Campus Kart</div>
+            <div class="campus-kart-text">Campus Kartt</div>
             <div class="student-bg"><img src="{{ url_for('static', filename='images/student_bg.webp') }}" alt="Student Background"></div>
             <div class="grass"></div>
           </div>

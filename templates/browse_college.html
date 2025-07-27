@@ -4,11 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Campus Kart - Sell Products</title>
+  <title>Campus Kartt - Sell Products</title>
   <link rel="icon" type="image/webp" href="{{ url_for('static', filename='images/app-icon.png') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/browse.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="icon" type="image/x-icon" href="../static/images/icon3.png">
+  <link rel="icon" type="image/x-icon" href="../static/images/favicon.png">
 </head>
 
 <body>
@@ -16,9 +16,9 @@
     <div class="container">
       <div class="navbar">
         <!-- Logo -->
-        <a href="/home" class="logo">
-          <img src="/static/images/icon3.png" alt="" class="logo-img">
-          <span style="background: linear-gradient(90deg, #F9F295 0%, #E0AA3E 33%, #E0AA3E 66%, #BBAA44 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-fill-color: transparent;">Campus Kart</span>
+        <a href="/home" class="logo" style="display: flex; gap: 10px;">
+          <img src="/static/images/Profile Logo - Campus Kartt.png" alt="" class="logo-img">
+          <span style="background: linear-gradient(90deg, #F9F295 0%, #E0AA3E 33%, #E0AA3E 66%, #BBAA44 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-fill-color: transparent;">Campus Kartt</span>
         </a>
         <!-- Desktop Navigation -->
         <div class="nav-menu">
@@ -52,12 +52,29 @@
   </header>
 
   <header class="browse-header">
-    <img src="/static/images/bg2.png" alt="Header Image">
+    <video autoplay loop muted playsinline style="width: 100%; height: 500px; object-fit: cover; display: block; margin: 0 auto; clip-path: inset(0 0 20px 0);">
+      <source src="/static/homeVideos/browse.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
   </header>
+
+  <style>
+    @media (max-width: 768px) {
+      .browse-header video {
+        height: 300px !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .browse-header video {
+        height: 200px !important;
+      }
+    }
+  </style>
 
   <section class="featured-products-footer-section">
     <h1 class="reupyog-glow" style="color: #f7d08a;">ReUse These Equipments</h1>
-    <div style="margin-bottom: 1em; color: #f7d08a;">
+    <div style="margin-bottom: 1em; color: #f7d08a; text-align: center;">
       Showing products for college: <b>{{ college_name }}</b>
     </div>
     <div class="featured-products-section">
@@ -91,7 +108,7 @@
         <div class="footer-col">
           <div class="footer-logo">
             <i class="fas fa-shopping-bag"></i>
-            <span>Campus Kart</span>
+            <span>Campus Kartt</span>
           </div>
           <p>The marketplace for college students to buy and sell course-related supplies.</p>
           <div class="social-links">

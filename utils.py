@@ -101,9 +101,9 @@ def build_html_email(subject, heading, message, otp=None, button_url=None, butto
             <div class="email-header">
                 <img src="{WEBSITE_BANNER_URL}" alt="Campus Kart Banner" />
             </div>
-            # <div class="logo">
-            #     <img src="{WEBSITE_LOGO_URL}" alt="{WEBSITE_NAME} Logo" />
-            # </div>
+                <div class="logo">
+                    <img src="{WEBSITE_LOGO_URL}" alt="{WEBSITE_NAME} Logo" />
+                </div>
             <div class="content">
                 <h2>{heading}</h2>
                 <p>{message}</p>

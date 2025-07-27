@@ -107,6 +107,9 @@ def browse_college():
         }
         items.append(item)
     return render_template('browse_college.html', items=items, college_name=college_name)
+@views.route('/welcome')
+def welcome():
+    return render_template('welcome.html')
 
 @views.route('/browse')
 def browse():
@@ -483,6 +486,8 @@ def leaderboard():
 
 @views.route('/adminDashboard')
 def admin_dashboard():
+    if 'user' not in session or session.get('user', {}).get('email') != os.getenv("ADMIN_EMAIL"):
+        return redirect(url_for('auth.admin_login'))
     from model import Purchase
     purchases = Purchase.get_all_purchases()
     now = datetime.datetime.utcnow()

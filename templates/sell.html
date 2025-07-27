@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Campus Kart - Sell Products</title>
+    <title>Campus Kartt - Sell Products</title>
     <link rel="icon" type="image/webp" href="{{ url_for('static', filename='images/app-icon.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/sell.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="static/stylesheets/componentsSheets/scroll.css">
-    <link rel="icon" type="image/x-icon" href="../static/images/icon3.png">
+    <link rel="icon" type="image/x-icon" href="../static/images/favicon.png">
 </head>
 
 <body>
@@ -18,9 +18,9 @@
         <div class="container">
             <div class="navbar">
                 <!-- Logo -->
-                <a href="/home" class="logo">
-                    <img src="/static/images/icon3.png" alt="" class="logo-img">
-                    <span style="background: linear-gradient(90deg, #F9F295 0%, #E0AA3E 33%, #E0AA3E 66%, #BBAA44 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-fill-color: transparent;">Campus Kart</span>
+                <a href="/home" class="logo" style="display: flex; gap: 10px;">
+                    <img src="/static/images/Profile Logo - Campus Kartt.png" alt="" class="logo-img">
+                    <span style="background: linear-gradient(90deg, #F9F295 0%, #E0AA3E 33%, #E0AA3E 66%, #BBAA44 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-fill-color: transparent;">Campus Kartt</span>
                 </a>
                 <!-- Desktop Navigation -->
                 <nav class="nav-menu">
@@ -157,7 +157,7 @@
                                     max="36" value="1">
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" style="display: none;">
                                 <label for="calculatorDemand">Demand (1-10)</label>
                                 <input type="number" id="calculatorDemand" name="calculatorDemand" min="1" max="10"
                                     value="5">

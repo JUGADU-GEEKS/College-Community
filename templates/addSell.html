@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Kart - Listing</title>
+    <title>Campus Kartt - Listing</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <link rel="stylesheet" href="{{url_for('static', filename='/stylesheets/home.css')}}">
-    <link rel="icon" type="image/x-icon" href="../static/images/icon3.png">
+    <link rel="icon" type="image/x-icon" href="../static/images/favicon.png">
     <style>
         :root {
             --primary-dark: #000000;
@@ -439,8 +439,8 @@
                 <div class="navbar">
                     <!-- Logo -->
                     <a href="/home" class="logo">
-                        <img src="/static/images/icon3.png" alt="" class="logo-img">
-                        <span>Campus Kart</span>
+                        <img src="/static/images/Profile Logo - Campus Kartt.png" alt="" class="logo-img">
+                        <span>Campus Kartt</span>
                     </a>
                     <!-- Desktop Navigation -->
                     <nav class="nav-menu">
@@ -497,32 +497,32 @@
                 <div class="form-group">
                     <label class="form-label" for="productTitle">Titile</label>
                     <input type="text" id="productTitle" name="title" class="form-control" value="{{equipment_item}}"
-                        placeholder="{{equipment_item}}">
+                        placeholder="{{equipment_item}}" readonly>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label" for="productDescription">Product Description</label>
                     <textarea id="productDescription" class="form-control" name="description"
-                        placeholder="Enter detailed product description"></textarea>
+                        placeholder="Enter detailed product description. Include the details to promote your product"></textarea>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label" for="productPrice">Price(₹)</label>
                         <input type="text" id="productPrice" name="price" class="form-control"
-                            value="{{predicted_price}}" placeholder="{{predicted_price}}">
+                            value="{{predicted_price}}" placeholder="{{predicted_price}}" readonly>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="productAge">Months Old</label>
                         <input type="text" id="productAge" name="monthsold" class="form-control"
-                            placeholder="{{months_old}}" value="{{months_old}}">
+                            placeholder="{{months_old}}" value="{{months_old}}" readonly>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="Condition">Condition</label>
                         <input type="text" id="productAge" name="condition" class="form-control"
-                            placeholder="{{condition}}" value="{{condition}}">
+                            placeholder="{{condition}}" value="{{condition}}" readonly>
                     </div>
 
 

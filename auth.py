@@ -272,8 +272,12 @@ def admin_login():
 
         stored_password = os.getenv("ADMIN_PASSWORD")
 
-        if password != stored_password:
+        # Verify password using bcrypt
+        if not bcrypt.checkpw(password.encode('utf-8'), stored_password.encode('utf-8')):
             return render_template('error.html', message='Invalid Credentials')
+
+        # Set session user for admin
+        session['user'] = {'email': email}
 
         return redirect(url_for('views.admin_dashboard'))
 
