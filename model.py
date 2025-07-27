@@ -94,6 +94,7 @@ class Product:
         self.buyer = None
         self.payment = 'Pending'
         self.status = data.get('status', 'pending')  # New field for approval status
+        self.college = get_college_by_email(data.get('seller'))
 
     def save_to_db(self):
         # Step 1: Insert the product and get the inserted ID
@@ -173,6 +174,7 @@ class Product:
 
 
 class Purchase:
+    
     def __init__(self, data):
         self.product_id = data.get('product_id')
         self.seller_name = data.get('seller_name')
@@ -185,6 +187,7 @@ class Purchase:
         self.buying_price = data.get('buying_price')
         self.payment_status = data.get('payment_status', 'Pending')
         self.created_at = data.get('created_at', datetime.datetime.utcnow())
+        self.college = get_college_by_email(data.get('seller_email'))
 
     def save_to_db(self):
         purchase_data = {
@@ -198,7 +201,8 @@ class Purchase:
             'selling_price': self.selling_price,
             'buying_price': self.buying_price,
             'payment_status': self.payment_status,
-            'created_at': self.created_at
+            'created_at': self.created_at,
+            'college': self.college
         }
         db['purchases'].insert_one(purchase_data)
         return True, "Purchase recorded successfully!"
