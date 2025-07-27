@@ -267,21 +267,26 @@ def admin_login():
         email = request.form.get('email')
         password = request.form.get('password')
 
-        if email != os.getenv("ADMIN_EMAIL"):
+        # Determine which admin is logging in
+        if email == os.getenv("ADMIN_EMAIL_BPIT"):
+            stored_password = os.getenv("ADMIN_PASSWORD_BPIT")
+            college_name = "Bhagwan Parshuram Institute of Technology"
+        elif email == os.getenv("ADMIN_EMAIL_DTU"):
+            stored_password = os.getenv("ADMIN_PASSWORD_DTU")
+            college_name = "Delhi Technological University"
+        else:
             return render_template('error.html', message='Invalid Credentials')
 
-        stored_password = os.getenv("ADMIN_PASSWORD")
-
-        # Verify password using bcrypt
         if not bcrypt.checkpw(password.encode('utf-8'), stored_password.encode('utf-8')):
             return render_template('error.html', message='Invalid Credentials')
 
-        # Set session user for admin
-        session['user'] = {'email': email}
+        # Store user and college info in session
+        session['user'] = {'email': email, 'college': college_name}
 
         return redirect(url_for('views.admin_dashboard'))
 
     return render_template('adminlogin.html')
+
 
 @auth.route('/logout')
 def logout():

@@ -486,19 +486,25 @@ def leaderboard():
 
 @views.route('/adminDashboard')
 def admin_dashboard():
-    if 'user' not in session or session.get('user', {}).get('email') != os.getenv("ADMIN_EMAIL"):
+    if 'user' not in session:
         return redirect(url_for('auth.admin_login'))
+
+    college = session['user'].get('college')
+    print(f"The college set is :{college}")
+
     from model import Purchase
     purchases = Purchase.get_all_purchases()
     now = datetime.datetime.utcnow()
     filtered_purchases = []
+
     for p in purchases:
-        if p.get('payment_status') == 'Success':
+        print(f"The college get is :{p.get(college)}")
+        if p.get('payment_status') == 'Success' and p.get('college') == college:
+            
             created_at = p.get('created_at')
             if created_at is None:
-                filtered_purchases.append(p)  # fallback: show if no timestamp
+                filtered_purchases.append(p)
             else:
-                # If created_at is a string, parse it
                 if isinstance(created_at, str):
                     try:
                         created_at = datetime.datetime.fromisoformat(created_at)
@@ -507,21 +513,35 @@ def admin_dashboard():
                         continue
                 if (now - created_at).days <= 30:
                     filtered_purchases.append(p)
-        else:
+        elif p.get('payment_status') != 'Success' and p.get('college') == college:
             filtered_purchases.append(p)
-    # Get all pending products for approval
-    pending_products = list(db['products'].find({'status': 'pending'}))
+
+    pending_products = list(db['products'].find({'status': 'pending', 'college': college}))
     return render_template('adminDashboard.html', purchases=filtered_purchases, pending_products=pending_products)
 
 @views.route('/admin/approve_product/<product_id>', methods=['POST'])
 def approve_product(product_id):
     db['products'].update_one({'_id': ObjectId(product_id)}, {'$set': {'status': 'approved'}})
+    # Fetch product details for email
+    product = db['products'].find_one({'_id': ObjectId(product_id)})
+    if product:
+        seller_email = product.get('seller')
+        product_title = product.get('title')
+        from utils import send_product_approval_email
+        send_product_approval_email(seller_email, product_title)
     flash('Product approved and now visible in browse!')
     return redirect(url_for('views.admin_dashboard'))
 
 @views.route('/admin/reject_product/<product_id>', methods=['POST'])
 def reject_product(product_id):
     db['products'].update_one({'_id': ObjectId(product_id)}, {'$set': {'status': 'rejected'}})
+    # Fetch product details for email
+    product = db['products'].find_one({'_id': ObjectId(product_id)})
+    if product:
+        seller_email = product.get('seller')
+        product_title = product.get('title')
+        from utils import send_product_rejection_email
+        send_product_rejection_email(seller_email, product_title)
     flash('Product rejected!')
     return redirect(url_for('views.admin_dashboard'))
 

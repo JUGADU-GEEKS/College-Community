@@ -1,6 +1,7 @@
 import smtplib
 import random
 import os
+from model import User
 from email.message import EmailMessage
 from dotenv import load_dotenv
 
@@ -287,9 +288,7 @@ def send_payment_success_emails(buyer_email, seller_email, product):
 
 
 def send_product_submission_email(seller_email, product_title):
-    EMAIL_USER = os.getenv('EMAIL_USER')
-    EMAIL_PASS = os.getenv('EMAIL_PASS')
-    from model import User
+
     seller = User.get_data(seller_email)
     subject = f"{WEBSITE_NAME} - Product Submission Received"
     heading = "Your Product Listing is Under Review"
@@ -309,4 +308,50 @@ def send_product_submission_email(seller_email, product_title):
         return True
     except Exception as e:
         print('Failed to send product submission email:', e)
+        return False
+
+def send_product_approval_email(seller_email, product_title):
+
+    seller = User.get_data(seller_email)
+    subject = f"{WEBSITE_NAME} - Product Approved"
+    heading = "Your Product Has Been Approved!"
+    message = f"Dear {seller.get('full_name', 'Seller')},<br><br>Congratulations! Your product <b>{product_title}</b> has been approved by our admin team and is now visible to all users.<br><br>Thank you for using {WEBSITE_NAME}!"
+    action_url = "http://localhost:5000/profile"
+    action_text = "View Your Listings"
+    msg = EmailMessage()
+    msg['Subject'] = subject
+    msg['From'] = EMAIL_USER
+    msg['To'] = seller_email
+    msg.set_content(f"Your product '{product_title}' has been approved and is now listed.")
+    msg.add_alternative(build_html_email(subject, heading, message, action_url=action_url, action_text=action_text), subtype='html')
+    try:
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
+            server.login(EMAIL_USER, EMAIL_PASS)
+            server.send_message(msg)
+        return True
+    except Exception as e:
+        print('Failed to send product approval email:', e)
+        return False
+
+def send_product_rejection_email(seller_email, product_title):
+
+    seller = User.get_data(seller_email)
+    subject = f"{WEBSITE_NAME} - Product Rejected"
+    heading = "Your Product Has Been Rejected"
+    message = f"Dear {seller.get('full_name', 'Seller')},<br><br>We regret to inform you that your product <b>{product_title}</b> has been rejected by our admin team.<br><br>If you believe this is a mistake, please contact our support team.<br><br>Thank you for using {WEBSITE_NAME}."
+    action_url = "http://localhost:5000/profile"
+    action_text = "View Your Listings"
+    msg = EmailMessage()
+    msg['Subject'] = subject
+    msg['From'] = EMAIL_USER
+    msg['To'] = seller_email
+    msg.set_content(f"Your product '{product_title}' has been rejected.")
+    msg.add_alternative(build_html_email(subject, heading, message, action_url=action_url, action_text=action_text), subtype='html')
+    try:
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
+            server.login(EMAIL_USER, EMAIL_PASS)
+            server.send_message(msg)
+        return True
+    except Exception as e:
+        print('Failed to send product rejection email:', e)
         return False
