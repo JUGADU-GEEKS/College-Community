@@ -852,7 +852,7 @@
                 <div class="tab-content">
                     <!-- Active Listings Tab -->
                     <div class="tab-pane active" id="active-listings">
-                        {% set filtered_active = sold_products | selectattr("isSold", "equalto", False) | list %}
+                        {% set filtered_active = sold_products | selectattr("isSold", "equalto", False) | selectattr("status", "equalto", "approved") | list %}
                         {% if filtered_active %}
                         <div class="products-grid">
                             {% for product in filtered_active %}
