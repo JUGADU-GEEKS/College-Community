@@ -246,7 +246,7 @@
                         <img src="{{ buyer.profile_photo }}" class="leaderboard-profile-img" alt="Profile">
                         <div class="leaderboard-user-info">
                             <div class="leaderboard-user-name">{{ buyer.full_name }}</div>
-                            <div class="leaderboard-user-email">{{ buyer.email }}</div>
+                            <div class="leaderboard-user-email">{{ buyer.college }}</div>
                             <div class="leaderboard-user-count">Purchases: <b>{{ buyer.count }}</b></div>
                         </div>
                         {% if buyer.linkedin %}
@@ -276,7 +276,7 @@
                         <img src="{{ seller.profile_photo }}" class="leaderboard-profile-img" alt="Profile">
                         <div class="leaderboard-user-info">
                             <div class="leaderboard-user-name">{{ seller.full_name }}</div>
-                            <div class="leaderboard-user-email">{{ seller.email }}</div>
+                            <div class="leaderboard-user-email">{{ seller.college }}</div>
                             <div class="leaderboard-user-count">Sales: <b>{{ seller.count }}</b></div>
                         </div>
                         {% if seller.linkedin %}

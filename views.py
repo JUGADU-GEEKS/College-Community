@@ -469,6 +469,7 @@ def leaderboard():
         user = User.get_data(email)
         if user:
             return {
+                'college' : user.get('college'),
                 'full_name': user.get('full_name', 'Unknown'),
                 'email': email,
                 'profile_photo': user.get('profile_photo', '/static/avatars/image.png'),
