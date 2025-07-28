@@ -237,88 +237,105 @@ function init() {
 }
 
 function setup() {
-	const loaderText = document.querySelector(".loader__text");
+	initializeSlides();
+	init();
+}
 
-	const images = [...document.querySelectorAll("img")];
-	const totalImages = images.length;
-	let loadedImages = 0;
-	let progress = {
-		current: 0,
-		target: 0
-	};
-
-	// update progress target
-	images.forEach((image) => {
-		imagesLoaded(image, (instance) => {
-			if (instance.isComplete) {
-				loadedImages++;
-				progress.target = loadedImages / totalImages;
-			}
-		});
+// Helper to initialize slide states
+function initializeSlides() {
+	// Only select direct children of .slides for .slide and .slide__bg, to preserve order
+	const slidesWrapper = document.querySelector('.slides');
+	const slides = [...slidesWrapper.querySelectorAll(':scope > .slide')];
+	const slideBgs = [...slidesWrapper.querySelectorAll(':scope > .slide__bg')];
+	const slidesInfo = [...document.querySelectorAll('.slide-info')];
+	if (slides.length < 1) return;
+	// Remove all data attributes
+	slides.forEach(slide => {
+		slide.removeAttribute("data-current");
+		slide.removeAttribute("data-previous");
+		slide.removeAttribute("data-next");
+		slide.style.zIndex = "";
 	});
-
-	// lerp progress current to progress target
-	raf.add(({ id }) => {
-		progress.current = lerp(progress.current, progress.target, 0.06);
-
-		const progressPercent = Math.round(progress.current * 100);
-		loaderText.textContent = `${progressPercent}%`;
-
-		// hide loader when progress is 100%
-		if (progressPercent === 100) {
-			init();
-
-			// remove raf callback when progress is 100%
-			raf.remove(id);
-		}
+	slidesInfo.forEach(slide => {
+		slide.removeAttribute("data-current");
+		slide.removeAttribute("data-previous");
+		slide.removeAttribute("data-next");
 	});
+	slideBgs.forEach(slide => {
+		slide.removeAttribute("data-current");
+		slide.removeAttribute("data-previous");
+		slide.removeAttribute("data-next");
+	});
+	// Set initial states
+	slides[0].setAttribute("data-current", "");
+	slides[0].style.zIndex = "20";
+	slidesInfo[0].setAttribute("data-current", "");
+	slideBgs[0].setAttribute("data-current", "");
+	if (slides.length > 1) {
+		slides[1].setAttribute("data-next", "");
+		slides[1].style.zIndex = "10";
+		slidesInfo[1].setAttribute("data-next", "");
+		slideBgs[1].setAttribute("data-next", "");
+		slides[slides.length - 1].setAttribute("data-previous", "");
+		slides[slides.length - 1].style.zIndex = "10";
+		slidesInfo[slidesInfo.length - 1].setAttribute("data-previous", "");
+		slideBgs[slideBgs.length - 1].setAttribute("data-previous", "");
+	}
 }
 
 function change(direction) {
 	return () => {
-		let current = {
-			slide: document.querySelector(".slide[data-current]"),
-			slideInfo: document.querySelector(".slide-info[data-current]"),
-			slideBg: document.querySelector(".slide__bg[data-current]")
-		};
-		let previous = {
-			slide: document.querySelector(".slide[data-previous]"),
-			slideInfo: document.querySelector(".slide-info[data-previous]"),
-			slideBg: document.querySelector(".slide__bg[data-previous]")
-		};
-		let next = {
-			slide: document.querySelector(".slide[data-next]"),
-			slideInfo: document.querySelector(".slide-info[data-next]"),
-			slideBg: document.querySelector(".slide__bg[data-next]")
-		};
+		// Only select direct children of .slides for .slide and .slide__bg, to preserve order
+		const slidesWrapper = document.querySelector('.slides');
+		const slides = [...slidesWrapper.querySelectorAll(':scope > .slide')];
+		const slideBgs = [...slidesWrapper.querySelectorAll(':scope > .slide__bg')];
+		const slidesInfo = [...document.querySelectorAll('.slide-info')];
+		if (slides.length < 1) return;
 
-		Object.values(current).map((el) => el.removeAttribute("data-current"));
-		Object.values(previous).map((el) => el.removeAttribute("data-previous"));
-		Object.values(next).map((el) => el.removeAttribute("data-next"));
+		// Find current index
+		let currentIdx = slides.findIndex(slide => slide.hasAttribute("data-current"));
+		if (currentIdx === -1) currentIdx = 0;
+		let prevIdx = (currentIdx - 1 + slides.length) % slides.length;
+		let nextIdx = (currentIdx + 1) % slides.length;
 
-		if (direction === 1) {
-			let temp = current;
-			current = next;
-			next = previous;
-			previous = temp;
+		// Remove all data attributes and reset zIndex
+		slides.forEach(slide => {
+			slide.removeAttribute("data-current");
+			slide.removeAttribute("data-previous");
+			slide.removeAttribute("data-next");
+			slide.style.zIndex = "";
+		});
+		slidesInfo.forEach(slide => {
+			slide.removeAttribute("data-current");
+			slide.removeAttribute("data-previous");
+			slide.removeAttribute("data-next");
+		});
+		slideBgs.forEach(slide => {
+			slide.removeAttribute("data-current");
+			slide.removeAttribute("data-previous");
+			slide.removeAttribute("data-next");
+		});
 
-			current.slide.style.zIndex = "20";
-			previous.slide.style.zIndex = "30";
-			next.slide.style.zIndex = "10";
-		} else if (direction === -1) {
-			let temp = current;
-			current = previous;
-			previous = next;
-			next = temp;
+		// Calculate new indices
+		let newCurrentIdx = (currentIdx + direction + slides.length) % slides.length;
+		let newPrevIdx = (newCurrentIdx - 1 + slides.length) % slides.length;
+		let newNextIdx = (newCurrentIdx + 1) % slides.length;
 
-			current.slide.style.zIndex = "20";
-			previous.slide.style.zIndex = "10";
-			next.slide.style.zIndex = "30";
-		}
+		// Set new data attributes and zIndex
+		slides[newCurrentIdx].setAttribute("data-current", "");
+		slides[newCurrentIdx].style.zIndex = "20";
+		slidesInfo[newCurrentIdx].setAttribute("data-current", "");
+		slideBgs[newCurrentIdx].setAttribute("data-current", "");
 
-		Object.values(current).map((el) => el.setAttribute("data-current", ""));
-		Object.values(previous).map((el) => el.setAttribute("data-previous", ""));
-		Object.values(next).map((el) => el.setAttribute("data-next", ""));
+		slides[newPrevIdx].setAttribute("data-previous", "");
+		slides[newPrevIdx].style.zIndex = "10";
+		slidesInfo[newPrevIdx].setAttribute("data-previous", "");
+		slideBgs[newPrevIdx].setAttribute("data-previous", "");
+
+		slides[newNextIdx].setAttribute("data-next", "");
+		slides[newNextIdx].style.zIndex = "10";
+		slidesInfo[newNextIdx].setAttribute("data-next", "");
+		slideBgs[newNextIdx].setAttribute("data-next", "");
 	};
 }
 

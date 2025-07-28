@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Campus Kart - Admin Dashboard</title>
-    <link rel="icon" type="image/x-icon" href="../static/images/icon3.png">
+    <link rel="icon" type="image/x-icon" href="../static/images/favicon.png">
 
     <style>
         * {
@@ -30,11 +31,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
+            background-image:
                 radial-gradient(2px 2px at 20px 30px, #fff, transparent),
-                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 255, 0.8), transparent),
                 radial-gradient(1px 1px at 90px 40px, #fff, transparent),
-                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.6), transparent),
                 radial-gradient(2px 2px at 160px 30px, #fff, transparent);
             background-repeat: repeat;
             background-size: 200px 200px;
@@ -43,8 +44,13 @@
         }
 
         @keyframes twinkle {
-            0% { opacity: 0.8; }
-            100% { opacity: 1; }
+            0% {
+                opacity: 0.8;
+            }
+
+            100% {
+                opacity: 1;
+            }
         }
 
         .dashboard-container {
@@ -238,32 +244,38 @@
             top: 0;
             z-index: 100;
         }
+
         .admin-navbar-logo {
             display: flex;
             align-items: center;
             margin-left: 90px;
         }
+
         .admin-navbar-logo img {
             width: 42px;
             height: 42px;
             border-radius: 50%;
             margin-right: 0.8rem;
         }
+
         .admin-navbar-title {
             font-weight: bold;
             font-size: 1.5rem;
         }
+
         .admin-navbar-links {
             display: flex;
             align-items: center;
             gap: 1.2rem;
         }
+
         .admin-navbar-link {
             color: #f7d08a;
             text-decoration: none;
             font-size: 1.2rem;
             transition: all 0.3s;
         }
+
         .admin-navbar-hamburger {
             display: none;
             flex-direction: column;
@@ -274,6 +286,7 @@
             margin-right: 20px;
             cursor: pointer;
         }
+
         .admin-navbar-hamburger span {
             display: block;
             width: 28px;
@@ -283,28 +296,35 @@
             border-radius: 2px;
             transition: 0.3s;
         }
+
         @media (max-width: 900px) {
             .admin-navbar-logo {
                 margin-left: 20px;
             }
+
             .admin-navbar {
                 padding: 0.7rem 0;
             }
+
             .admin-navbar-links {
                 gap: 0.7rem;
             }
         }
+
         @media (max-width: 600px) {
             .admin-navbar {
                 flex-wrap: wrap;
                 padding: 0.5rem 0;
             }
+
             .admin-navbar-logo {
                 margin-left: 10px;
             }
+
             .admin-navbar-title {
                 font-size: 1.1rem;
             }
+
             .admin-navbar-links {
                 display: none;
                 flex-direction: column;
@@ -314,19 +334,22 @@
                 right: 10px;
                 min-width: 140px;
                 border-radius: 8px;
-                box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
                 padding: 0.7rem 0.5rem;
                 z-index: 200;
             }
+
             .admin-navbar-links.active {
                 display: flex;
             }
+
             .admin-navbar-hamburger {
                 display: flex;
             }
         }
     </style>
 </head>
+
 <body>
     <nav class="admin-navbar">
         <div class="admin-navbar-logo">
@@ -337,7 +360,8 @@
             <a href="/adminDashboard" class="admin-navbar-link">Orders</a>
             <a href="/faulty_buyers" class="admin-navbar-link">Faulty Buyers</a>
         </div>
-        <div class="admin-navbar-hamburger" id="adminNavbarHamburger" tabindex="0" aria-label="Toggle navigation" aria-expanded="false">
+        <div class="admin-navbar-hamburger" id="adminNavbarHamburger" tabindex="0" aria-label="Toggle navigation"
+            aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
@@ -392,8 +416,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% set pending_purchases = purchases | selectattr('payment_status', 'equalto', 'Pending') | list %}
-                        {% set success_purchases = purchases | selectattr('payment_status', 'equalto', 'Success') | list %}
+                        {% set pending_purchases = purchases | selectattr('payment_status', 'equalto', 'Pending') | list
+                        %}
+                        {% set success_purchases = purchases | selectattr('payment_status', 'equalto', 'Success') | list
+                        %}
                         {% for purchase in pending_purchases + success_purchases %}
                         <tr>
                             <td>{{ loop.index }}</td>
@@ -409,21 +435,32 @@
                             <td class="price">₹{{ purchase.buying_price }}</td>
                             <td>
                                 {% if purchase.payment_status == 'Success' %}
-                                    <span class="status-completed">Success</span>
+                                <span class="status-completed">Success</span>
                                 {% else %}
-                                    <span class="status-pending">Pending</span>
+                                <span class="status-pending">Pending</span>
                                 {% endif %}
                             </td>
                             <td>
                                 <div class="action-buttons">
-                                    <form action="/faulty_buyer/{{ purchase.product_id }}/{{ purchase.buyer_email }}" method="post" style="display:inline;">
-                                        <button class="btn btn-delete" type="submit" {% if purchase.payment_status == 'Success' %}disabled{% endif %}>Faulty Buyer</button>
+                                    <form action="/faulty_buyer/{{ purchase.product_id }}/{{ purchase.buyer_email }}"
+                                        method="post" style="display:inline;">
+                                        <button class="btn btn-delete" type="submit" {% if
+                                            purchase.payment_status=='Success' %}disabled{% endif %}>Faulty
+                                            Buyer</button>
                                     </form>
-                                    <form action="/set_payment_success/{{ purchase.product_id }}/{{ purchase.buyer_email }}" method="post" style="display:inline;">
-                                        <button class="btn btn-edit" type="submit" {% if purchase.payment_status == 'Success' %}disabled{% endif %}>Set Payment Success</button>
+                                    <form
+                                        action="/set_payment_success/{{ purchase.product_id }}/{{ purchase.buyer_email }}"
+                                        method="post" style="display:inline;">
+                                        <button class="btn btn-edit" type="submit" {% if
+                                            purchase.payment_status=='Success' %}disabled{% endif %}>Set Payment
+                                            Success</button>
                                     </form>
-                                    <form action="/payment_received/{{ purchase.product_id }}/{{ purchase.buyer_email }}" method="post" style="display:inline;">
-                                        <button class="btn btn-edit payment-received-btn" type="submit" {% if purchase.payment_status == 'Success' %}disabled{% endif %}>Payment Received</button>
+                                    <form
+                                        action="/payment_received/{{ purchase.product_id }}/{{ purchase.buyer_email }}"
+                                        method="post" style="display:inline;">
+                                        <button class="btn btn-edit payment-received-btn" type="submit" {% if
+                                            purchase.payment_status=='Success' %}disabled{% endif %}>Payment
+                                            Received</button>
                                     </form>
                                 </div>
                             </td>
@@ -459,23 +496,29 @@
                         <tr>
                             <td>{{ loop.index }}</td>
                             <td>{{ product.title }}</td>
-                            <td><img src="{{ product.image }}" alt="{{ product.title }}" style="width:60px;height:60px;border-radius:8px;"></td>
+                            <td><img src="{{ product.image }}" alt="{{ product.title }}"
+                                    style="width:60px;height:60px;border-radius:8px;"></td>
                             <td>{{ product.description }}</td>
                             <td class="price">₹{{ product.price }}</td>
                             <td>{{ product.monthsold }}</td>
                             <td>{{ product.condition }}</td>
                             <td class="email">{{ product.seller }}</td>
                             <td class="action-buttons">
-                                <form action="/admin/approve_product/{{ product._id }}" method="post" style="display:inline;">
+                                <form action="/admin/approve_product/{{ product._id }}" method="post"
+                                    style="display:inline;">
                                     <button class="btn btn-edit" type="submit">Approve</button>
                                 </form>
-                                <form action="/admin/reject_product/{{ product._id }}" method="post" style="display:inline;">
+                                <form action="/admin/reject_product/{{ product._id }}" method="post"
+                                    style="display:inline;">
                                     <button class="btn btn-delete" type="submit">Reject</button>
                                 </form>
                             </td>
                         </tr>
                         {% else %}
-                        <tr><td colspan="9" style="text-align:center;color:#fbbf24;">No pending products for approval.</td></tr>
+                        <tr>
+                            <td colspan="9" style="text-align:center;color:#fbbf24;">No pending products for approval.
+                            </td>
+                        </tr>
                         {% endfor %}
                     </tbody>
                 </table>
@@ -486,14 +529,14 @@
     <script>
         // Add some interactivity
         document.querySelectorAll('.btn-edit').forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function () {
                 alert('Edit functionality would be implemented here');
             });
         });
 
         document.querySelectorAll('.btn-delete').forEach(btn => {
-            btn.addEventListener('click', function() {
-                if(confirm('Are you sure you want to delete this order?')) {
+            btn.addEventListener('click', function () {
+                if (confirm('Are you sure you want to delete this order?')) {
                     this.closest('tr').style.opacity = '0.5';
                     setTimeout(() => {
                         alert('Delete functionality would be implemented here');
@@ -508,7 +551,7 @@
             const rows = document.querySelectorAll('tbody tr');
             const pendingOrders = document.querySelectorAll('.status-pending').length;
             const completedOrders = document.querySelectorAll('.status-completed').length;
-            
+
             let totalRevenue = 0;
             document.querySelectorAll('.price').forEach((price, index) => {
                 if (index % 2 === 1) { // Every second price element (buying price)
@@ -533,7 +576,7 @@
             hamburger.setAttribute('aria-expanded', links.classList.contains('active'));
         });
         // Optional: close menu when clicking outside (mobile UX)
-        document.addEventListener('click', function(event) {
+        document.addEventListener('click', function (event) {
             if (!hamburger.contains(event.target) && !links.contains(event.target)) {
                 links.classList.remove('active');
                 hamburger.setAttribute('aria-expanded', 'false');
@@ -541,12 +584,13 @@
         });
 
         // Disable 'Payment Received' button after click
-        document.querySelectorAll('.payment-received-btn').forEach(function(btn) {
-            btn.addEventListener('click', function() {
+        document.querySelectorAll('.payment-received-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
                 btn.disabled = true;
                 btn.form.submit();
             });
         });
     </script>
 </body>
+
 </html>
