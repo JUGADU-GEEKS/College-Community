@@ -11,9 +11,8 @@ EMAIL_USER = os.getenv("EMAIL_USER")
 EMAIL_PASS = os.getenv("EMAIL_PASS")
 
 # Use the correct static logo path with deployed URL
-WEBSITE_LOGO_URL = "https://college-community-iqr1.onrender.com/static/images/icon3.png"
-WEBSITE_BANNER_URL = "https://college-community-iqr1.onrender.com/static/images/banner.png"
-WEBSITE_NAME = "Campus Kart"
+WEBSITE_BANNER_URL = "https://www.campuskartt.in/static/images/Main%20Logo%20-%20Campus%20Kartt.png"
+WEBSITE_NAME = "Campus Kartt"
 SUPPORT_EMAIL = EMAIL_USER
 
 
@@ -102,9 +101,6 @@ def build_html_email(subject, heading, message, otp=None, button_url=None, butto
             <div class="email-header">
                 <img src="{WEBSITE_BANNER_URL}" alt="Campus Kart Banner" />
             </div>
-                <div class="logo">
-                    <img src="{WEBSITE_LOGO_URL}" alt="{WEBSITE_NAME} Logo" />
-                </div>
             <div class="content">
                 <h2>{heading}</h2>
                 <p>{message}</p>
@@ -153,7 +149,7 @@ def send_otp(email, otp):
     message = "Use the code below to verify your account. It is valid for 10 minutes."
 
     # Add a login button for after verification
-    action_url = "https://college-community-iqr1.onrender.com/login"  # Deployed login URL
+    action_url = "www.campuskartt.in/login"  # Deployed login URL
     action_text = "Login to Your Account"
 
     msg.set_content(f"Your OTP is: {otp}")
@@ -178,7 +174,7 @@ def notify_buyer_and_seller(buyer_email, seller_email):
 Hi Seller,<br><br>
 We have found a buyer for your product. Our admin will contact you soon on your registered mobile number.<br><br>
 """
-        seller_action_url = "https://college-community-iqr1.onrender.com/login"  # Seller login
+        seller_action_url = "www.campuskartt.in"  # Seller login
         seller_action_text = "Login to Your Account"
 
         seller_msg = EmailMessage()
@@ -196,7 +192,7 @@ Hello Buyer,<br><br>
 Thank you for your purchase on {WEBSITE_NAME}! 🎉<br>
 Our admin will contact you soon with more details.<br><br>
 """
-        buyer_action_url = "https://college-community-iqr1.onrender.com/login"  # Buyer login
+        buyer_action_url = "www.campuskartt.in/login"  # Buyer login
         buyer_action_text = "Login to Your Account"
 
         buyer_msg = EmailMessage()
@@ -227,7 +223,7 @@ You have been marked as a faulty buyer for a recent transaction. Your current fa
 If your fault count exceeds 7, your account will be permanently deactivated as per our policy.<br><br>
 If you believe this is an error, please contact our support team.<br><br>
 """
-    action_url = "https://college-community-iqr1.onrender.com/login"  # Login page
+    action_url = "www.campuskartt.in/login"  # Login page
     action_text = "Login to Your Account"
 
     msg = EmailMessage()
@@ -258,7 +254,7 @@ def send_payment_success_emails(buyer_email, seller_email, product):
     subject_buyer = f"{WEBSITE_NAME} - Thank You for Your Purchase!"
     heading_buyer = "Thank You for Purchasing!"
     message_buyer = f"Dear {buyer.get('full_name', 'Buyer')},<br><br>Thank you for purchasing <b>{product.get('title')}</b> from {WEBSITE_NAME}.<br>We have received your payment and the seller will contact you soon to complete the handover.<br><br>Happy shopping!"
-    action_url = "http://localhost:5000/profile"
+    action_url = "www.campuskartt.in/welcome"  # Redirect to browse page
     action_text = "View Your Profile"
     msg_buyer = EmailMessage()
     msg_buyer['Subject'] = subject_buyer
@@ -293,7 +289,7 @@ def send_product_submission_email(seller_email, product_title):
     subject = f"{WEBSITE_NAME} - Product Submission Received"
     heading = "Your Product Listing is Under Review"
     message = f"Dear {seller.get('full_name', 'Seller')},<br><br>Your product <b>{product_title}</b> has been submitted for review. Our admin team will verify your listing within 2-3 hours. Once approved, it will be visible to all users.<br><br>Thank you for using {WEBSITE_NAME}!"
-    action_url = "http://localhost:5000/profile"
+    action_url = "www.campuskartt.in/profile"
     action_text = "View Your Listings"
     msg = EmailMessage()
     msg['Subject'] = subject
@@ -316,7 +312,7 @@ def send_product_approval_email(seller_email, product_title):
     subject = f"{WEBSITE_NAME} - Product Approved"
     heading = "Your Product Has Been Approved!"
     message = f"Dear {seller.get('full_name', 'Seller')},<br><br>Congratulations! Your product <b>{product_title}</b> has been approved by our admin team and is now visible to all users.<br><br>Thank you for using {WEBSITE_NAME}!"
-    action_url = "http://localhost:5000/profile"
+    action_url = "www.campuskartt.in"
     action_text = "View Your Listings"
     msg = EmailMessage()
     msg['Subject'] = subject
@@ -339,7 +335,7 @@ def send_product_rejection_email(seller_email, product_title):
     subject = f"{WEBSITE_NAME} - Product Rejected"
     heading = "Your Product Has Been Rejected"
     message = f"Dear {seller.get('full_name', 'Seller')},<br><br>We regret to inform you that your product <b>{product_title}</b> has been rejected by our admin team.<br><br>If you believe this is a mistake, please contact our support team.<br><br>Thank you for using {WEBSITE_NAME}."
-    action_url = "http://localhost:5000/profile"
+    action_url = "www.campuskartt.in"
     action_text = "View Your Listings"
     msg = EmailMessage()
     msg['Subject'] = subject
