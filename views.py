@@ -114,8 +114,8 @@ def welcome():
 @views.route('/browse')
 def browse():
     # Require login for /sell
-    if 'user' not in session:
-        return redirect(url_for('auth.login'))
+    # if 'user' not in session:
+    #     return redirect(url_for('auth.login'))
     from model import get_college_by_email
     filter_by = request.args.get('filter')
     user_data = session.get('user')
@@ -210,12 +210,14 @@ def profile():
 @views.route('/sell', methods=['POST', 'GET'])
 def sell():
     # Require login for /sell
-    if 'user' not in session:
-        return redirect(url_for('auth.login'))
+    # if 'user' not in session:
+    #     return redirect(url_for('auth.login'))
     return render_template('sell.html')
 
 @views.route('/price', methods=['POST', 'GET'])
 def price():
+    if 'user' not in session:
+        return redirect(url_for('auth.login'))
     predicted_price = None
     if request.method == 'POST':
         item_type = request.form.get('itemType')
