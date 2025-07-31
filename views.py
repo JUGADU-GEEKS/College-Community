@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, render_template, request, session, jsonify, flash, redirect, url_for
+from flask import Flask, Blueprint, render_template, request, session, jsonify, flash, redirect, url_for, send_file
 from model import User, Product, Purchase, FaultyBuyer  # Make sure Product and Purchase are also imported properly
 from price_predict import predict_price_equipment, predict_price_calculator
 from utils import notify_buyer_and_seller, send_otp, send_faulty_buyer_warning, build_html_email, EMAIL_USER, EMAIL_PASS, WEBSITE_NAME
@@ -651,3 +651,6 @@ def payment_received(product_id, buyer_email):
 
     return redirect('/adminDashboard')
 
+@views.route('/sitemap.xml')
+def sitemap():
+    return send_file('sitemap.xml')
