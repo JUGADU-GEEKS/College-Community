@@ -20,9 +20,12 @@ def is_valid_password(password):
     pattern = r'^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$'
     return re.match(pattern, password)
 
+import re
+
 def is_valid_linkedin_url(url):
-    pattern = r'^https?://(www\.)?linkedin\.com/(in|pub|company)/[a-zA-Z0-9_-]+/?$'
+    pattern = r'^https?://(www\.)?linkedin\.com/in/[a-zA-Z0-9_-]+(\?.*)?$'
     return re.match(pattern, url) is not None
+
 
 @auth.before_app_request
 
