@@ -149,7 +149,7 @@ def send_otp(email, otp):
     message = "Use the code below to verify your account. It is valid for 10 minutes."
 
     # Add a login button for after verification
-    action_url = "www.campuskartt.in/login"  # Deployed login URL
+    action_url = "https://www.campuskartt.in/login"  # Deployed login URL
     action_text = "Login to Your Account"
 
     msg.set_content(f"Your OTP is: {otp}")
@@ -192,7 +192,7 @@ Hello Buyer,<br><br>
 Thank you for your purchase on {WEBSITE_NAME}! 🎉<br>
 Our admin will contact you soon with more details.<br><br>
 """
-        buyer_action_url = "www.campuskartt.in/login"  # Buyer login
+        buyer_action_url = "https://www.campuskartt.in/login"  # Buyer login
         buyer_action_text = "Login to Your Account"
 
         buyer_msg = EmailMessage()
@@ -223,7 +223,7 @@ You have been marked as a faulty buyer for a recent transaction. Your current fa
 If your fault count exceeds 7, your account will be permanently deactivated as per our policy.<br><br>
 If you believe this is an error, please contact our support team.<br><br>
 """
-    action_url = "www.campuskartt.in/login"  # Login page
+    action_url = "https://www.campuskartt.in/login"  # Login page
     action_text = "Login to Your Account"
 
     msg = EmailMessage()
