@@ -178,7 +178,7 @@ def home():
 def profile():
     # Check if user is logged in
     if 'user' not in session:
-        return render_template('error.html', message="Please login to view your profile")
+        return redirect(url_for('auth.login'))
     
     # Get user information
     user_data = session.get('user')
