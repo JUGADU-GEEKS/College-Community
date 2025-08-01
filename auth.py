@@ -22,9 +22,7 @@ def is_valid_password(password):
 
 import re
 
-def is_valid_linkedin_url(url):
-    pattern = r'^https?://(www\.)?linkedin\.com/in/[a-zA-Z0-9_-]+(\?.*)?$'
-    return re.match(pattern, url) is not None
+
 
 
 @auth.before_app_request
@@ -67,8 +65,6 @@ def signup():
         
         if u:
             return redirect('/login')
-        if not is_valid_linkedin_url(linkedin):
-            return render_template('signup.html', error='Linkedin URL is not correct.')
         if not email.endswith(('@gmail.com', '@outlook.com')):
             return render_template('signup.html', error='Only Gmail or Outlook emails are allowed.')
         if not (contact.isdigit() and len(contact) == 10):
