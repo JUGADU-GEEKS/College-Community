@@ -391,11 +391,12 @@ def buy(id):
         product = Product(raw_product)  # create Product instance
         seller_data = User.get_data(product.seller)
         seller_name = seller_data['full_name'] if seller_data else 'Unknown'
+        college_name = seller_data['college']
 
         if(seller_name==buyer['full_name']):
             return render_template('error.html', message="Buyer and Seller can't be same", backlink="/browse")
 
-        return render_template('buy.html', product=product, buyer=buyer, seller_name=seller_name, id=id)
+        return render_template('buy.html', product=product, buyer=buyer, seller_name=seller_name, id=id, college_name=college_name)
     else:
         return "Product not found", 404
     

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,8 +42,17 @@
         }
 
         @keyframes gentleFloat {
-            0%, 100% { transform: translateY(0) translateX(0); opacity: 0.2; }
-            50% { transform: translateY(-30px) translateX(15px); opacity: 0.6; }
+
+            0%,
+            100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.2;
+            }
+
+            50% {
+                transform: translateY(-30px) translateX(15px);
+                opacity: 0.6;
+            }
         }
 
         /* Navigation Bar */
@@ -56,6 +66,7 @@
             position: relative;
             overflow: visible;
         }
+
         .navbar::before {
             content: '';
             position: absolute;
@@ -75,15 +86,21 @@
             animation: thunderstorm-slide 2.5s linear infinite;
             opacity: 0.7;
         }
+
         @keyframes thunderstorm-slide {
             0% {
                 background-position: -100% 0;
             }
+
             100% {
                 background-position: 100% 0;
             }
         }
-        .navbar-container, .navbar-logo, .navbar-links, .profile-icon {
+
+        .navbar-container,
+        .navbar-logo,
+        .navbar-links,
+        .profile-icon {
             position: relative;
             z-index: 2;
         }
@@ -184,7 +201,7 @@
             align-items: flex-start;
             background: rgba(24, 24, 24, 0.98);
             border-radius: 18px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
             padding: 2rem 1.5rem;
         }
 
@@ -194,8 +211,15 @@
         }
 
         @keyframes fadeInLeft {
-            from { transform: translateX(-50px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+            from {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
 
         .image-container {
@@ -205,7 +229,7 @@
             padding: 1.2rem;
             position: relative;
             transition: all 0.4s ease;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
             width: 300px;
             min-width: 220px;
             max-width: 340px;
@@ -375,17 +399,20 @@
                 max-width: 98vw;
                 padding: 0.5rem;
             }
+
             .product-section {
                 flex-direction: column;
                 gap: 1.5rem;
                 padding: 1.2rem 0.5rem;
             }
+
             .image-container {
                 width: 100%;
                 max-width: 340px;
                 height: 180px;
                 margin: 0 auto;
             }
+
             .product-details {
                 padding: 0.5rem 0;
             }
@@ -395,27 +422,32 @@
             .container {
                 padding: 0.2rem;
             }
+
             .product-section {
                 padding: 0.5rem 0.1rem;
             }
+
             .image-container {
                 max-width: 98vw;
                 height: 120px;
             }
+
             .product-img {
                 height: 100px;
             }
+
             .product-title {
                 font-size: 1.2rem;
             }
         }
 
-                @media (max-width: 700px) {
+        @media (max-width: 700px) {
             .navbar-container {
                 flex-direction: row;
                 padding: 0 1rem;
                 position: relative;
             }
+
             .navbar-links {
                 display: none !important;
                 position: fixed !important;
@@ -427,23 +459,25 @@
                 flex-direction: column !important;
                 gap: 0 !important;
                 z-index: 99999 !important;
-                box-shadow: 0 8px 32px rgba(0,0,0,0.25) !important;
-                border-top: 1px solid rgba(247,208,138,0.1) !important;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25) !important;
+                border-top: 1px solid rgba(247, 208, 138, 0.1) !important;
                 max-height: calc(100vh - 70px) !important;
                 overflow-y: auto !important;
                 opacity: 1 !important;
                 visibility: visible !important;
             }
+
             .navbar-links.mobile-active {
                 display: flex !important;
                 opacity: 1 !important;
                 visibility: visible !important;
             }
+
             .navbar-link {
                 padding: 1.2rem 1.5rem !important;
                 font-size: 1.1rem !important;
                 border-radius: 0 !important;
-                border-bottom: 1px solid rgba(247,208,138,0.08) !important;
+                border-bottom: 1px solid rgba(247, 208, 138, 0.08) !important;
                 background: none !important;
                 color: #f7d08a !important;
                 text-align: left !important;
@@ -453,9 +487,11 @@
                 opacity: 1 !important;
                 visibility: visible !important;
             }
+
             .navbar-link:hover {
-                background: rgba(247,208,138,0.1) !important;
+                background: rgba(247, 208, 138, 0.1) !important;
             }
+
             .navbar-hamburger {
                 display: flex !important;
                 flex-direction: column;
@@ -471,19 +507,23 @@
                 z-index: 100000;
                 transition: color 0.3s ease;
             }
+
             .navbar-hamburger:hover {
                 color: #fff;
             }
+
             .profile-icon {
                 margin-left: 0.5rem;
             }
         }
+
         @media (max-width: 700px) {
             .container {
                 max-width: 100vw;
                 padding: 0.2rem;
                 margin: 0 auto;
             }
+
             .product-section {
                 flex-direction: column;
                 gap: 1rem;
@@ -493,6 +533,7 @@
                 justify-content: center;
                 margin: 0 auto;
             }
+
             .image-container {
                 width: 100%;
                 max-width: 98vw;
@@ -500,25 +541,31 @@
                 margin: 0 auto;
                 padding: 0.5rem;
             }
+
             .product-img {
                 height: 100px;
             }
+
             .product-title {
                 font-size: 1.1rem;
             }
+
             .product-details {
                 padding: 0.5rem 0;
             }
+
             .product-info {
                 grid-template-columns: 1fr;
                 gap: 0.5rem;
             }
+
             .buy-button {
                 width: 100%;
                 font-size: 1rem;
                 padding: 1rem 0;
                 margin-top: 1rem;
             }
+
             .payment-status {
                 font-size: 0.95rem;
                 padding: 0.7rem 0.7rem;
@@ -526,6 +573,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Animated Background -->
     <div class="bg-particles" id="particles"></div>
@@ -550,21 +598,30 @@
             </div>
             <a href="/profile" class="profile-icon">
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    <path
+                        d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                 </svg>
             </a>
         </div>
     </nav>
 
     <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 999999;">
-        <div id="mobile-menu-content" style="position: fixed; top: 70px; left: 0; width: 100%; background: linear-gradient(135deg, #181818 0%, #232323 100%); z-index: 1000000; padding: 0; margin: 0;">
-            <a href="/home" style="display: block; padding: 1.2rem 1.5rem; color: #f7d08a; text-decoration: none; border-bottom: 1px solid rgba(247,208,138,0.08); font-size: 1.1rem;">Home</a>
-            <a href="/sell" style="display: block; padding: 1.2rem 1.5rem; color: #f7d08a; text-decoration: none; border-bottom: 1px solid rgba(247,208,138,0.08); font-size: 1.1rem;">Sell</a>
-            <a href="/browse" style="display: block; padding: 1.2rem 1.5rem; color: #f7d08a; text-decoration: none; border-bottom: 1px solid rgba(247,208,138,0.08); font-size: 1.1rem;">Browse</a>
-            <a href="" style="display: block; padding: 1.2rem 1.5rem; color: #f7d08a; text-decoration: none; border-bottom: 1px solid rgba(247,208,138,0.08); font-size: 1.1rem;">Notes</a>
-            <a href="/home#about" style="display: block; padding: 1.2rem 1.5rem; color: #f7d08a; text-decoration: none; border-bottom: 1px solid rgba(247,208,138,0.08); font-size: 1.1rem;">About</a>
-            <a href="/home#contact" style="display: block; padding: 1.2rem 1.5rem; color: #f7d08a; text-decoration: none; border-bottom: 1px solid rgba(247,208,138,0.08); font-size: 1.1rem;">Contact</a>
+    <div id="mobile-menu-overlay"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 999999;">
+        <div id="mobile-menu-content"
+            style="position: fixed; top: 70px; left: 0; width: 100%; background: linear-gradient(135deg, #181818 0%, #232323 100%); z-index: 1000000; padding: 0; margin: 0;">
+            <a href="/home"
+                style="display: block; padding: 1.2rem 1.5rem; color: #f7d08a; text-decoration: none; border-bottom: 1px solid rgba(247,208,138,0.08); font-size: 1.1rem;">Home</a>
+            <a href="/sell"
+                style="display: block; padding: 1.2rem 1.5rem; color: #f7d08a; text-decoration: none; border-bottom: 1px solid rgba(247,208,138,0.08); font-size: 1.1rem;">Sell</a>
+            <a href="/browse"
+                style="display: block; padding: 1.2rem 1.5rem; color: #f7d08a; text-decoration: none; border-bottom: 1px solid rgba(247,208,138,0.08); font-size: 1.1rem;">Browse</a>
+            <a href=""
+                style="display: block; padding: 1.2rem 1.5rem; color: #f7d08a; text-decoration: none; border-bottom: 1px solid rgba(247,208,138,0.08); font-size: 1.1rem;">Notes</a>
+            <a href="/home#about"
+                style="display: block; padding: 1.2rem 1.5rem; color: #f7d08a; text-decoration: none; border-bottom: 1px solid rgba(247,208,138,0.08); font-size: 1.1rem;">About</a>
+            <a href="/home#contact"
+                style="display: block; padding: 1.2rem 1.5rem; color: #f7d08a; text-decoration: none; border-bottom: 1px solid rgba(247,208,138,0.08); font-size: 1.1rem;">Contact</a>
         </div>
     </div>
 
@@ -582,8 +639,10 @@
             <!-- Product Details -->
             <div class="product-details">
                 <h1 class="product-title">{{ product.title }}</h1>
-                <div class="price">₹{{ product.price|int +30 }}</div>
-                
+                <div class="price">₹{{
+                    (product.price | int) + (7 if college_name.strip() == 'Delhi Technological University' else 30)
+                    }}</div>
+
                 <p class="description">
                     {{ product.description }}
                 </p>
@@ -629,15 +688,15 @@
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
-                
+
                 // Random positioning
                 particle.style.left = Math.random() * 100 + '%';
                 particle.style.top = Math.random() * 100 + '%';
-                
+
                 // Random animation delay
                 particle.style.animationDelay = Math.random() * 8 + 's';
                 particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
-                
+
                 container.appendChild(particle);
             }
         }
@@ -646,7 +705,7 @@
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const particles = document.querySelectorAll('.particle');
-            
+
             particles.forEach((particle, index) => {
                 const speed = (index % 2 + 1) * 0.2;
                 particle.style.transform = `translateY(${scrolled * speed}px)`;
@@ -660,10 +719,10 @@
                 const rect = imageContainer.getBoundingClientRect();
                 const x = (e.clientX - rect.left) / rect.width;
                 const y = (e.clientY - rect.top) / rect.height;
-                
+
                 const rotateY = (x - 0.5) * 5;
                 const rotateX = (0.5 - y) * 5;
-                
+
                 imageContainer.style.transform = `
                     translateY(-10px) 
                     rotateY(${rotateY}deg) 
@@ -679,11 +738,11 @@
         // Initialize particles on load
         window.addEventListener('load', () => {
             createParticles();
-            
+
             // Smooth page load animation
             document.body.style.opacity = '0';
             document.body.style.transition = 'opacity 0.6s ease-in-out';
-            
+
             setTimeout(() => {
                 document.body.style.opacity = '1';
             }, 100);
@@ -699,7 +758,7 @@
                 const size = Math.max(rect.width, rect.height);
                 const x = e.clientX - rect.left - size / 2;
                 const y = e.clientY - rect.top - size / 2;
-                
+
                 ripple.style.cssText = `
                     position: absolute;
                     width: ${size}px;
@@ -712,7 +771,7 @@
                     top: ${y}px;
                     pointer-events: none;
                 `;
-                
+
                 buyButton.appendChild(ripple);
                 setTimeout(() => ripple.remove(), 600);
             });
@@ -727,13 +786,13 @@
         `;
         document.head.appendChild(style);
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const hamburger = document.getElementById('navbar-hamburger');
             const mobileOverlay = document.getElementById('mobile-menu-overlay');
             const mobileContent = document.getElementById('mobile-menu-content');
-            
+
             console.log('Mobile menu elements found:', { hamburger, mobileOverlay, mobileContent });
-            
+
             // Initialize mobile menu functionality
             function initMobileMenu() {
                 // Show/hide hamburger based on screen size
@@ -745,20 +804,20 @@
                     mobileOverlay.style.display = 'none';
                 }
             }
-            
+
             // Initialize on load
             initMobileMenu();
-            
+
             // Update on window resize
             window.addEventListener('resize', initMobileMenu);
-            
+
             // Hamburger click handler
-            hamburger.addEventListener('click', function(e) {
+            hamburger.addEventListener('click', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-                
+
                 console.log('Hamburger clicked!');
-                
+
                 // Toggle overlay visibility
                 if (mobileOverlay.style.display === 'none' || mobileOverlay.style.display === '') {
                     mobileOverlay.style.display = 'block';
@@ -767,7 +826,7 @@
                     mobileOverlay.style.display = 'none';
                     console.log('Mobile menu closed');
                 }
-                
+
                 // Toggle icon
                 const span = hamburger.querySelector('span');
                 if (mobileOverlay.style.display === 'block') {
@@ -778,9 +837,9 @@
                     span.style.fontSize = '1.5rem';
                 }
             });
-            
+
             // Close menu when clicking on overlay background
-            mobileOverlay.addEventListener('click', function(e) {
+            mobileOverlay.addEventListener('click', function (e) {
                 if (e.target === mobileOverlay) {
                     mobileOverlay.style.display = 'none';
                     const span = hamburger.querySelector('span');
@@ -788,18 +847,18 @@
                     span.style.fontSize = '1.5rem';
                 }
             });
-            
+
             // Close menu when clicking on any link
             const mobileLinks = mobileContent.querySelectorAll('a');
             mobileLinks.forEach(link => {
-                link.addEventListener('click', function() {
+                link.addEventListener('click', function () {
                     mobileOverlay.style.display = 'none';
                     const span = hamburger.querySelector('span');
                     span.innerHTML = '&#9776;';
                     span.style.fontSize = '1.5rem';
                 });
             });
-            
+
             // Test: Force menu to be visible for debugging (remove this later)
             setTimeout(() => {
                 if (window.innerWidth <= 700) {
@@ -811,4 +870,5 @@
         });
     </script>
 </body>
+
 </html>
