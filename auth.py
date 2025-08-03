@@ -76,22 +76,18 @@ def signup():
         if not is_valid_password(password):
             return render_template('signup.html', error='Password Should be atleast 8 character long, should have one uppercase and one special character.')
         
-        
-
-        
         new_user = User(data)
         success, message = new_user.save_to_db()
         if(success):
-            print(data)
-            otp = generate_otp()
-            new_user.update_otp(otp)
-            send_otp(data['email'], otp)
-            session['user'] = {
-                'full_name': data['full_name'],
-                'email': data['email'],
-                'contact': data['contact']
-            }
-            return redirect(url_for('auth.verifyotp'))
+            # otp = generate_otp()
+            # new_user.update_otp(otp)
+            # send_otp(data['email'], otp)
+            # session['user'] = {
+            #     'full_name': data['full_name'],
+            #     'email': data['email'],
+            #     'contact': data['contact']
+            # }
+            return redirect(url_for('auth.login'))
         else:
             return redirect(url_for('auth.signup'))
 

@@ -418,6 +418,16 @@ def purchase(id):
         Product.buy_product(id, buyer['email'], seller['email'])
         notify_buyer_and_seller(buyer['email'], seller['email'])
 
+
+        # Determine buying price based on seller's college
+        price = int(product.get('price'))
+        seller_college = seller.get('college').strip()
+
+        if seller_college == 'Delhi Technological University':
+            buying_price = price + 7
+        else:
+            buying_price = price + 30
+
         # Save purchase record
         purchase_data = {
             'product_id': str(product['_id']),
@@ -427,8 +437,8 @@ def purchase(id):
             'buyer_contact': buyer.get('contact'),
             'seller_email': seller.get('email'),
             'buyer_email': buyer.get('email'),
-            'selling_price': product.get('price'),
-            'buying_price': int(product.get('price')) + 30,  # Assuming same as selling price
+            'selling_price': price,
+            'buying_price': buying_price,
             'payment_status': product.get('payment', 'Pending')
         }
         purchase_record = Purchase(purchase_data)

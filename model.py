@@ -41,8 +41,8 @@ class User:
         self.password = generate_password_hash(data.get('password'))
         self.profile_photo = 'https://unsplash.com/photos/woman-with-dslr-camera-e616t35Vbeg'
         self.otp = None
-        self.linkedin = data.get('linkedin')
-        self.isVerified = False
+        self.linkedin = data.get('linkedin') or ""
+        self.isVerified = True
         # New lists for tracking product relations
         self.bought = []  # product _id values of bought items
         self.sold = []    # product _id values of sold items
